@@ -7,7 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class CustomHttpClient {
+public class CustomHttpClient { // for reference only
 
     public static String sendGET(String URLString) {
         HttpClient client = HttpClient.newHttpClient();

@@ -2,12 +2,10 @@ package com.kenzie.appserver.backend;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kenzie.appserver.backend.models.BooksListDTO;
-import com.kenzie.appserver.backend.models.Items;
 
 import java.util.List;
 
-public class GetBooks {
+public class GetBooks { // for reference only
 
     public String buildURL(String title, String author) {
         StringBuilder sb = new StringBuilder("https://www.googleapis.com/books/v1/volumes?q=");
@@ -22,13 +20,13 @@ public class GetBooks {
         return  sb.toString();
     }
 
-    public List<Items> getBooks(String title, String author) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        String httpResponse = CustomHttpClient.sendGET(buildURL(title, author));
-        BooksListDTO booksDTOList = objectMapper.readValue(httpResponse, BooksListDTO.class);
-        return booksDTOList.getItems();
-    }
+//    public List<Items> getBooks(String title, String author) throws JsonProcessingException {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//
+//        String httpResponse = CustomHttpClient.sendGET(buildURL(title, author));
+//        BooksListDTO booksDTOList = objectMapper.readValue(httpResponse, BooksListDTO.class);
+//        return booksDTOList.getItems();
+//    }
 
     private StringBuilder sbHelper(String param) {
         StringBuilder sb = new StringBuilder();
