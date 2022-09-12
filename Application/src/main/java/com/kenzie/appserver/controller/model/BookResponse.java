@@ -1,12 +1,13 @@
-package com.kenzie.appserver.backend.models;
+package com.kenzie.appserver.controller.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Book {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class BookResponse {
+
     @JsonProperty("imageLinks") // for V2.0; for V1.0 just default to null?
     private String imageLinks;
     @JsonProperty("categories") // on frontend we'll use "genres" as display
@@ -23,17 +24,6 @@ public class Book {
     private boolean isCompleted;
     @JsonProperty("bookId")
     private String bookId;
-
-    public Book(String imageLinks, List<String> categories, String description, List<String> authors, String title, String infoLink, boolean isCompleted, String bookId) {
-        this.imageLinks = imageLinks;
-        this.categories = categories;
-        this.description = description;
-        this.authors = authors;
-        this.title = title;
-        this.infoLink = infoLink;
-        this.isCompleted = isCompleted;
-        this.bookId = bookId;
-    }
 
     public String getImageLinks() {
         return imageLinks;
@@ -63,25 +53,39 @@ public class Book {
         return isCompleted;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
     public String getBookId() {
         return bookId;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "imageLinks='" + imageLinks + '\'' +
-                ", categories=" + categories +
-                ", description='" + description + '\'' +
-                ", authors=" + authors +
-                ", title='" + title + '\'' +
-                ", infoLink='" + infoLink + '\'' +
-                ", isCompleted=" + isCompleted +
-                ", bookId='" + bookId + '\'' +
-                '}';
+    public void setImageLinks(String imageLinks) {
+        this.imageLinks = imageLinks;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setInfoLink(String infoLink) {
+        this.infoLink = infoLink;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 }
