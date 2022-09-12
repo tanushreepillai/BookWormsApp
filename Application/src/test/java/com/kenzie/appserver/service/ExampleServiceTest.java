@@ -1,7 +1,7 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.repositories.ExampleRepository;
-import com.kenzie.appserver.repositories.model.ExampleRecord;
+import com.kenzie.appserver.repositories.BookRepository;
+import com.kenzie.appserver.repositories.model.BookRecord;
 import com.kenzie.appserver.service.model.Example;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
 import org.junit.jupiter.api.Assertions;
@@ -15,13 +15,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ExampleServiceTest {
-    private ExampleRepository exampleRepository;
+    private BookRepository exampleRepository;
     private ExampleService exampleService;
     private LambdaServiceClient lambdaServiceClient;
 
     @BeforeEach
     void setup() {
-        exampleRepository = mock(ExampleRepository.class);
+        exampleRepository = mock(BookRepository.class);
         lambdaServiceClient = mock(LambdaServiceClient.class);
         exampleService = new ExampleService(exampleRepository, lambdaServiceClient);
     }
@@ -34,7 +34,7 @@ public class ExampleServiceTest {
         // GIVEN
         String id = randomUUID().toString();
 
-        ExampleRecord record = new ExampleRecord();
+        BookRecord record = new BookRecord();
         record.setId(id);
         record.setName("concertname");
 
