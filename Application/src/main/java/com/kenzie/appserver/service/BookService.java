@@ -1,11 +1,9 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.backend.models.Book;
+import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BookRecord;
-import com.kenzie.appserver.service.model.Example;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
-import com.kenzie.capstone.service.model.ExampleData;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -49,11 +47,11 @@ public class BookService {
         return example;
     }*/
 
-    public Set<Book> getAllBooks() {
-        Set<Book> allBooks = new HashSet<>();
+    public Set<Books> getAllBooks() {
+        Set<Books> allBooks = new HashSet<>();
         bookRepository
                 .findAll()
-                .forEach(book -> allBooks.add(new Book(book.getImageLinks(),
+                .forEach(book -> allBooks.add(new Books(book.getImageLinks(),
                         book.getCategories(), book.getDescription(), book.getAuthors(),book.getTitle(),
                         book.getInfoLink(),book.isCompleted(),book.getId())));
 
@@ -66,7 +64,7 @@ public class BookService {
         bookRepository.delete(bookRecord);
 
     }
-    public void updateBook(Book book) {
+    public void updateBook(Books book) {
         if (bookRepository.existsById(book.getBookId())) {
             BookRecord bookRecord = new BookRecord();
             bookRecord.setBookId(book.getBookId());
