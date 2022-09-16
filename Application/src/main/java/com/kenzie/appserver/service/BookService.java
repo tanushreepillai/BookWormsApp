@@ -23,6 +23,9 @@ public class BookService {
 
     public Books findById(String id) {
 
+        if (id == null || id.isEmpty()) {
+            throw new NullPointerException("Invalid/Empty Id");
+        }
         // Example getting data from the lambda
         BooksData dataFromLambda = lambdaServiceClient.getBookData(id);
 
@@ -83,7 +86,7 @@ public class BookService {
         if (bookRepository.existsById(book.getBookId())) {
             BookRecord bookRecord = new BookRecord();
             bookRecord.setBookId(book.getBookId());
-            bookRecord.setAuthors(book.getAuthor());
+            bookRecord.setAuthor(book.getAuthor());
             bookRecord.setCategories(book.getCategory());
             bookRecord.setDescription(book.getDescription());
             bookRecord.setImageLink(book.getImageLink());

@@ -27,7 +27,7 @@ public class LambdaService {
         if (books.size() > 0) {
             BooksRecord booksRecord = books.get(0);
             return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
-                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.getCategory());
+                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.getCategory(), booksRecord.isCompleted());
             }
         return null;
     }

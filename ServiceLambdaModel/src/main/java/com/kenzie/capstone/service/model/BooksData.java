@@ -20,7 +20,8 @@ public class BooksData {
                      String title,
                      String infoLink,
                      String bookId,
-                     String category) {
+                     String category,
+                     boolean finishedReading) {
         this.imageLink = imageLink;
         this.description = description;
         this.author = author;
@@ -28,6 +29,7 @@ public class BooksData {
         this.infoLink = infoLink;
         this.bookId = bookId;
         this.category = category;
+        this.finishedReading = finishedReading;
     }
 
     public String getImageLink() {
