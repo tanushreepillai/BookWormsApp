@@ -22,17 +22,14 @@ public class LambdaService {
         this.booksDao = booksDao;
     }
 
-    public List<BooksData> getBooksData() {
-        List<BooksRecord> books = booksDao.getBooksData();
-        List<BooksData> newBooks = new ArrayList<>();
+    public BooksData getBooksData(String id) {
+        List<BooksRecord> books = booksDao.getBooksData(id);
         if (books.size() > 0) {
-            for (BooksRecord record : books) {
-                newBooks.add(new BooksData())
-
+            BooksRecord booksRecord = books.get(0);
+            return new BooksData(booksRecord.getImageLinks(),booksRecord.getDescription(),booksRecord.getAuthors(),
+                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId());
             }
-        }
-
-        return new ArrayList<>();
+        return null;
     }
 
 //    public ExampleData getExampleData(String id) {
