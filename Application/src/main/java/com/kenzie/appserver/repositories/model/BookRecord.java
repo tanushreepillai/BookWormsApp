@@ -12,13 +12,13 @@ import java.util.Objects;
 public class BookRecord {
 
 
-    private String imageLinks;
-    private List<String> categories;
+    private String imageLink;
+    private String category;
     private String description;
-    private List<String> authors;
+    private String author;
     private String title;
     private String infoLink;
-    private boolean isCompleted;
+    private boolean finishedReading;
     private String bookId;
 
     @DynamoDBHashKey(attributeName = "bookId")
@@ -26,22 +26,22 @@ public class BookRecord {
         return bookId;
     }
 
-    @DynamoDBAttribute(attributeName = "imageLinks")
-    public String getImageLinks() {
-        return imageLinks;
+    @DynamoDBAttribute(attributeName = "imageLink")
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setImageLinks(String imageLinks) {
-        this.imageLinks = imageLinks;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @DynamoDBAttribute(attributeName = "categories")
-    public List<String> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
+    public void setCategories(String category) {
+        this.category = category;
     }
 
     @DynamoDBAttribute(attributeName = "description")
@@ -54,12 +54,12 @@ public class BookRecord {
     }
 
     @DynamoDBAttribute(attributeName = "authorsList")
-    public List<String> getAuthors() {
-        return authors;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public void setAuthors(String author) {
+        this.author = author;
     }
 
     @DynamoDBAttribute(attributeName = "title")
@@ -80,13 +80,13 @@ public class BookRecord {
         this.infoLink = infoLink;
     }
 
-    @DynamoDBAttribute(attributeName = "isCompleted")
-    public boolean isCompleted() {
-        return isCompleted;
+    @DynamoDBAttribute(attributeName = "finishedReading")
+    public boolean finishedReading() {
+        return finishedReading;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void finishedReading(boolean completed) {
+        finishedReading = completed;
     }
 
     public void setBookId(String bookId) {
@@ -98,11 +98,11 @@ public class BookRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookRecord that = (BookRecord) o;
-        return isCompleted == that.isCompleted && Objects.equals(imageLinks, that.imageLinks) && Objects.equals(categories, that.categories) && Objects.equals(description, that.description) && Objects.equals(authors, that.authors) && Objects.equals(title, that.title) && Objects.equals(infoLink, that.infoLink) && Objects.equals(bookId, that.bookId);
+        return finishedReading == that.finishedReading && Objects.equals(imageLink, that.imageLink) && Objects.equals(category, that.category) && Objects.equals(description, that.description) && Objects.equals(author, that.author) && Objects.equals(title, that.title) && Objects.equals(infoLink, that.infoLink) && Objects.equals(bookId, that.bookId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(imageLinks, categories, description, authors, title, infoLink, isCompleted, bookId);
+        return Objects.hash(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
     }
 }

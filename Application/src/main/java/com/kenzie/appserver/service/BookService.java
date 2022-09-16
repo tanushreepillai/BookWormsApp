@@ -32,43 +32,43 @@ public class BookService {
                 .map(book -> new Books(book.getImageLinks(),book.getCategories(),book.getDescription(),book.getAuthors(),
                         book.getTitle(),book.getInfoLink(),book.isCompleted())
                 .orElse(null);*/
-        return new Books(dataFromLambda.getImageLinks(),dataFromLambda.getCategories(),dataFromLambda.getDescription(),
-        dataFromLambda.getAuthors(), dataFromLambda.getTitle(),dataFromLambda.getInfoLink(),dataFromLambda.isCompleted(),
+        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getCategory(),dataFromLambda.getDescription(),
+        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.getInfoLink(),dataFromLambda.finishedReading(),
                 dataFromLambda.getBookId());
 
         //return dataFromDynamo;
     }
 
-    public Books addBook(String id) {
-        // Example sending data to the lambda
-        //BooksData dataFromLambda = lambdaServiceClient.setBooksData(id);
-
-        // Example sending data to the local repository
-        //TODO: Ask Jacobus about this method. Do we pass in all the book details as parameters?
-        BookRecord bookRecord = new BookRecord();
-        bookRecord.setBookId(dataFromLambda.getBookId());
-        bookRecord.setImageLinks(dataFromLambda.getImageLinks());
-        bookRecord.setDescription(dataFromLambda.getDescription());
-        bookRecord.setCategories(dataFromLambda.getCategories());
-        bookRecord.setAuthors(dataFromLambda.getAuthors());
-        bookRecord.setTitle(dataFromLambda.getTitle());
-
-
-
-        exampleRecord.setName(dataFromLambda.getData());
-        bookRepository.save(bookRecord);
-
-        Example example = new Example(dataFromLambda.getId(), name);
-        return example;
-    }
+//    public Books addBook(String id) {
+//        // Example sending data to the lambda
+//        //BooksData dataFromLambda = lambdaServiceClient.setBooksData(id);
+//
+//        // Example sending data to the local repository
+//        //TODO: Ask Jacobus about this method. Do we pass in all the book details as parameters?
+//        BookRecord bookRecord = new BookRecord();
+//        bookRecord.setBookId(dataFromLambda.getBookId());
+//        bookRecord.setImageLinks(dataFromLambda.getImageLinks());
+//        bookRecord.setDescription(dataFromLambda.getDescription());
+//        bookRecord.setCategories(dataFromLambda.getCategories());
+//        bookRecord.setAuthors(dataFromLambda.getAuthors());
+//        bookRecord.setTitle(dataFromLambda.getTitle());
+//
+//
+//
+//        exampleRecord.setName(dataFromLambda.getData());
+//        bookRepository.save(bookRecord);
+//
+//        Example example = new Example(dataFromLambda.getId(), name);
+//        return example;
+//    }
 
     public Set<Books> getAllBooks() {
         Set<Books> allBooks = new HashSet<>();
         bookRepository
                 .findAll()
-                .forEach(book -> allBooks.add(new Books(book.getImageLinks(),
-                        book.getCategories(), book.getDescription(), book.getAuthors(),book.getTitle(),
-                        book.getInfoLink(),book.isCompleted(),book.getId())));
+                .forEach(book -> allBooks.add(new Books(book.getImageLink(),
+                        book.getCategory(), book.getDescription(), book.getAuthor(),book.getTitle(),
+                        book.getInfoLink(),book.finishedReading(),book.getId())));
 
         return allBooks;
     }
@@ -83,13 +83,13 @@ public class BookService {
         if (bookRepository.existsById(book.getBookId())) {
             BookRecord bookRecord = new BookRecord();
             bookRecord.setBookId(book.getBookId());
-            bookRecord.setAuthors(book.getAuthors());
-            bookRecord.setCategories(book.getCategories());
+            bookRecord.setAuthors(book.getAuthor());
+            bookRecord.setCategories(book.getCategory());
             bookRecord.setDescription(book.getDescription());
-            bookRecord.setImageLinks(book.getImageLinks());
+            bookRecord.setImageLink(book.getImageLink());
             bookRecord.setInfoLink(book.getInfoLink());
             bookRecord.setTitle(book.getTitle());
-            bookRecord.setCompleted(true);
+            bookRecord.finishedReading(true);
             bookRepository.save(bookRecord);
            // cache.evict(book.getBookId());
         }

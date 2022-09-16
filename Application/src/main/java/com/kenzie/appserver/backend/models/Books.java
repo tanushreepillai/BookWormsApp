@@ -7,48 +7,48 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Books {
-    @JsonProperty("imageLinks") // for V2.0; for V1.0 just default to null?
-    private String imageLinks;
-    @JsonProperty("categories") // on frontend we'll use "genres" as display
-    private List<String> categories;
+    @JsonProperty("imageLink") // for V2.0; for V1.0 just default to null?
+    private String imageLink;
+    @JsonProperty("category") // on frontend we'll use "genres" as display
+    private String category;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("authors")
-    private List<String> authors;
+    @JsonProperty("author")
+    private String author;
     @JsonProperty("title")
     private String title;
     @JsonProperty("infoLink")
     private String infoLink;
-    @JsonProperty("isCompleted")
-    private boolean isCompleted;
+    @JsonProperty("finishedReading")
+    private boolean finishedReading;
     @JsonProperty("bookId")
     private String bookId;
 
-    public Books(String imageLinks, List<String> categories, String description, List<String> authors, String title, String infoLink, boolean isCompleted, String bookId) {
-        this.imageLinks = imageLinks;
-        this.categories = categories;
+    public Books(String imageLink, String category, String description, String author, String title, String infoLink, boolean finishedReading, String bookId) {
+        this.imageLink = imageLink;
+        this.category = category;
         this.description = description;
-        this.authors = authors;
+        this.author = author;
         this.title = title;
         this.infoLink = infoLink;
-        this.isCompleted = isCompleted;
+        this.finishedReading = finishedReading;
         this.bookId = bookId;
     }
 
-    public String getImageLinks() {
-        return imageLinks;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public List<String> getAuthors() {
-        return authors;
+    public String getAuthor() {
+        return author;
     }
 
     public String getTitle() {
@@ -59,12 +59,12 @@ public class Books {
         return infoLink;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public boolean finishedReading() {
+        return finishedReading;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void setFinishedReading(boolean completed) {
+        finishedReading = completed;
     }
 
     public String getBookId() {
@@ -74,13 +74,13 @@ public class Books {
     @Override
     public String toString() {
         return "Book{" +
-                "imageLinks='" + imageLinks + '\'' +
-                ", categories=" + categories +
+                "imageLink='" + imageLink + '\'' +
+                ", category=" + category +
                 ", description='" + description + '\'' +
-                ", authors=" + authors +
+                ", author=" + author +
                 ", title='" + title + '\'' +
                 ", infoLink='" + infoLink + '\'' +
-                ", isCompleted=" + isCompleted +
+                ", finishedReading=" + finishedReading +
                 ", bookId='" + bookId + '\'' +
                 '}';
     }

@@ -5,43 +5,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class BooksData {
-    private String imageLinks;
-    private List<String> categories;
-    private String description;
-    private List<String> authors;
-    private String title;
-    private String infoLink;
-    private boolean isCompleted;
-    private String bookId;
+    private final String imageLink;
+    private String category;
+    private final String description;
+    private final String author;
+    private final String title;
+    private final String infoLink;
+    private boolean finishedReading;
+    private final String bookId;
 
-    public BooksData(String imageLinks,
+    public BooksData(String imageLink,
                      String description,
-                     List<String> authors,
+                     String author,
                      String title,
                      String infoLink,
-                     String bookId) {
-        this.imageLinks = imageLinks;
+                     String bookId,
+                     String category) {
+        this.imageLink = imageLink;
         this.description = description;
-        this.authors = authors;
+        this.author = author;
         this.title = title;
         this.infoLink = infoLink;
         this.bookId = bookId;
+        this.category = category;
     }
 
-    public String getImageLinks() {
-        return imageLinks;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public List<String> getAuthors() {
-        return authors;
+    public String getAuthor() {
+        return author;
     }
 
     public String getTitle() {
@@ -52,12 +54,12 @@ public class BooksData {
         return infoLink;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public boolean finishedReading() {
+        return finishedReading;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void setFinishedReading(boolean completed) {
+        finishedReading = completed;
     }
 
     public String getBookId() {
