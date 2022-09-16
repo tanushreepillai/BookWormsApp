@@ -9,10 +9,10 @@ import java.util.List;
 @DynamoDBTable(tableName = "SavedBooks")
 public class BooksRecord {
     private String title;
-    private List<String> authors;
+    private String author;
     private String description;
-    private List<String> categories;
-    private String imageLinks;
+    private String category;
+    private String imageLink;
     private String infoLink;
     private boolean isCompleted;
     private String bookId;
@@ -24,16 +24,16 @@ public class BooksRecord {
     public String getTitle() { return title; }
 
     @DynamoDBAttribute(attributeName = "authors")
-    public List<String> getAuthors() { return authors; }
+    public String getAuthor() { return author; }
 
     @DynamoDBAttribute(attributeName = "description")
     public String getDescription() { return description; }
 
-    @DynamoDBAttribute(attributeName = "categories")
-    public List<String> getCategories() { return categories; }
+    @DynamoDBAttribute(attributeName = "category")
+    public String getCategory() { return category; }
 
-    @DynamoDBAttribute(attributeName = "imageLinks")
-    public String getImageLinks() { return imageLinks; }
+    @DynamoDBAttribute(attributeName = "imageLink")
+    public String getImageLink() { return imageLink; }
 
     @DynamoDBAttribute(attributeName="infoLink")
     public String getInfoLink() { return infoLink; }
@@ -49,20 +49,20 @@ public class BooksRecord {
         this.title = title;
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public void setImageLinks(String imageLinks) {
-        this.imageLinks = imageLinks;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public void setInfoLink(String infoLink) {

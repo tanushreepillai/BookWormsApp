@@ -7,17 +7,17 @@ import java.util.List;
 
 public class BookCreateRequest {
 
-    @JsonProperty("imageLinks")
-    private String imageLinks;
+    @JsonProperty("imageLink")
+    private String imageLink;
     @NotEmpty
-    @JsonProperty("categories") // on frontend we'll use "genres" as display
-    private List<String> categories;
+    @JsonProperty("category") // on frontend we'll use "genres" as display
+    private String category;
     @NotEmpty
     @JsonProperty("description")
     private String description;
     @NotEmpty
     @JsonProperty("authors")
-    private List<String> authors;
+    private String author;
     @NotEmpty
     @JsonProperty("title")
     private String title;
@@ -26,27 +26,27 @@ public class BookCreateRequest {
     @JsonProperty("infoLink")
     private String infoLink;
     @NotEmpty
-    @JsonProperty("isCompleted")
-    private boolean isCompleted;
+    @JsonProperty("finishedReading")
+    private boolean finishedReading;
 
     @NotEmpty
     @JsonProperty("bookId")
     private String bookId;
 
-    public String getImageLinks() {
-        return imageLinks;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public List<String> getAuthors() {
-        return authors;
+    public String getAuthor() {
+        return author;
     }
 
     public String getTitle() {
@@ -57,28 +57,28 @@ public class BookCreateRequest {
         return infoLink;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public boolean finishedReading() {
+        return finishedReading;
     }
 
     public String getBookId() {
         return bookId;
     }
 
-    public void setImageLinks(String imageLinks) {
-        this.imageLinks = imageLinks;
+    public void setImageLinks(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public void setCategories(List<String> categories) {
-        this.categories = categories;
+        this.category = category;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public void setAuthors(String author) {
+        this.author = author;
     }
 
     public void setTitle(String title) {
@@ -89,8 +89,8 @@ public class BookCreateRequest {
         this.infoLink = infoLink;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void finishedReading(boolean completed) {
+        finishedReading = completed;
     }
 
     public void setBookId(String bookId) {

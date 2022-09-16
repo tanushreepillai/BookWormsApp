@@ -26,8 +26,8 @@ public class LambdaService {
         List<BooksRecord> books = booksDao.getBooksData(id);
         if (books.size() > 0) {
             BooksRecord booksRecord = books.get(0);
-            return new BooksData(booksRecord.getImageLinks(),booksRecord.getDescription(),booksRecord.getAuthors(),
-                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId());
+            return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
+                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.getCategory());
             }
         return null;
     }
