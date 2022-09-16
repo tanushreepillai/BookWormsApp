@@ -37,16 +37,16 @@ public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent,
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
-//        String id = input.getPathParameters().get("id");
-//
-//        if (id == null || id.length() == 0) {
-//            return response
-//                    .withStatusCode(400)
-//                    .withBody("Id is invalid");
-//        }
+        String id = input.getPathParameters().get("id");
+
+        if (id == null || id.length() == 0) {
+            return response
+                    .withStatusCode(400)
+                    .withBody("Id is invalid");
+        }
 
         try {
-            List<BooksData> booksData = lambdaService.getBooksData();
+            BooksData booksData = lambdaService.getBooksData(id);
             String output = gson.toJson(booksData);
 
             return response

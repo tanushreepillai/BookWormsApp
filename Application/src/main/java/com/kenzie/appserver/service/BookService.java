@@ -4,6 +4,8 @@ import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BookRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
+import com.kenzie.capstone.service.model.BooksData;
+import com.kenzie.capstone.service.model.ExampleData;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -19,33 +21,46 @@ public class BookService {
         this.lambdaServiceClient = lambdaServiceClient;
     }
 
-    /*public Example findById(String id) {
+    public Books findById(String id) {
 
         // Example getting data from the lambda
-        ExampleData dataFromLambda = lambdaServiceClient.getExampleData(id);
+        BooksData dataFromLambda = lambdaServiceClient.getBookData(id);
 
         // Example getting data from the local repository
-        Example dataFromDynamo = bookRepository
+        /*Books dataFromDynamo = bookRepository
                 .findById(id)
-                .map(example -> new Example(example.getId(), example.getName()))
-                .orElse(null);
+                .map(book -> new Books(book.getImageLinks(),book.getCategories(),book.getDescription(),book.getAuthors(),
+                        book.getTitle(),book.getInfoLink(),book.isCompleted())
+                .orElse(null);*/
+        return new Books(dataFromLambda.getImageLinks(),dataFromLambda.getCategories(),dataFromLambda.getDescription(),
+        dataFromLambda.getAuthors(), dataFromLambda.getTitle(),dataFromLambda.getInfoLink(),dataFromLambda.isCompleted(),
+                dataFromLambda.getBookId());
 
-        return dataFromDynamo;
+        //return dataFromDynamo;
     }
 
-    public Example addBook(String name) {
+    public Books addBook(String id) {
         // Example sending data to the lambda
-        ExampleData dataFromLambda = lambdaServiceClient.setExampleData(name);
+        //BooksData dataFromLambda = lambdaServiceClient.setBooksData(id);
 
         // Example sending data to the local repository
+        //TODO: Ask Jacobus about this method. Do we pass in all the book details as parameters?
         BookRecord bookRecord = new BookRecord();
-        exampleRecord.setId(dataFromLambda.getId());
+        bookRecord.setBookId(dataFromLambda.getBookId());
+        bookRecord.setImageLinks(dataFromLambda.getImageLinks());
+        bookRecord.setDescription(dataFromLambda.getDescription());
+        bookRecord.setCategories(dataFromLambda.getCategories());
+        bookRecord.setAuthors(dataFromLambda.getAuthors());
+        bookRecord.setTitle(dataFromLambda.getTitle());
+
+
+
         exampleRecord.setName(dataFromLambda.getData());
         bookRepository.save(bookRecord);
 
         Example example = new Example(dataFromLambda.getId(), name);
         return example;
-    }*/
+    }
 
     public Set<Books> getAllBooks() {
         Set<Books> allBooks = new HashSet<>();
