@@ -8,19 +8,18 @@
 <body class="background">
     <header class="header" id="header">
         <div class="site-title">
-            <a class="header_home" href="index.html">Example App</a>
+            <a class="header_home" href="index.html">BookWorm App</a>
         </div>
     </header>
     <div class="card">
         <h2>Search for Book by Title and/or Author</h2>
-        <form class="card-content" id="create-form">
+        <form class="card-content" id="search-form">
             <p class="form-field">
-                <label>Search for Book</label>
                 <label>Title</label>
-                <input type="text" required class="validated-field" id="create-name-field">
+                <input type="text" required class="validated-field" id="search-name-field">
                 <br>
                 <label>Author</label>
-                <input type="text" required class="validated-field" id="create-author-field">
+                <input type="text" required class="validated-field" id="search-author-field">
                 <br>
 <!--                <label>Synoposis</label>-->
 <!--                <input type="text" required class="validated-field" id="create-synopsis-field">-->
@@ -32,19 +31,39 @@
         </form>
     </div>
     <div class="card">
-        <h2>Get By ID</h2>
-        <form class="card-content" id="get-by-id-form">
+        <h2>Add Book to Saved Books</h2>
+        <form class="card-content" id="create-form">
             <p class="form-field">
-                <label>ID</label>
-                <input type="text" required class="validated-field" id="id-field">
+                <label>Title</label>
+                <input type="text" required class="validated-field" id="create-name-field">
+                <br>
+                <label>Author</label>
+                <input type="text" required class="validated-field" id="create-author-field">
+                <br>
+                <label>Synoposis</label>
+                <input type="text" required class="validated-field" id="create-synopsis-field">
+                <br>
+                <label>Has Been Read</label>
+                <label class="switch">
+                    <input type="checkbox" checked id="create-has-been-read-field">
+                    <span class="slider round"></span>
+                </label>
             </p>
-            <button type="submit">Get</button>
+            <button type="submit">Save</button>
         </form>
     </div>
-    <div class="card" id="result">
-        <h2>Result:</h2>
-        <p id="result-info"></p>
+
+    <div class="card" id="view-all">
+        <h2>View All Saved Books</h2>
+        <form class="card-content" id="all-posts">
+            <button type="button" id="view-all-button" name="cmd" value="viewall">View All</button>
+        </form>
     </div>
+    <div class="card" id="all-results">
+        <h2>All saved books will be displayed here along with the delete and update buttons</h2>
+        <p id="all-posts-result"></p>
+    </div>
+
 
 </body>
 </html>
