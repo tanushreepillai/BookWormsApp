@@ -1,6 +1,7 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
 import ExampleClient from "../api/exampleClient";
+import API from "../util/API";
 
 /**
  * Logic needed for the view playlist page of the website.
@@ -20,11 +21,28 @@ class ExamplePage extends BaseClass {
         document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
         document.getElementById('create-form').addEventListener('submit', this.onCreate);
         this.client = new ExampleClient();
+        await this.handleBookSearch();
 
         this.dataStore.addChangeListener(this.renderExample)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
+
+    async handleBookSearch(event) {
+        let query = "foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        // event.preventDefault();
+        let response = API.searchBooks(query)
+            .then(res => {
+                if (res.data.status === "error") {
+                    throw new Error(res.data.message);
+                }
+                // this.setState({ searchResults: res.data.items, error: "" });
+            })
+            .catch(err => console.log(err.message));
+            // .catch(err => this.setState({ error: err.message }));
+
+        console.log("API response: " + response);
+    }
 
     async renderExample() {
         let resultArea = document.getElementById("result-info");
