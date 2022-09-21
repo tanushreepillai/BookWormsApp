@@ -5,20 +5,6 @@ Resources:
       "AttributeDefinitions":
         - "AttributeName": "bookId"
           "AttributeType": "S"
-        - "AttributeName": "title"
-          "AttributeType": "S"
-        - "AttributeName": "author"
-          "AttributeType": "S"
-        - "AttributeName": "description"
-          "AttributeType": "S"
-        - "AttributeName": "infoLink"
-          "AttributeType": "S"
-        - "AttributeName": "finishedReading"
-          "AttributeType": "BOOL"
-        - "AttributeName": "imageLink"
-          "AttributeType": "S"
-        - "AttributeName": "category"
-          "AttributeType": "S"
 
       "KeySchema":
         - "AttributeName": "bookId"
@@ -27,3 +13,6 @@ Resources:
         PointInTimeRecoveryEnabled: false
       BillingMode: PAY_PER_REQUEST
       TableName: "FavoriteBooks"
+
+
+
