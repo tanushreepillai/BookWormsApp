@@ -73,9 +73,17 @@ public class BookService {
                         book.getCategory(), book.getDescription(), book.getAuthor(),book.getTitle(),
                         book.getInfoLink(),book.finishedReading(),book.getId())));
 
+        if (allBooks.isEmpty()) {
+            throw new NullPointerException("Empty Set of books");
+        }
+
         return allBooks;
     }
     public void deleteBook(String bookId) {
+        if (bookId == null || bookId.isEmpty()) {
+            throw new NullPointerException("Invalid/Empty Id");
+        }
+
         BookRecord bookRecord = new BookRecord();
         bookRecord.setBookId(bookId);
         //cache.evict(bookId);
