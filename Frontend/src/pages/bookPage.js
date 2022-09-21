@@ -6,7 +6,7 @@ import API from "../util/API";
 /**
  * Logic needed for the view playlist page of the website.
  */
-class ExamplePage extends BaseClass {
+class BookPage extends BaseClass {
 
     constructor() {
         super();
@@ -18,19 +18,17 @@ class ExamplePage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        // document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
+        document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
         document.getElementById('create-form').addEventListener('submit', this.onCreate);
         this.client = new ExampleClient();
         await this.handleBookSearch();
-        await this.renderExample();
 
-        // this.dataStore.addChangeListener(this.renderExample)
+        this.dataStore.addChangeListener(this.renderExample)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async handleBookSearch(event) {  // todo return top 10 results
-
+    async handleBookSearch(event) {
         let query = "foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
         // event.preventDefault();
         let response = API.searchBooks(query)
@@ -38,29 +36,27 @@ class ExamplePage extends BaseClass {
                 if (res.data.status === "error") {
                     throw new Error(res.data.message);
                 }
-                this.dataStore.set("response", JSON.stringify(res.data.items));
-                console.log("API response: " + this.dataStore.get("response"));
+                // this.setState({ searchResults: res.data.items, error: "" });
             })
             .catch(err => console.log(err.message));
             // .catch(err => this.setState({ error: err.message }));
 
-        // console.log("API response: " + this.dataStore.get("response"));
+        console.log("API response: " + response);
     }
 
     async renderExample() {
-        console.log("inside render: " + this.dataStore.get("response"));
-        // let resultArea = document.getElementById("result-info");
-        //
-        // const example = this.dataStore.get("example");
-        //
-        // if (example) {
-        //     resultArea.innerHTML = `
-        //         <div>ID: ${example.id}</div>
-        //         <div>Name: ${example.name}</div>
-        //     `
-        // } else {
-        //     resultArea.innerHTML = "No Item";
-        // }
+        let resultArea = document.getElementById("result-info");
+
+        const example = this.dataStore.get("example");
+
+        if (example) {
+            resultArea.innerHTML = `
+                <div>ID: ${example.id}</div>
+                <div>Name: ${example.name}</div>
+            `
+        } else {
+            resultArea.innerHTML = "No Item";
+        }
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
@@ -108,4 +104,3 @@ const main = async () => {
 };
 
 window.addEventListener('DOMContentLoaded', main);
-
