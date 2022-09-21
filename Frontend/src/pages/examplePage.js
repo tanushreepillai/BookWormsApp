@@ -18,17 +18,19 @@ class ExamplePage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
+        // document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
         document.getElementById('create-form').addEventListener('submit', this.onCreate);
         this.client = new ExampleClient();
         await this.handleBookSearch();
+        await this.renderExample();
 
-        this.dataStore.addChangeListener(this.renderExample)
+        // this.dataStore.addChangeListener(this.renderExample)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async handleBookSearch(event) {
+    async handleBookSearch(event) {  // todo return top 10 results
+
         let query = "foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
         // event.preventDefault();
         let response = API.searchBooks(query)
@@ -36,27 +38,29 @@ class ExamplePage extends BaseClass {
                 if (res.data.status === "error") {
                     throw new Error(res.data.message);
                 }
-                // this.setState({ searchResults: res.data.items, error: "" });
+                this.dataStore.set("response", JSON.stringify(res.data.items));
+                console.log("API response: " + this.dataStore.get("response"));
             })
             .catch(err => console.log(err.message));
             // .catch(err => this.setState({ error: err.message }));
 
-        console.log("API response: " + response);
+        // console.log("API response: " + this.dataStore.get("response"));
     }
 
     async renderExample() {
-        let resultArea = document.getElementById("result-info");
-
-        const example = this.dataStore.get("example");
-
-        if (example) {
-            resultArea.innerHTML = `
-                <div>ID: ${example.id}</div>
-                <div>Name: ${example.name}</div>
-            `
-        } else {
-            resultArea.innerHTML = "No Item";
-        }
+        console.log("inside render: " + this.dataStore.get("response"));
+        // let resultArea = document.getElementById("result-info");
+        //
+        // const example = this.dataStore.get("example");
+        //
+        // if (example) {
+        //     resultArea.innerHTML = `
+        //         <div>ID: ${example.id}</div>
+        //         <div>Name: ${example.name}</div>
+        //     `
+        // } else {
+        //     resultArea.innerHTML = "No Item";
+        // }
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------

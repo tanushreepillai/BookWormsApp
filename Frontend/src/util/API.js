@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
     // Search Google for books
     searchBooks: function (query) {
-        return axios.get("https://www.googleapis.com/books/v1/volumes?q=" + query);
+        return axios.get("https://www.googleapis.com/books/v1/volumes?q=foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE");
     },
     // Gets all books from db
     getBooks: function() {
