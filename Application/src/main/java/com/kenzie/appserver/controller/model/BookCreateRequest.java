@@ -69,7 +69,7 @@ public class BookCreateRequest {
         this.imageLink = imageLink;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(String category) {
         this.category = category;
     }
 

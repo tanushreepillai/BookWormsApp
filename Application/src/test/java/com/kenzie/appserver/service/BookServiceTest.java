@@ -9,8 +9,10 @@ import com.kenzie.capstone.service.model.BooksData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
+import static org.mockito.Mockito.verify;
 
 import java.awt.print.Book;
 import java.util.*;
@@ -32,7 +34,7 @@ public class BookServiceTest {
         bookService = new BookService(bookRepository, lambdaServiceClient);
     }
     /** ------------------------------------------------------------------------
-     *  exampleService.findById
+     *  bookService.findById
      *  ------------------------------------------------------------------------ **/
 
     @Test
@@ -55,6 +57,7 @@ public class BookServiceTest {
         Books book = bookService.findById(id);
 
         // THEN
+        verify(lambdaServiceClient).getBookData(id);
         Assertions.assertNotNull(book, "The book is returned");
         Assertions.assertEquals(booksData.getImageLink(), book.getImageLink(), "The imageLink matches");
         Assertions.assertEquals(booksData.getDescription(), book.getDescription(), "The description matches");
@@ -90,6 +93,21 @@ public class BookServiceTest {
         Assertions.assertThrows(NullPointerException.class, () -> bookService.findById(id));
     }
 
+    /** ------------------------------------------------------------------------
+     *  bookService.addBook
+     *  ------------------------------------------------------------------------ **/
+    @Test
+    void addBook() {
+     // TODO Create after finding out how the method should be made in BookService
+
+    }
+
+    // TODO Negative Test Cases
+
+    /** ------------------------------------------------------------------------
+     *  bookService.getAllBooks
+     *  ------------------------------------------------------------------------ **/
+
     @Test
     void getAllBooks() {
         // Given
@@ -118,7 +136,7 @@ public class BookServiceTest {
         booksSet.add(book2);
 
         //TODO Figure out why IntelliJ is being mean to me
-        when(bookRepository.findAll()).thenReturn(booksSet);
+//        when(bookRepository.findAll()).thenReturn(booksSet);
 
         // WHEN
         Set<Books> result = bookService.getAllBooks();
@@ -149,5 +167,89 @@ public class BookServiceTest {
         Assertions.assertEquals(2, result.size(), "There are two books in set");
     }
 
+    @Test
+    void getAllBooks_emptySet_throwsNullPointerException() {
+        // WHEN & THEN
+        when((bookRepository.findAll())).thenReturn(null);
+        Assertions.assertThrows(NullPointerException.class, () -> bookService.getAllBooks());
+    }
 
+    /** ------------------------------------------------------------------------
+     *  bookService.updateBook
+     *  ------------------------------------------------------------------------ **/
+
+    @Test
+    void updateBook() {
+        // GIVEN
+        Books book = new Books(
+                "imageLink",
+                "category",
+                "description",
+                "author",
+                "title",
+                "infoLink",
+                true,
+                randomUUID().toString());
+
+        ArgumentCaptor<BookRecord> bookRecordCaptor = ArgumentCaptor.forClass(BookRecord.class);
+
+        // WHEN
+        when(bookRepository.existsById(book.getBookId())).thenReturn(true);
+        bookService.updateBook(book);
+
+        // THEN
+        verify(bookRepository).save(bookRecordCaptor.capture());
+        BookRecord record = bookRecordCaptor.getValue();
+
+        Assertions.assertNotNull(record, "The concert record is returned");
+        Assertions.assertEquals(record.finishedReading(), book.finishedReading(), "The boolean values match");
+        Assertions.assertEquals(record.getAuthor(), book.getAuthor(), "The authors match");
+        Assertions.assertEquals(record.getCategory(), book.getCategory(), "The category matches");
+        Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
+        Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
+        Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image link matches");
+        Assertions.assertEquals(record.getInfoLink(), book.getInfoLink(), "The info link matches");
+    }
+    // TODO: Negative Test Cases??
+
+    /** ------------------------------------------------------------------------
+     *  bookService.deleteBook
+     *  ------------------------------------------------------------------------ **/
+    @Test
+    void deleteBook() {
+        Books book = new Books(
+                "imageLink",
+                "category",
+                "description",
+                "author",
+                "title",
+                "infoLink",
+                true,
+                randomUUID().toString());
+
+        ArgumentCaptor<BookRecord> bookRecordCaptor = ArgumentCaptor.forClass(BookRecord.class);
+
+        // TODO: Run test once bookService.addBook is created
+//        bookService.addBook(book);
+
+        // WHEN
+        bookService.deleteBook(book.getBookId());
+
+        // THEN
+//        Books cacheClothing = cacheStore.get(clothing.getClothingId());
+        verify(bookRepository).delete(bookRecordCaptor.capture());
+//        Assertions.assertNull(cacheClothing);
+    }
+
+    @Test
+    void deleteBook_nullId_throwsNullPointerException() {
+        // WHEN & THEN
+        Assertions.assertThrows(NullPointerException.class, () -> bookService.deleteBook(null));
+    }
+
+    @Test
+    void deleteBook_emptyId_throwsNullPointerException() {
+        // WHEN & THEN
+        Assertions.assertThrows(NullPointerException.class, () -> bookService.deleteBook(""));
+    }
 }

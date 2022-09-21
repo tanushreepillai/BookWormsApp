@@ -26,7 +26,6 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<BookResponse> getBook(@PathVariable("id") String id) {
 
-        // TODO: Refer to BookService method questions
         Books book = bookService.findById(id);
         if (book == null) {
             return ResponseEntity.notFound().build();
