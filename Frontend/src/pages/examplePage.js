@@ -10,7 +10,7 @@ class ExamplePage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGet', 'onCreate', 'renderExample'], this);
+        this.bindClassMethods(['getBook', 'getAllBooks', 'saveBook', 'updateBook', 'deleteBook'], this);
         this.dataStore = new DataStore();
     }
 
@@ -22,7 +22,6 @@ class ExamplePage extends BaseClass {
         document.getElementById('create-form').addEventListener('submit', this.onCreate);
         this.client = new ExampleClient();
         await this.handleBookSearch();
-        await this.renderExample();
 
         // this.dataStore.addChangeListener(this.renderExample)
     }
@@ -32,23 +31,30 @@ class ExamplePage extends BaseClass {
     async handleBookSearch(event) {  // todo return top 10 results
 
         let query = "foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        this.dataStore.set("books", null);
         // event.preventDefault();
-        let response = API.searchBooks(query)
+        await API.searchBooks(query)
             .then(res => {
                 if (res.data.status === "error") {
                     throw new Error(res.data.message);
                 }
-                this.dataStore.set("response", JSON.stringify(res.data.items));
-                console.log("API response: " + this.dataStore.get("response"));
+
+                let booksArray = [];
+
+                for(let i=0; i<res.data.items.length && i<10; i++) {
+                    booksArray[i] = res.data.items[i].volumeInfo;
+                    // console.log("inside: " + booksArray[i].title);
+                }
+
+                this.dataStore.set("books", booksArray)
             })
             .catch(err => console.log(err.message));
-            // .catch(err => this.setState({ error: err.message }));
 
-        // console.log("API response: " + this.dataStore.get("response"));
+        let newArray = this.dataStore.get("books")
+        console.log("title: " + newArray[0].title)
     }
 
-    async renderExample() {
-        console.log("inside render: " + this.dataStore.get("response"));
+    async renderSearchResults(response) {
         // let resultArea = document.getElementById("result-info");
         //
         // const example = this.dataStore.get("example");
@@ -63,9 +69,7 @@ class ExamplePage extends BaseClass {
         // }
     }
 
-    // Event Handlers --------------------------------------------------------------------------------------------------
-
-    async onGet(event) {
+    async getBook(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
@@ -81,7 +85,11 @@ class ExamplePage extends BaseClass {
         }
     }
 
-    async onCreate(event) {
+    async getAllBooks(event) {
+
+    }
+
+    async saveBook(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
         this.dataStore.set("example", null);
@@ -96,6 +104,14 @@ class ExamplePage extends BaseClass {
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
+    }
+
+    async updateBook(event) {
+
+    }
+
+    async deleteBook(event) {
+
     }
 }
 
