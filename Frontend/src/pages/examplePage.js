@@ -30,7 +30,7 @@ class ExamplePage extends BaseClass {
 
     async handleBookSearch(event) {  // todo return top 10 results
 
-        let query = "foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        let query = "inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
         this.dataStore.set("books", null);
         // event.preventDefault();
         await API.searchBooks(query)
@@ -39,34 +39,55 @@ class ExamplePage extends BaseClass {
                     throw new Error(res.data.message);
                 }
 
-                let booksArray = [];
-
-                for(let i=0; i<res.data.items.length && i<10; i++) {
-                    booksArray[i] = res.data.items[i].volumeInfo;
-                    // console.log("inside: " + booksArray[i].title);
-                }
-
-                this.dataStore.set("books", booksArray)
+                this.dataStore.set("books", res.data.items.map(item => item.volumeInfo))
             })
             .catch(err => console.log(err.message));
 
-        let newArray = this.dataStore.get("books")
-        console.log("title: " + newArray[0].title)
+        const booksArray = this.dataStore.get("books")
+        console.log("size: " + booksArray.length)
+        // for (let book of booksArray) {
+        //     console.log("title: " + book.title)
+        //     console.log("image: " + book.imageLinks.smallThumbnail)
+        // }
+
+        await this.renderSearchResults()
     }
 
-    async renderSearchResults(response) {
-        // let resultArea = document.getElementById("result-info");
-        //
-        // const example = this.dataStore.get("example");
-        //
-        // if (example) {
-        //     resultArea.innerHTML = `
-        //         <div>ID: ${example.id}</div>
-        //         <div>Name: ${example.name}</div>
-        //     `
-        // } else {
-        //     resultArea.innerHTML = "No Item";
-        // }
+    async renderSearchResults() {
+        const booksArray = this.dataStore.get("books")
+        let resultTable = document.getElementById("all-posts-result");
+
+        if (booksArray) {
+            let myHtml="";
+            for(let book of booksArray) {
+                let imageLink = null
+                try {
+                    imageLink = book.imageLinks.smallThumbnail
+                } catch (err) {
+                    // continue
+                }
+
+                if (book.title.includes("Foundation")) {
+                    myHtml += `<tr>
+                    <div></div>
+                    <td>Title: ${book.title}</td>
+                    <td>Author: ${book.authors[0]}</td>
+                    <td><img src = ${imageLink}></td>
+                    <div></div>
+                    <td>Description: ${book.description}</td>
+                    </tr>
+                    `
+                }
+
+            }
+
+            resultTable.innerHTML = myHtml;
+
+        }
+        else {
+            resultTable.innerHTML = "<tr><td> no one attending.. </td></tr>"
+        }
+
     }
 
     async getBook(event) {
