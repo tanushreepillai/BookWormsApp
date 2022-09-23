@@ -18,10 +18,10 @@ class ExamplePage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        // document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
-        document.getElementById('create-form').addEventListener('submit', this.onCreate);
+        document.getElementById('find').addEventListener('click', this.handleBookSearch);
+        // document.getElementById('create-form').addEventListener('submit', this.onCreate);
         this.client = new ExampleClient();
-        await this.handleBookSearch();
+        // await this.handleBookSearch();
 
         // this.dataStore.addChangeListener(this.renderExample)
     }
@@ -29,10 +29,11 @@ class ExamplePage extends BaseClass {
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async handleBookSearch(event) {  // todo return top 10 results
-
-        let query = "inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
-        this.dataStore.set("books", null);
-        // event.preventDefault();
+        let title = document.getElementById('search-name-field').value
+        let author = document.getElementById('search-author-field').value
+        console.log(title + " " + author)
+        let query = "forward%20the%20foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        event.preventDefault()
         await API.searchBooks(query)
             .then(res => {
                 if (res.data.status === "error") {
@@ -42,9 +43,9 @@ class ExamplePage extends BaseClass {
                 this.dataStore.set("books", res.data.items.map(item => item.volumeInfo))
             })
             .catch(err => console.log(err.message));
-
-        const booksArray = this.dataStore.get("books")
-        console.log("size: " + booksArray.length)
+        //
+        // const booksArray = this.dataStore.get("books")
+        // console.log("size: " + booksArray.length)
         // for (let book of booksArray) {
         //     console.log("title: " + book.title)
         //     console.log("image: " + book.imageLinks.smallThumbnail)
@@ -64,18 +65,17 @@ class ExamplePage extends BaseClass {
                 try {
                     imageLink = book.imageLinks.smallThumbnail
                 } catch (err) {
-                    // continue
+                    continue
                 }
 
                 if (book.title.includes("Foundation")) {
-                    myHtml += `<tr>
+                    myHtml += `
                     <div></div>
-                    <td>Title: ${book.title}</td>
-                    <td>Author: ${book.authors[0]}</td>
-                    <td><img src = ${imageLink}></td>
+                    <div>Title: ${book.title}</div>
+                    <div>Author: ${book.authors[0]}</div>
+                    <div><img src = ${imageLink}></div>
                     <div></div>
-                    <td>Description: ${book.description}</td>
-                    </tr>
+                    <div>Description: ${book.description}</div>
                     `
                 }
 
@@ -141,7 +141,7 @@ class ExamplePage extends BaseClass {
  */
 const main = async () => {
     const examplePage = new ExamplePage();
-    examplePage.mount();
+    await examplePage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
