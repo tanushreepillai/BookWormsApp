@@ -36,9 +36,9 @@ import axios from 'axios'
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
-    async getBook(id, errorCallback) {
+    async getBook(key, errorCallback) {
         try {
-            const response = await this.client.get(`/book/${id}`);
+            const response = await this.client.get(`/book/${key}`);
             return response.data;
         } catch (error) {
             this.handleError("getConcert", error, errorCallback)
@@ -55,12 +55,12 @@ import axios from 'axios'
     }
 
     async saveBook(book, errorCallback) {
+        console.log("inside client")
         try {
             const response = await this.client.post(`book`, {
                 title: book.title,
                 author: book.author,
                 description: book.description,
-                category: book.category,
                 imageLink: book.imageLink,
                 infoLink: book.infoLink
             });
@@ -76,7 +76,6 @@ import axios from 'axios'
                 title: book.title,
                 author: book.author,
                 description: book.description,
-                category: book.category,
                 imageLink: book.imageLink,
                 infoLink: book.infoLink,
                 finishedReading: true

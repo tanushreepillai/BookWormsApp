@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ExampleClient from "../api/exampleClient";
+import BookClient from "../api/bookClient";
 import API from "../util/API";
 
 /**
@@ -10,7 +10,7 @@ class ExamplePage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getBook', 'getAllBooks', 'saveBook', 'updateBook', 'deleteBook'], this);
+        this.bindClassMethods(['saveBook', 'renderSearchResults', 'handleBookSearch'], this);
         this.dataStore = new DataStore();
     }
 
@@ -20,7 +20,7 @@ class ExamplePage extends BaseClass {
     async mount() {
         document.getElementById('find').addEventListener('click', this.handleBookSearch);
         // document.getElementById('create-form').addEventListener('submit', this.onCreate);
-        this.client = new ExampleClient();
+        this.client = new BookClient();
         // await this.handleBookSearch();
 
         // this.dataStore.addChangeListener(this.renderExample)
@@ -29,10 +29,34 @@ class ExamplePage extends BaseClass {
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async handleBookSearch(event) {  // todo return top 10 results
-        let title = document.getElementById('search-name-field').value
-        let author = document.getElementById('search-author-field').value
-        console.log(title + " " + author)
-        let query = "forward%20the%20foundation+inauthor:asimov&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        let title = null;
+        let author = null;
+        let query = null;
+
+        try {
+            title = document.getElementById('search-name-field').value;
+        } catch (err) {
+            console.log(err.message);
+        }
+
+        try {
+            author = document.getElementById('search-author-field').value
+        } catch (err) {
+            console.log(err.message);
+        }
+
+        if (!title && author) {
+            query = "inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        } else if (title && !author) {
+            query = title +  "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        } else if (title && author) {
+            query = title + "inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        } else {
+            throw new Error("")
+        }
+
+
+        console.log("query: " + query);
         event.preventDefault()
         await API.searchBooks(query)
             .then(res => {
@@ -51,16 +75,17 @@ class ExamplePage extends BaseClass {
         //     console.log("image: " + book.imageLinks.smallThumbnail)
         // }
 
-        await this.renderSearchResults()
+        await this.renderSearchResults(title)
     }
 
-    async renderSearchResults() {
+    async renderSearchResults(title) {
         const booksArray = this.dataStore.get("books")
         let resultTable = document.getElementById("all-posts-result");
 
         if (booksArray) {
             let myHtml="";
-            for(let book of booksArray) {
+            for(let i in booksArray) {
+                const book = booksArray[i];
                 let imageLink = null
                 try {
                     imageLink = book.imageLinks.smallThumbnail
@@ -68,71 +93,51 @@ class ExamplePage extends BaseClass {
                     continue
                 }
 
-                if (book.title.includes("Foundation")) {
+                if (book.title.toUpperCase().includes(title.toUpperCase())) {
                     myHtml += `
                     <div></div>
-                    <div>Title: ${book.title}</div>
+                    <div id="title">Title: ${book.title}</div>
                     <div>Author: ${book.authors[0]}</div>
                     <div><img src = ${imageLink}></div>
                     <div></div>
                     <div>Description: ${book.description}</div>
+                    <button id="save" data-index="${i}">Save book</button>
                     `
                 }
-
             }
 
+            resultTable.innerHTML = "";
             resultTable.innerHTML = myHtml;
 
         }
         else {
-            resultTable.innerHTML = "<tr><td> no one attending.. </td></tr>"
+            resultTable.innerHTML = "<tr><td>No books found</td></tr>"
         }
 
-    }
-
-    async getBook(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
-
-        let id = document.getElementById("id-field").value;
-        this.dataStore.set("example", null);
-
-        let result = await this.client.getExample(id, this.errorHandler);
-        this.dataStore.set("example", result);
-        if (result) {
-            this.showMessage(`Got ${result.name}!`)
-        } else {
-            this.errorHandler("Error doing GET!  Try again...");
-        }
-    }
-
-    async getAllBooks(event) {
+        document.getElementById('save').addEventListener(
+            'click', event => this.saveBook(event));
 
     }
 
     async saveBook(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
-        this.dataStore.set("example", null);
+        event.preventDefault()
+        const booksArray = this.dataStore.get("books")
+        const book = booksArray[event.target.dataset.index]
+        let imageLink = null
+        try {
+            imageLink = book.imageLinks.smallThumbnail
+        } catch (err) {
 
-        let name = document.getElementById("create-name-field").value;
-
-        const createdExample = await this.client.createExample(name, this.errorHandler);
-        this.dataStore.set("example", createdExample);
-
-        if (createdExample) {
-            this.showMessage(`Created ${createdExample.name}!`)
-        } else {
-            this.errorHandler("Error creating!  Try again...");
         }
-    }
+        let bookToSave = {
+            title: book.title,
+            author: book.authors[0],
+            description: book.description,
+            imageLink: book.imageLink,
+            infoLink: book.infoLink
+        }
 
-    async updateBook(event) {
-
-    }
-
-    async deleteBook(event) {
-
+        await this.client.saveBook(bookToSave)
     }
 }
 
