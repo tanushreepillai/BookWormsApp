@@ -10,7 +10,7 @@ class SavedPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['getBook', 'getAllBooks', 'updateBook', 'deleteBook'], this);
+        this.bindClassMethods(['renderSavedBooks', 'getBook', 'updateBook', 'deleteBook'], this);
         this.dataStore = new DataStore();
     }
 
@@ -21,7 +21,7 @@ class SavedPage extends BaseClass {
         // document.getElementById('find').addEventListener('click', this.handleBookSearch);
         // document.getElementById('create-form').addEventListener('submit', this.onCreate);
         this.client = new BookClient();
-        // await this.handleBookSearch();
+        await this.renderSavedBooks();
 
         // this.dataStore.addChangeListener(this.renderExample)
     }
@@ -30,7 +30,7 @@ class SavedPage extends BaseClass {
 
 
 
-    async renderSavedBooks(title) {
+    async renderSavedBooks() {
         const booksArray = this.client.getAllBooks();
         let savedResults = document.getElementById("savedResults");
 
@@ -84,16 +84,14 @@ class SavedPage extends BaseClass {
         }
     }
 
-    async getAllBooks(event) {
-
-    }
-
     async updateBook(event) {
 
     }
 
     async deleteBook(event) {
-
+        let bookId = event.target.dataset.title;
+        console.log("bookId: " + bookId);
+        // await this.client.deleteBook();
     }
 }
 
@@ -101,8 +99,8 @@ class SavedPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const examplePage = new ExamplePage();
-    await examplePage.mount();
+    const savedPage = new SavedPage();
+    await savedPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

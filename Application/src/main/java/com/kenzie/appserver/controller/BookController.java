@@ -53,6 +53,7 @@ public class BookController {
 
     @GetMapping("/all")
     public ResponseEntity<Set<BookResponse>> getAllBooks() {
+        System.out.println("inside getAllBooks in controller");
         Set<Books> allBooks = bookService.getAllBooks();
 
         Set<BookResponse> responses = allBooks.stream()
@@ -76,7 +77,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<BookResponse> deleteBook(@PathVariable("restaurantId") String id) {
+    public ResponseEntity<BookResponse> deleteBook(@PathVariable String id) {
         Books book = bookService.findById(id);
         bookService.deleteBook(id);
 
