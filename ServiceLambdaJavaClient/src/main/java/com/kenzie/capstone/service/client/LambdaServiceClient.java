@@ -28,15 +28,15 @@ public class LambdaServiceClient {
         return booksData;
     }
 
-    public BooksData setBooksData(String data) {
-        EndpointUtility endpointUtility = new EndpointUtility();
-        String response = endpointUtility.postEndpoint(SET_BOOK_ENDPOINT, data);
-        BooksData booksData;
-        try {
-            booksData = mapper.readValue(response, BooksData.class);
-        } catch (Exception e) {
-            throw new ApiGatewayException("Unable to map deserialize JSON: " + e);
-        }
-        return booksData;
-    }
+//    public BooksData setBooksData(String data) {
+//        EndpointUtility endpointUtility = new EndpointUtility();
+//        String response = endpointUtility.postEndpoint(SET_BOOK_ENDPOINT, data);
+//        BooksData booksData;
+//        try {
+//            booksData = mapper.readValue(response, BooksData.class);
+//        } catch (Exception e) {
+//            throw new ApiGatewayException("Unable to map deserialize JSON: " + e);
+//        }
+//        return booksData;
+//    }
 }

@@ -44,38 +44,37 @@ class BookControllerTest {
     @Test
     public void getById_Exists() throws Exception {
 
-//        String imageLink = "imageLink";
-//        String category = "category";
-//        String description = "description";
-//        String author = "author";
-//        String title = "title";
-//        String infoLink = "infoLink";
-//        boolean finishedReading = true;
-//        String bookId = randomUUID().toString();
-//
-//        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
-//
-//        // TODO: Run test once bookService.addBook is created
-//        Books persistedBook = bookService.addBook(book);
-//
-//        mvc.perform(get("/books/{id}", persistedBook.getBookId())
-//                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
-//                // THEN
-//                .andExpect(jsonPath("imageLink")
-//                        .value(is(imageLink)))
-//                .andExpect(jsonPath("category")
-//                        .value(is(category)))
-//                .andExpect(jsonPath("description")
-//                        .value(is(description)))
-//                .andExpect(jsonPath("author")
-//                        .value(is(author)))
-//                .andExpect(jsonPath("title")
-//                        .value(is(title)))
-//                .andExpect(jsonPath("infoLink")
-//                        .value(is(infoLink)))
-//                .andExpect(jsonPath("finishedReading")
-//                        .value(is(finishedReading)))
-//                .andExpect(status().is2xxSuccessful());
+        String imageLink = "imageLink";
+        String category = "category";
+        String description = "description";
+        String author = "author";
+        String title = "title";
+        String infoLink = "infoLink";
+        boolean finishedReading = true;
+        String bookId = randomUUID().toString();
+
+        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+
+        Books persistedBook = bookService.addBook(book);
+
+        mvc.perform(get("/books/{id}", persistedBook.getBookId())
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
+                // THEN
+                .andExpect(jsonPath("imageLink")
+                        .value(is(imageLink)))
+                .andExpect(jsonPath("category")
+                        .value(is(category)))
+                .andExpect(jsonPath("description")
+                        .value(is(description)))
+                .andExpect(jsonPath("author")
+                        .value(is(author)))
+                .andExpect(jsonPath("title")
+                        .value(is(title)))
+                .andExpect(jsonPath("infoLink")
+                        .value(is(infoLink)))
+                .andExpect(jsonPath("finishedReading")
+                        .value(is(finishedReading)))
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
@@ -89,8 +88,8 @@ class BookControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    public void createExample_CreateSuccessful() throws Exception {
+//    @Test
+//    public void createExample_CreateSuccessful() throws Exception {
 //        String name = mockNeat.strings().valStr();
 //
 //        BookCreateRequest exampleCreateRequest = new BookCreateRequest();
@@ -107,7 +106,7 @@ class BookControllerTest {
 //                .andExpect(jsonPath("name")
 //                        .value(is(name)))
 //                .andExpect(status().is2xxSuccessful());
-    }
+//    }
 
     @Test
     public void addBook() {
@@ -116,90 +115,87 @@ class BookControllerTest {
 
     @Test
     public void getAllBooks() throws Exception {
-//        // GIVEN
-//        String imageLink = "imageLink";
-//        String category = "category";
-//        String description = "description";
-//        String author = "author";
-//        String title = "title";
-//        String infoLink = "infoLink";
-//        boolean finishedReading = true;
-//        String bookId = randomUUID().toString();
-//
-//        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
-//        // TODO: Run test once bookService.addBook is created
-//        bookService.addBook(book);
-//
-//        // WHEN
-//        Set<Books> books = bookService.getAllBooks();
-//        mvc.perform(get("/books/all", books)
-//                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
-//                // THEN
-//                .andExpect(status().isOk());
-//        Assertions.assertNotNull(bookService.getAllBooks());
+        // GIVEN
+        String imageLink = "imageLink";
+        String category = "category";
+        String description = "description";
+        String author = "author";
+        String title = "title";
+        String infoLink = "infoLink";
+        boolean finishedReading = true;
+        String bookId = randomUUID().toString();
+
+        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        bookService.addBook(book);
+
+        // WHEN
+        Set<Books> books = bookService.getAllBooks();
+        mvc.perform(get("/books/all", books)
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
+                // THEN
+                .andExpect(status().isOk());
+        Assertions.assertNotNull(bookService.getAllBooks());
     }
 
     @Test
     public void updateBook_PutSuccessful() throws Exception {
-//        // GIVEN
-//        String imageLink = "imageLink";
-//        String category = "category";
-//        String description = "description";
-//        String author = "author";
-//        String title = "title";
-//        String infoLink = "infoLink";
-//        boolean finishedReading = false;
-//        String bookId = randomUUID().toString();
-//
-//        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
-//        // TODO: Run test once bookService.addBook is created
-//        bookService.addBook(book);
-//
-//        boolean completed = true;
-//
-//        BookCreateRequest bookCreateRequest = new BookCreateRequest();
-//        bookCreateRequest.setImageLinks(imageLink);
-//        bookCreateRequest.setCategories(category);
-//        bookCreateRequest.setDescription(description);
-//        bookCreateRequest.setAuthors(author);
-//        bookCreateRequest.setTitle(title);
-//        bookCreateRequest.setInfoLink(infoLink);
-//        bookCreateRequest.finishedReading(completed);
-//
-//        mapper.registerModule(new JavaTimeModule());
-//
-//        // WHEN
-//        mvc.perform(put("/books")
-//                        .accept(String.valueOf(MediaType.APPLICATION_JSON))
-//                        .contentType(String.valueOf(MediaType.APPLICATION_JSON))
-//                        .content(mapper.writeValueAsString(bookCreateRequest)))
-//                // THEN
-//                .andExpect(jsonPath("finishedReading")
-//                        .value(is(true)))
-//                .andExpect(status().isOk());
+        // GIVEN
+        String imageLink = "imageLink";
+        String category = "category";
+        String description = "description";
+        String author = "author";
+        String title = "title";
+        String infoLink = "infoLink";
+        boolean finishedReading = false;
+        String bookId = randomUUID().toString();
+
+        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        bookService.addBook(book);
+
+        boolean completed = true;
+
+        BookCreateRequest bookCreateRequest = new BookCreateRequest();
+        bookCreateRequest.setImageLinks(imageLink);
+        bookCreateRequest.setCategories(category);
+        bookCreateRequest.setDescription(description);
+        bookCreateRequest.setAuthors(author);
+        bookCreateRequest.setTitle(title);
+        bookCreateRequest.setInfoLink(infoLink);
+        bookCreateRequest.finishedReading(completed);
+
+        mapper.registerModule(new JavaTimeModule());
+
+        // WHEN
+        mvc.perform(put("/books")
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON))
+                        .contentType(String.valueOf(MediaType.APPLICATION_JSON))
+                        .content(mapper.writeValueAsString(bookCreateRequest)))
+                // THEN
+                .andExpect(jsonPath("finishedReading")
+                        .value(is(true)))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void deleteClothing_DeleteSuccessful() throws Exception {
-//        // GIVEN
-//        String imageLink = "imageLink";
-//        String category = "category";
-//        String description = "description";
-//        String author = "author";
-//        String title = "title";
-//        String infoLink = "infoLink";
-//        boolean finishedReading = false;
-//        String bookId = randomUUID().toString();
-//
-//        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
-//        // TODO: Run test once bookService.addBook is created
-//        Books persistedBook = bookService.addBook(book);
-//
-//        // WHEN
-//        mvc.perform(delete("/books/{id}", persistedBook.getBookId())
-//                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
-//                // THEN
-//                .andExpect(status().isNoContent());
-//        Assertions.assertNull(bookService.findById(bookId));
+        // GIVEN
+        String imageLink = "imageLink";
+        String category = "category";
+        String description = "description";
+        String author = "author";
+        String title = "title";
+        String infoLink = "infoLink";
+        boolean finishedReading = false;
+        String bookId = randomUUID().toString();
+
+        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        Books persistedBook = bookService.addBook(book);
+
+        // WHEN
+        mvc.perform(delete("/books/{id}", persistedBook.getBookId())
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
+                // THEN
+                .andExpect(status().isNoContent());
+        Assertions.assertNull(bookService.findById(bookId));
     }
 }

@@ -34,14 +34,22 @@ public class BookController {
         return ResponseEntity.ok(bookToBookResponse(book));
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<BookResponse> addNewBook(@RequestBody BookCreateRequest exampleCreateRequest) {
-//        Books book = bookService.addBook(exampleCreateRequest.getBookId());
-//
-//        BookResponse response = bookToBookResponse(book);
-//
-//        return ResponseEntity.ok(response);
-//    }
+    @PostMapping("/add")
+    public ResponseEntity<BookResponse> addNewBook(@RequestBody BookCreateRequest bookCreateRequest) {
+        Books book = new Books(bookCreateRequest.getImageLink(),
+                bookCreateRequest.getCategory(),
+                bookCreateRequest.getDescription(),
+                bookCreateRequest.getAuthor(),
+                bookCreateRequest.getTitle(),
+                bookCreateRequest.getInfoLink(),
+                bookCreateRequest.finishedReading(),
+                bookCreateRequest.getBookId());
+        bookService.addBook(book);
+
+        BookResponse response = bookToBookResponse(book);
+
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<Set<BookResponse>> getAllBooks() {

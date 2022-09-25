@@ -229,8 +229,7 @@ public class BookServiceTest {
 
         ArgumentCaptor<BookRecord> bookRecordCaptor = ArgumentCaptor.forClass(BookRecord.class);
 
-        // TODO: Run test once bookService.addBook is created
-//        bookService.addBook(book);
+        bookService.addBook(book);
 
         // WHEN
         bookService.deleteBook(book.getBookId());
