@@ -32,7 +32,7 @@ import axios from 'axios'
 
     /**
      * Gets the concert for the given ID.
-     * @param id Unique identifier for a concert
+     * @param key Unique identifier for a book
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
@@ -46,8 +46,9 @@ import axios from 'axios'
     }
 
     async getAllBooks(id, errorCallback) {
+        console.log("inside getAllBooks in client")
         try {
-            const response = await this.client.get(`/book/`);
+            const response = await this.client.get(`/books/all`);
             return response.data;
         } catch (error) {
             this.handleError("getConcert", error, errorCallback)
@@ -55,14 +56,15 @@ import axios from 'axios'
     }
 
     async saveBook(book, errorCallback) {
-        console.log("inside client")
+        console.log("inside client: ");
         try {
             const response = await this.client.post(`book`, {
                 title: book.title,
                 author: book.author,
                 description: book.description,
                 imageLink: book.imageLink,
-                infoLink: book.infoLink
+                infoLink: book.infoLink,
+                bookId: book.id
             });
             return response.data;
         } catch (error) {

@@ -46,11 +46,11 @@ class ExamplePage extends BaseClass {
         }
 
         if (!title && author) {
-            query = "inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+            query = "+inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
         } else if (title && !author) {
             query = title +  "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
         } else if (title && author) {
-            query = title + "inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+            query = title + "+inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
         } else {
             throw new Error("")
         }
@@ -64,18 +64,12 @@ class ExamplePage extends BaseClass {
                     throw new Error(res.data.message);
                 }
 
-                this.dataStore.set("books", res.data.items.map(item => item.volumeInfo))
+                this.dataStore.set("books", res.data.items.map(item => item.volumeInfo));
+                this.dataStore.set("ids", res.data.items.map(item => item.id));
             })
             .catch(err => console.log(err.message));
-        //
-        // const booksArray = this.dataStore.get("books")
-        // console.log("size: " + booksArray.length)
-        // for (let book of booksArray) {
-        //     console.log("title: " + book.title)
-        //     console.log("image: " + book.imageLinks.smallThumbnail)
-        // }
 
-        await this.renderSearchResults(title)
+        await this.renderSearchResults(title);
     }
 
     async renderSearchResults(title) {
@@ -96,7 +90,7 @@ class ExamplePage extends BaseClass {
                 if (book.title.toUpperCase().includes(title.toUpperCase())) {
                     myHtml += `
                     <div></div>
-                    <div id="title">Title: ${book.title}</div>
+                    <div>Title: ${book.title}</div>
                     <div>Author: ${book.authors[0]}</div>
                     <div><img src = ${imageLink}></div>
                     <div></div>
@@ -121,9 +115,11 @@ class ExamplePage extends BaseClass {
 
     async saveBook(event) {
         event.preventDefault()
-        const booksArray = this.dataStore.get("books")
-        const book = booksArray[event.target.dataset.index]
-        let imageLink = null
+        const booksArray = this.dataStore.get("books");
+        const ids = this.dataStore.get("ids");
+        const book = booksArray[event.target.dataset.index];
+        const id = ids[event.target.dataset.index];
+        let imageLink = null;
         try {
             imageLink = book.imageLinks.smallThumbnail
         } catch (err) {
@@ -133,11 +129,12 @@ class ExamplePage extends BaseClass {
             title: book.title,
             author: book.authors[0],
             description: book.description,
-            imageLink: book.imageLink,
-            infoLink: book.infoLink
+            image: imageLink,
+            infoLink: book.infoLink,
+            bookId: id
         }
 
-        await this.client.saveBook(bookToSave)
+        await this.client.saveBook(bookToSave);
     }
 }
 
