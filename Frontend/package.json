@@ -11,7 +11,7 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "webpack -p --mode=production --devtool=source-map",
-    "start": "webpack serve -d --mode=development --hot --inline"
+    "start": "webpack-dev-server -d --mode=development --hot --inline"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -22,7 +22,6 @@
     "webpack-dev-server": "^3.2.1"
   },
   "devDependencies": {
-    "@webpack-cli/serve": "^1.7.0",
     "copy-webpack-plugin": "^6.4.1",
     "html-webpack-plugin": "4"
   }
