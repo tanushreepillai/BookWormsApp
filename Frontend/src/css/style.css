@@ -1,12 +1,12 @@
 :root {
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
-    --primary-color: #131921;
+    --primary-color: #A1C298;
     --secondary-color: #fff;
-    --error-color: rgba(194, 0, 0, 0.71);
+    --error-color: rgba(FA7070);
 }
 
 .background {
-    background-color: #eaeded;
+    background-color: #C6EBC5;
     margin: 0;
     counter-reset: section;
 }
