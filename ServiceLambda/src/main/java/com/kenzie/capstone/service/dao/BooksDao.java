@@ -33,7 +33,7 @@ public class BooksDao {
         return booksData;
 
     }
-    //TODO: Check with Jacobus on why we need to pass in id.
+
     public List<BooksRecord> getBooksData(String id) {
         BooksRecord booksRecord = new BooksRecord();
         booksRecord.setBookId(id);
