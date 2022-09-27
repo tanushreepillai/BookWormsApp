@@ -13,6 +13,7 @@ import com.kenzie.capstone.service.model.BooksData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,9 +45,11 @@ public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent,
                     .withBody("Id is invalid");
         }
 
+        id = "PKV6swEACAAJ";
+
         try {
-            BooksData booksData = lambdaService.getBooksData(id);
-            String output = gson.toJson(booksData);
+            HttpResponse<String> bookData = lambdaService.getBookData(id);
+            String output = gson.toJson(bookData);
 
             return response
                     .withStatusCode(200)
