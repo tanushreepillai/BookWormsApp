@@ -20,14 +20,21 @@ import java.util.UUID;
 
 public class LambdaService {
 
-    private final BooksDao booksDao;
+    private final CachingBooksDao cachingBooksDao;
 
     @Inject
-    public LambdaService(BooksDao booksDao) {
-        this.booksDao = booksDao;
+    public LambdaService(CachingBooksDao cachingBooksDao) {
+        this.cachingBooksDao = cachingBooksDao;
     }
 
     public HttpResponse<String> getBookData(String id) throws IOException, InterruptedException {
+//        List<BooksRecord> books = cachingBooksDao.getBooksData(id);
+//            if (books.size() > 0) {
+//                BooksRecord booksRecord = books.get(0);
+//                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
+//                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.getCategory(), booksRecord.isCompleted());
+//        }
+
         HttpClient client = HttpClient.newHttpClient();
         String URLString = "https://www.googleapis.com/books/v1/volumes?q=" +
                 id +  "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
@@ -41,12 +48,6 @@ public class LambdaService {
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
 
-//        List<BooksRecord> books = booksDao.getBooksData(id);
-//        if (books.size() > 0) {
-//            BooksRecord booksRecord = books.get(0);
-//            return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
-//                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.getCategory(), booksRecord.isCompleted());
-//            }
 //        return null;
     }
 

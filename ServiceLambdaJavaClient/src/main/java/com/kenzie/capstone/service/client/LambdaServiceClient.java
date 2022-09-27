@@ -1,8 +1,8 @@
 package com.kenzie.capstone.service.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kenzie.capstone.service.CachingBooksDao;
 import com.kenzie.capstone.service.model.BooksData;
-import com.kenzie.capstone.service.model.ExampleData;
 
 
 public class LambdaServiceClient {
@@ -11,13 +11,20 @@ public class LambdaServiceClient {
     private static final String SET_BOOK_ENDPOINT = "books";
 
     private ObjectMapper mapper;
+    private CachingBooksDao cachingBooksDao;
 
     public LambdaServiceClient() {
         this.mapper = new ObjectMapper();
     }
 
     public BooksData getBookData(String id) {
+
         EndpointUtility endpointUtility = new EndpointUtility();
+
+        // If book data is present in cache, return that cache value
+        
+
+        // Else retrieve from DB and return its book data
         String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{id}", id));
         BooksData booksData;
         try {

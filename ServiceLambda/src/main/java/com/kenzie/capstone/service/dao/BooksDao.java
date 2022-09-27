@@ -10,11 +10,13 @@ import com.kenzie.capstone.service.model.BooksData;
 import com.kenzie.capstone.service.model.BooksRecord;
 import com.kenzie.capstone.service.model.ExampleRecord;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class BooksDao {
     private DynamoDBMapper mapper;
 
+    @Inject
     public BooksDao(DynamoDBMapper mapper) {
         this.mapper = mapper;
     }
