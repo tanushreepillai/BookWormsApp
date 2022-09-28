@@ -5,9 +5,29 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="index.html">BookWorm App</a>
+        <br>
+        <form action="http://localhost:8080/index.html">
+            <input type="submit" value="Back to Home" />
+        </form>
+    </div>
+</header>
 <body>
-    <a href="index.html">Book search</a>
-    <div id="savedResults">saved books</div>
-    <button id="delete">delete</button>
+
+    <div class="card" id="view-all">
+        <h2>View All Saved Books</h2>
+        <form class="card-content" id="all-posts">
+            <button type="button" id="view-all-button" name="cmd" value="viewall">View All</button>
+        </form>
+
+        <div id="savedResults">saved books</div>
+
+        <button id="delete">delete</button>
+    </div>
+
+
 </body>
 </html>

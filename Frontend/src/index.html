@@ -9,10 +9,24 @@
     <header class="header" id="header">
         <div class="site-title">
             <a class="header_home" href="index.html">BookWorm App</a>
+            <br>
+<!--            <a href="saved.html">View All Saved Books</a>-->
+<!--            this form is to make it look like a button -->
+            <form action="http://localhost:8080/saved.html">
+                <input type="submit" value="See All Saved Books" />
+            </form>
         </div>
     </header>
+
+<!--    <div class="card" id="view-all">-->
+<!--        <h2>View All Saved Books</h2>-->
+<!--        <form class="card-content" id="all-posts">-->
+<!--            <button type="button" id="view-all-button" name="cmd" value="viewall">View All</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+
     <div class="card">
-        <a href="saved.html">Saved Books</a>
         <h2>Search for Book by Title and/or Author</h2>
         <form class="card-content" id="search-form">
             <p class="form-field">
@@ -32,38 +46,31 @@
         </form>
     </div>
     <div class="card" id="all-results">
-        <h2>All saved books will be displayed here along with the delete and update buttons</h2>
+        <h2>All books from search results</h2>
         <p id="all-posts-result"></p>
     </div>
-    <div class="card">
-        <h2>Add Book to Saved Books</h2>
-        <form class="card-content" id="create-form">
-            <p class="form-field">
-                <label>Title</label>
-                <input type="text" required class="validated-field" id="create-name-field">
-                <br>
-                <label>Author</label>
-                <input type="text" required class="validated-field" id="create-author-field">
-                <br>
-                <label>Synoposis</label>
-                <input type="text" required class="validated-field" id="create-synopsis-field">
-                <br>
-                <label>Has Been Read</label>
-                <label class="switch">
-                    <input type="checkbox" checked id="create-has-been-read-field">
-                    <span class="slider round"></span>
-                </label>
-            </p>
-            <button type="submit">Save</button>
-        </form>
-    </div>
-
-    <div class="card" id="view-all">
-        <h2>View All Saved Books</h2>
-        <form class="card-content" id="all-posts">
-            <button type="button" id="view-all-button" name="cmd" value="viewall">View All</button>
-        </form>
-    </div>
+<!--    <div class="card">-->
+<!--        <h2>Add Book to Saved Books</h2>-->
+<!--        <form class="card-content" id="create-form">-->
+<!--            <p class="form-field">-->
+<!--                <label>Title</label>-->
+<!--                <input type="text" required class="validated-field" id="create-name-field">-->
+<!--                <br>-->
+<!--                <label>Author</label>-->
+<!--                <input type="text" required class="validated-field" id="create-author-field">-->
+<!--                <br>-->
+<!--                <label>Synoposis</label>-->
+<!--                <input type="text" required class="validated-field" id="create-synopsis-field">-->
+<!--                <br>-->
+<!--                <label>Has Been Read</label>-->
+<!--                <label class="switch">-->
+<!--                    <input type="checkbox" checked id="create-has-been-read-field">-->
+<!--                    <span class="slider round"></span>-->
+<!--                </label>-->
+<!--            </p>-->
+<!--            <button type="submit">Save</button>-->
+<!--        </form>-->
+<!--    </div>-->
 
 
 </body>
