@@ -10,11 +10,21 @@
         <div class="site-title">
             <a class="header_home" href="index.html">BookWorm App</a>
             <br>
-<!--            <a href="saved.html">View All Saved Books</a>-->
-<!--            this form is to make it look like a button -->
-            <form action="http://localhost:8080/saved.html">
-                <input type="submit" value="See All Saved Books" />
-            </form>
+        </div>
+
+        <div class="navbar">
+            <a href="#home">Home</a>
+            <a href="#news">News</a>
+            <div class="dropdown">
+                <button class="dropbtn">More
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -24,6 +34,16 @@
 <!--            <button type="button" id="view-all-button" name="cmd" value="viewall">View All</button>-->
 <!--        </form>-->
 <!--    </div>-->
+
+    <!--            <a href="saved.html">View All Saved Books</a>-->
+    <!--            this form is to make it look like a button -->
+
+    <div class="card" id="link-button">
+        <form action="http://localhost:8080/saved.html">
+            <input type="submit" value="See All Saved Books" />
+        </form>
+    </div>
+
 
 
     <div class="card">
