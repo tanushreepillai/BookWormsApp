@@ -51,7 +51,6 @@ public class BookService {
         bookRecord.setAuthor(book.getAuthor());
         bookRecord.setTitle(book.getTitle());
         bookRepository.save(bookRecord);
-
         return book;
 //
 //        // Example sending data to the lambda
