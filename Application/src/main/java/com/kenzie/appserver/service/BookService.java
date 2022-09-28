@@ -29,7 +29,7 @@ public class BookService {
         // Getting data from the lambda
         BooksData dataFromLambda = lambdaServiceClient.getBookData(id);
 
-        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getCategory(),dataFromLambda.getDescription(),
+        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
         dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.getInfoLink(),dataFromLambda.finishedReading(),
                 dataFromLambda.getBookId());
 
@@ -48,7 +48,6 @@ public class BookService {
         bookRecord.setBookId(book.getBookId());
         bookRecord.setImageLink(book.getImageLink());
         bookRecord.setDescription(book.getDescription());
-        bookRecord.setCategories(book.getCategory());
         bookRecord.setAuthor(book.getAuthor());
         bookRecord.setTitle(book.getTitle());
         bookRepository.save(bookRecord);
@@ -70,7 +69,7 @@ public class BookService {
         bookRepository
                 .findAll()
                 .forEach(book -> allBooks.add(new Books(book.getImageLink(),
-                        book.getCategory(), book.getDescription(), book.getAuthor(),book.getTitle(),
+                        book.getDescription(), book.getAuthor(),book.getTitle(),
                         book.getInfoLink(),book.finishedReading(),book.getId())));
 
         if (allBooks.isEmpty()) {
@@ -95,7 +94,6 @@ public class BookService {
             BookRecord bookRecord = new BookRecord();
             bookRecord.setBookId(book.getBookId());
             bookRecord.setAuthor(book.getAuthor());
-            bookRecord.setCategories(book.getCategory());
             bookRecord.setDescription(book.getDescription());
             bookRecord.setImageLink(book.getImageLink());
             bookRecord.setInfoLink(book.getInfoLink());

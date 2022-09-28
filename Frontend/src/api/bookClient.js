@@ -38,7 +38,7 @@ import axios from 'axios'
      */
     async getBook(key, errorCallback) {
         try {
-            const response = await this.client.get(`/book/${key}`);
+            const response = await this.client.get(`/books/${key}`);
             return response.data;
         } catch (error) {
             this.handleError("getConcert", error, errorCallback)
@@ -58,7 +58,7 @@ import axios from 'axios'
     async saveBook(book, errorCallback) {
         console.log("inside client: ");
         try {
-            const response = await this.client.post(`book`, {
+            const response = await this.client.post(`/books/add`, {
                 title: book.title,
                 author: book.author,
                 description: book.description,
@@ -74,7 +74,7 @@ import axios from 'axios'
 
     async updateBook(book, errorCallback) {
         try {
-            const response = await this.client.post(`book`, {
+            const response = await this.client.post(`books`, {
                 title: book.title,
                 author: book.author,
                 description: book.description,
@@ -90,7 +90,7 @@ import axios from 'axios'
 
     async deleteBook(bookId, errorCallback) {
         try {
-            const response = await this.client.delete(`/book/${bookId}`, {
+            const response = await this.client.delete(`/books/${bookId}`, {
                 name: name
             });
             return response.data;

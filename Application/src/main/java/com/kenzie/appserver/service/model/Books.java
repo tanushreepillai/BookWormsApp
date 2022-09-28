@@ -6,8 +6,6 @@ public class Books {
 
         private String imageLinks;
 
-        private List<String> categories;
-
         private String description;
 
         private List<String> authors;
@@ -20,9 +18,8 @@ public class Books {
 
         private String bookId;
 
-        public Books(String imageLinks, List<String> categories, String description, List<String> authors, String title, String infoLink, boolean isCompleted, String bookId) {
+        public Books(String imageLinks, String description, List<String> authors, String title, String infoLink, boolean isCompleted, String bookId) {
             this.imageLinks = imageLinks;
-            this.categories = categories;
             this.description = description;
             this.authors = authors;
             this.title = title;
@@ -33,10 +30,6 @@ public class Books {
 
         public String getImageLinks() {
             return imageLinks;
-        }
-
-        public List<String> getCategories() {
-            return categories;
         }
 
         public String getDescription() {

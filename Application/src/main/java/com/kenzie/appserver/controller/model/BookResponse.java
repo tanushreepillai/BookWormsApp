@@ -10,8 +10,6 @@ public class BookResponse {
 
     @JsonProperty("imageLinks") // for V2.0; for V1.0 just default to null?
     private String imageLink;
-    @JsonProperty("categories") // on frontend we'll use "genres" as display
-    private String category;
     @JsonProperty("description")
     private String description;
     @JsonProperty("authors")
@@ -27,10 +25,6 @@ public class BookResponse {
 
     public String getImageLinks() {
         return imageLink;
-    }
-
-    public String getCategories() {
-        return category;
     }
 
     public String getDescription() {
@@ -59,10 +53,6 @@ public class BookResponse {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
-    }
-
-    public void setCategories(String category) {
-        this.category = category;
     }
 
     public void setDescription(String description) {

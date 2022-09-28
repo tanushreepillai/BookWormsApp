@@ -11,7 +11,6 @@ public class BooksRecord {
     private String title;
     private String author;
     private String description;
-    private String category;
     private String imageLink;
     private String infoLink;
     private boolean isCompleted;
@@ -28,9 +27,6 @@ public class BooksRecord {
 
     @DynamoDBAttribute(attributeName = "description")
     public String getDescription() { return description; }
-
-    @DynamoDBAttribute(attributeName = "category")
-    public String getCategory() { return category; }
 
     @DynamoDBAttribute(attributeName = "imageLink")
     public String getImageLink() { return imageLink; }
@@ -55,10 +51,6 @@ public class BooksRecord {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public void setImageLink(String imageLink) {

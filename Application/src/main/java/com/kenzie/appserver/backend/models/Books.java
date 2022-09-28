@@ -9,8 +9,6 @@ import java.util.List;
 public class Books {
     @JsonProperty("imageLink") // for V2.0; for V1.0 just default to null?
     private String imageLink;
-    @JsonProperty("category") // on frontend we'll use "genres" as display
-    private String category;
     @JsonProperty("description")
     private String description;
     @JsonProperty("author")
@@ -24,9 +22,8 @@ public class Books {
     @JsonProperty("bookId")
     private String bookId;
 
-    public Books(String imageLink, String category, String description, String author, String title, String infoLink, boolean finishedReading, String bookId) {
+    public Books(String imageLink, String description, String author, String title, String infoLink, boolean finishedReading, String bookId) {
         this.imageLink = imageLink;
-        this.category = category;
         this.description = description;
         this.author = author;
         this.title = title;
@@ -37,10 +34,6 @@ public class Books {
 
     public String getImageLink() {
         return imageLink;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public String getDescription() {
@@ -75,7 +68,6 @@ public class Books {
     public String toString() {
         return "Book{" +
                 "imageLink='" + imageLink + '\'' +
-                ", category=" + category +
                 ", description='" + description + '\'' +
                 ", author=" + author +
                 ", title='" + title + '\'' +
