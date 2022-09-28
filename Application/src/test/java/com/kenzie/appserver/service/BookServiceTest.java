@@ -97,10 +97,47 @@ public class BookServiceTest {
     @Test
     void addBook() {
      // TODO Create after finding out how the method should be made in BookService
+        // GIVEN
+        String bookId = randomUUID().toString();
+        Books book = new Books("imageLink","description","author", "title",
+                "infoLink",false,bookId);
+        ArgumentCaptor<BookRecord> bookRecordCaptor = ArgumentCaptor.forClass(BookRecord.class);
 
+        // WHEN
+        Books returnedBooks = bookService.addBook(book);
+
+        // THEN
+        Assertions.assertNotNull(returnedBooks);
+        verify(bookRepository).save(bookRecordCaptor.capture());
+        BookRecord record = bookRecordCaptor.getValue();
+
+        Assertions.assertNotNull(record, "The clothing record is returned");
+        Assertions.assertEquals(record.getId(), book.getBookId(), "The book id matches");
+        Assertions.assertEquals(record.getAuthor(), book.getAuthor(), "The author matches");
+        Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
+        Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
+        Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image matches");
+        Assertions.assertEquals(record.getInfoLink(), book.getInfoLink(), "The info link matches");
     }
 
     // TODO Negative Test Cases
+    @Test
+    void addBook_bookAlreadyExists() {
+        // GIVEN
+        String bookId = randomUUID().toString();
+        Books book = new Books("imageLink","description","author", "title",
+                "infoLink",false,bookId);
+        ArgumentCaptor<BookRecord> bookRecordCaptor = ArgumentCaptor.forClass(BookRecord.class);
+        bookService.addBook(book);
+
+        //WHEN - Add the book again
+        bookService.addBook(book);
+
+
+        // THEN - The book should already exist.
+        //TODO How to verify if a book already exists in bookRepository?
+
+    }
 
     /** ------------------------------------------------------------------------
      *  bookService.getAllBooks
@@ -126,13 +163,29 @@ public class BookServiceTest {
                 "infoLink2",
                 true,
                 randomUUID().toString());
+        BookRecord bookRecord1 = new BookRecord();
+        bookRecord1.setBookId(book1.getBookId());
+        bookRecord1.setImageLink(book1.getImageLink());
+        bookRecord1.setDescription(book1.getDescription());
+        bookRecord1.setAuthor(book1.getAuthor());
+        bookRecord1.setTitle(book1.getTitle());
 
-        Set<Books> booksSet = new HashSet<>();
-        booksSet.add(book1);
-        booksSet.add(book2);
+        BookRecord bookRecord2 = new BookRecord();
+        bookRecord2.setBookId(book2.getBookId());
+        bookRecord2.setImageLink(book2.getImageLink());
+        bookRecord2.setDescription(book2.getDescription());
+        bookRecord2.setAuthor(book2.getAuthor());
+        bookRecord2.setTitle(book2.getTitle());
+
+        List<BookRecord> bookRecordList = new ArrayList<>();
+        bookRecordList.add(bookRecord1);
+        bookRecordList.add(bookRecord2);
+
 
         //TODO Figure out why IntelliJ is being mean to me
-//        when(bookRepository.findAll()).thenReturn(booksSet);
+        //Answer to this is because bookRepository.findAll() returns a list of BookRecord.
+        // So, I created a list of bookRecords
+        when(bookRepository.findAll()).thenReturn(bookRecordList);
 
         // WHEN
         Set<Books> result = bookService.getAllBooks();
