@@ -45,7 +45,6 @@ class BookControllerTest {
     public void getById_Exists() throws Exception {
 
         String imageLink = "imageLink";
-        String category = "category";
         String description = "description";
         String author = "author";
         String title = "title";
@@ -53,7 +52,7 @@ class BookControllerTest {
         boolean finishedReading = true;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
 
         Books persistedBook = bookService.addBook(book);
 
@@ -62,8 +61,6 @@ class BookControllerTest {
                 // THEN
                 .andExpect(jsonPath("imageLink")
                         .value(is(imageLink)))
-                .andExpect(jsonPath("category")
-                        .value(is(category)))
                 .andExpect(jsonPath("description")
                         .value(is(description)))
                 .andExpect(jsonPath("author")
@@ -117,7 +114,6 @@ class BookControllerTest {
     public void getAllBooks() throws Exception {
         // GIVEN
         String imageLink = "imageLink";
-        String category = "category";
         String description = "description";
         String author = "author";
         String title = "title";
@@ -125,7 +121,7 @@ class BookControllerTest {
         boolean finishedReading = true;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
         bookService.addBook(book);
 
         // WHEN
@@ -141,7 +137,6 @@ class BookControllerTest {
     public void updateBook_PutSuccessful() throws Exception {
         // GIVEN
         String imageLink = "imageLink";
-        String category = "category";
         String description = "description";
         String author = "author";
         String title = "title";
@@ -149,14 +144,13 @@ class BookControllerTest {
         boolean finishedReading = false;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
         bookService.addBook(book);
 
         boolean completed = true;
 
         BookCreateRequest bookCreateRequest = new BookCreateRequest();
         bookCreateRequest.setImageLinks(imageLink);
-        bookCreateRequest.setCategories(category);
         bookCreateRequest.setDescription(description);
         bookCreateRequest.setAuthors(author);
         bookCreateRequest.setTitle(title);
@@ -177,10 +171,9 @@ class BookControllerTest {
     }
 
     @Test
-    public void deleteClothing_DeleteSuccessful() throws Exception {
+    public void deleteBook_DeleteSuccessful() throws Exception {
         // GIVEN
         String imageLink = "imageLink";
-        String category = "category";
         String description = "description";
         String author = "author";
         String title = "title";
@@ -188,7 +181,7 @@ class BookControllerTest {
         boolean finishedReading = false;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
         Books persistedBook = bookService.addBook(book);
 
         // WHEN

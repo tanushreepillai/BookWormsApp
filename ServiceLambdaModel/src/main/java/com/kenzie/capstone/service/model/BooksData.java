@@ -6,7 +6,6 @@ import java.util.List;
 
 public class BooksData {
     private final String imageLink;
-    private String category;
     private final String description;
     private final String author;
     private final String title;
@@ -20,7 +19,6 @@ public class BooksData {
                      String title,
                      String infoLink,
                      String bookId,
-                     String category,
                      boolean finishedReading) {
         this.imageLink = imageLink;
         this.description = description;
@@ -28,16 +26,11 @@ public class BooksData {
         this.title = title;
         this.infoLink = infoLink;
         this.bookId = bookId;
-        this.category = category;
         this.finishedReading = finishedReading;
     }
 
     public String getImageLink() {
         return imageLink;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public String getDescription() {

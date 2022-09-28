@@ -49,7 +49,6 @@ public class BookServiceTest {
                 "title",
                 "infoLink",
                 id,
-                "category",
                 true);
 
         // WHEN
@@ -65,7 +64,6 @@ public class BookServiceTest {
         Assertions.assertEquals(booksData.getTitle(), book.getTitle(), "The title matches");
         Assertions.assertEquals(booksData.getInfoLink(), book.getInfoLink(), "The infoLink matches");
         Assertions.assertEquals(booksData.getBookId(), book.getBookId(), "The id matches");
-        Assertions.assertEquals(booksData.getCategory(), book.getCategory(), "The category matches");
         Assertions.assertEquals(booksData.finishedReading(), book.finishedReading(), "Boolean value matches");
     }
 
@@ -113,7 +111,6 @@ public class BookServiceTest {
         // Given
         Books book1 = new Books(
                 "imageLink",
-                "category",
                 "description",
                 "author",
                 "title",
@@ -123,7 +120,6 @@ public class BookServiceTest {
 
         Books book2 = new Books(
                 "imageLink2",
-                "category2",
                 "description2",
                 "author2",
                 "title2",
@@ -146,7 +142,6 @@ public class BookServiceTest {
             if (Objects.equals(book.getBookId(), book1.getBookId())) {
                 Assertions.assertEquals(book1.finishedReading(), book.finishedReading(), "The boolean values match");
                 Assertions.assertEquals(book1.getAuthor(), book.getAuthor(), "The authors match");
-                Assertions.assertEquals(book1.getCategory(), book.getCategory(), "The category matches");
                 Assertions.assertEquals(book1.getDescription(), book.getDescription(), "The description matches");
                 Assertions.assertEquals(book1.getTitle(), book.getTitle(), "The title matches");
                 Assertions.assertEquals(book1.getImageLink(), book.getImageLink(), "The image link matches");
@@ -154,7 +149,6 @@ public class BookServiceTest {
             } else if (Objects.equals(book.getBookId(), book2.getBookId())) {
                 Assertions.assertEquals(book2.finishedReading(), book.finishedReading(), "The boolean values match");
                 Assertions.assertEquals(book2.getAuthor(), book.getAuthor(), "The authors match");
-                Assertions.assertEquals(book2.getCategory(), book.getCategory(), "The category matches");
                 Assertions.assertEquals(book2.getDescription(), book.getDescription(), "The description matches");
                 Assertions.assertEquals(book2.getTitle(), book.getTitle(), "The title matches");
                 Assertions.assertEquals(book2.getImageLink(), book.getImageLink(), "The image link matches");
@@ -183,7 +177,6 @@ public class BookServiceTest {
         // GIVEN
         Books book = new Books(
                 "imageLink",
-                "category",
                 "description",
                 "author",
                 "title",
@@ -204,7 +197,6 @@ public class BookServiceTest {
         Assertions.assertNotNull(record, "The concert record is returned");
         Assertions.assertEquals(record.finishedReading(), book.finishedReading(), "The boolean values match");
         Assertions.assertEquals(record.getAuthor(), book.getAuthor(), "The authors match");
-        Assertions.assertEquals(record.getCategory(), book.getCategory(), "The category matches");
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
         Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image link matches");
@@ -219,7 +211,6 @@ public class BookServiceTest {
     void deleteBook() {
         Books book = new Books(
                 "imageLink",
-                "category",
                 "description",
                 "author",
                 "title",

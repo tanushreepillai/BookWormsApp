@@ -13,7 +13,6 @@ public class BookRecord {
 
 
     private String imageLink;
-    private String category;
     private String description;
     private String author;
     private String title;
@@ -33,15 +32,6 @@ public class BookRecord {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
-    }
-
-    @DynamoDBAttribute(attributeName = "categories")
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategories(String category) {
-        this.category = category;
     }
 
     @DynamoDBAttribute(attributeName = "description")
@@ -98,11 +88,11 @@ public class BookRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookRecord that = (BookRecord) o;
-        return finishedReading == that.finishedReading && Objects.equals(imageLink, that.imageLink) && Objects.equals(category, that.category) && Objects.equals(description, that.description) && Objects.equals(author, that.author) && Objects.equals(title, that.title) && Objects.equals(infoLink, that.infoLink) && Objects.equals(bookId, that.bookId);
+        return finishedReading == that.finishedReading && Objects.equals(imageLink, that.imageLink) && Objects.equals(description, that.description) && Objects.equals(author, that.author) && Objects.equals(title, that.title) && Objects.equals(infoLink, that.infoLink) && Objects.equals(bookId, that.bookId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(imageLink, category, description, author, title, infoLink, finishedReading, bookId);
+        return Objects.hash(imageLink, description, author, title, infoLink, finishedReading, bookId);
     }
 }

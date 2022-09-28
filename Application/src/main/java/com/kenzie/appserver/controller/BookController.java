@@ -36,8 +36,8 @@ public class BookController {
 
     @PostMapping("/add")
     public ResponseEntity<BookResponse> addNewBook(@RequestBody BookCreateRequest bookCreateRequest) {
+        System.out.println("inside books/add");
         Books book = new Books(bookCreateRequest.getImageLink(),
-                bookCreateRequest.getCategory(),
                 bookCreateRequest.getDescription(),
                 bookCreateRequest.getAuthor(),
                 bookCreateRequest.getTitle(),
@@ -65,7 +65,6 @@ public class BookController {
     @PutMapping
     public ResponseEntity<BookResponse> updateBook(@RequestBody BookCreateRequest bookUpdateRequest) {
         Books book = new Books(bookUpdateRequest.getImageLink(),
-                bookUpdateRequest.getCategory(),
                 bookUpdateRequest.getDescription(),
                 bookUpdateRequest.getAuthor(),
                 bookUpdateRequest.getTitle(),
@@ -88,7 +87,6 @@ public class BookController {
         BookResponse bookResponse = new BookResponse();
         bookResponse.setBookId(book.getBookId());
         bookResponse.setAuthors(book.getAuthor());
-        bookResponse.setCategories(book.getCategory());
         bookResponse.finishedReading(book.finishedReading());
         bookResponse.setDescription(book.getDescription());
         bookResponse.setImageLink(book.getImageLink());

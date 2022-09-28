@@ -10,9 +10,6 @@ public class BookCreateRequest {
     @JsonProperty("imageLink")
     private String imageLink;
     @NotEmpty
-    @JsonProperty("category") // on frontend we'll use "genres" as display
-    private String category;
-    @NotEmpty
     @JsonProperty("description")
     private String description;
     @NotEmpty
@@ -35,10 +32,6 @@ public class BookCreateRequest {
 
     public String getImageLink() {
         return imageLink;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public String getDescription() {
@@ -67,10 +60,6 @@ public class BookCreateRequest {
 
     public void setImageLinks(String imageLink) {
         this.imageLink = imageLink;
-    }
-
-    public void setCategories(String category) {
-        this.category = category;
     }
 
     public void setDescription(String description) {
