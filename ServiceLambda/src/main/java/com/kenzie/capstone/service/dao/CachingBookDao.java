@@ -1,5 +1,6 @@
-package com.kenzie.capstone.service;
+package com.kenzie.capstone.service.dao;
 
+import com.kenzie.capstone.service.CacheClient;
 import com.kenzie.capstone.service.dao.BooksDao;
 import com.kenzie.capstone.service.model.BooksData;
 import com.kenzie.capstone.service.model.BooksRecord;

@@ -1,11 +1,6 @@
 package com.kenzie.capstone.service;
 
 import com.kenzie.capstone.service.dao.BooksDao;
-import com.kenzie.capstone.service.model.BooksData;
-import com.kenzie.capstone.service.model.BooksRecord;
-import com.kenzie.capstone.service.model.ExampleData;
-import com.kenzie.capstone.service.dao.ExampleDao;
-import com.kenzie.capstone.service.model.ExampleRecord;
 
 import javax.inject.Inject;
 
@@ -14,17 +9,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class LambdaService {
 
-    private final CachingBooksDao cachingBooksDao;
+    private final BooksDao booksDao;
 
     @Inject
-    public LambdaService(CachingBooksDao cachingBooksDao) {
-        this.cachingBooksDao = cachingBooksDao;
+    public LambdaService(BooksDao booksDao) {
+        this.booksDao = booksDao;
     }
 
     public HttpResponse<String> getBookData(String id) throws IOException, InterruptedException {

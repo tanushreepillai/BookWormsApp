@@ -1,4 +1,4 @@
-package com.kenzie.capstone.service;
+package com.kenzie.capstone.service.dao;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
