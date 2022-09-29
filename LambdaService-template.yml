@@ -28,7 +28,7 @@ Resources:
         UpdateResource:
           Type: Api
           Properties:
-            Path: /book/{id}
+            Path: /books/{id}
             Method: get
   SetExampleDataFunction:
     Type: AWS::Serverless::Function
