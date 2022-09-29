@@ -26,7 +26,8 @@
     line-height: 40px;
     height: 100px;
     text-decoration: none;
-    color: var(--secondary-color);
+    color: #FBF2CF;
+    font-weight: bold;
 }
 
 .header_nav_link {
@@ -49,6 +50,11 @@
     cursor: pointer;
 }
 
+#saved-book-label {
+    background-color: #FBF2CF;
+    color: #222222;
+}
+
 .button:hover, button:hover {
     background: #9cc3e4;
 }
@@ -69,6 +75,7 @@
 
 .card-content {
     max-width: 500px;
+
 }
 
 .card-content .form-field {
