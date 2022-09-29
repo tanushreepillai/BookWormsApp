@@ -45,8 +45,6 @@ public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent,
                     .withBody("Id is invalid");
         }
 
-        id = "PKV6swEACAAJ";
-
         try {
             HttpResponse<String> bookData = lambdaService.getBookData(id);
             String output = gson.toJson(bookData);
