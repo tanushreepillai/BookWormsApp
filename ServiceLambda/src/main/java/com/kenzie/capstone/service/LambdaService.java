@@ -28,12 +28,12 @@ public class LambdaService {
     }
 
     public HttpResponse<String> getBookData(String id) throws IOException, InterruptedException {
-//        List<BooksRecord> books = cachingBooksDao.getBooksData(id);
-//            if (books.size() > 0) {
-//                BooksRecord booksRecord = books.get(0);
-//                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
-//                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.getCategory(), booksRecord.isCompleted());
-//        }
+       /* List<BooksRecord> books = cachingBooksDao.getBooksData(id);
+            if (books.size() > 0) {
+                BooksRecord booksRecord = books.get(0);
+                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
+                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.isCompleted());
+        }*/
 
         HttpClient client = HttpClient.newHttpClient();
         String URLString = "https://www.googleapis.com/books/v1/volumes?q=" +
