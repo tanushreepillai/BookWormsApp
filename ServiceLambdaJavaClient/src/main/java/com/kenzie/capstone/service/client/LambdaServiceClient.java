@@ -1,7 +1,7 @@
 package com.kenzie.capstone.service.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kenzie.capstone.service.CachingBooksDao;
+import com.kenzie.capstone.service.dao.CachingBooksDao;
 import com.kenzie.capstone.service.model.BooksData;
 
 

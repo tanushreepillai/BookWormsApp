@@ -1,10 +1,8 @@
 package com.kenzie.capstone.service.dependency;
 
 
-import com.kenzie.capstone.service.CachingBooksDao;
+import com.kenzie.capstone.service.dao.CachingBooksDao;
 import com.kenzie.capstone.service.dao.BooksDao;
-import com.kenzie.capstone.service.dao.ExampleDao;
-import com.kenzie.capstone.service.model.BooksData;
 import com.kenzie.capstone.service.util.DynamoDbClientProvider;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -14,7 +12,6 @@ import dagger.Provides;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.awt.print.Book;
 
 /**
  * Provides DynamoDBMapper instance to DAO classes.

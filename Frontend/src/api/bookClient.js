@@ -41,7 +41,7 @@ import axios from 'axios'
             const response = await this.client.get(`/books/${key}`);
             return response.data;
         } catch (error) {
-            this.handleError("getConcert", error, errorCallback)
+            this.handleError("getBook", error, errorCallback)
         }
     }
 
@@ -51,9 +51,11 @@ import axios from 'axios'
             const response = await this.client.get(`/books/all`);
             return response.data;
         } catch (error) {
-            this.handleError("getConcert", error, errorCallback)
+            this.handleError("getAllBooks", error, errorCallback)
         }
     }
+
+
 
     async saveBook(book, errorCallback) {
         console.log("inside client: ");
@@ -84,7 +86,7 @@ import axios from 'axios'
             });
             return response.data;
         } catch (error) {
-            this.handleError("createExample", error, errorCallback);
+            this.handleError("updateBook", error, errorCallback);
         }
     }
 
@@ -95,7 +97,7 @@ import axios from 'axios'
             });
             return response.data;
         } catch (error) {
-            this.handleError("createExample", error, errorCallback);
+            this.handleError("deleteBook", error, errorCallback);
         }
     }
 
