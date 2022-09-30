@@ -41,7 +41,6 @@ public class BookController {
                 bookCreateRequest.getDescription(),
                 bookCreateRequest.getAuthor(),
                 bookCreateRequest.getTitle(),
-                bookCreateRequest.getInfoLink(),
                 bookCreateRequest.finishedReading(),
                 bookCreateRequest.getBookId());
         bookService.addBook(book);
@@ -68,7 +67,6 @@ public class BookController {
                 bookUpdateRequest.getDescription(),
                 bookUpdateRequest.getAuthor(),
                 bookUpdateRequest.getTitle(),
-                bookUpdateRequest.getInfoLink(),
                 bookUpdateRequest.finishedReading(),
                 bookUpdateRequest.getBookId());
 
@@ -90,7 +88,6 @@ public class BookController {
         bookResponse.finishedReading(book.finishedReading());
         bookResponse.setDescription(book.getDescription());
         bookResponse.setImageLink(book.getImageLink());
-        bookResponse.setInfoLink(book.getInfoLink());
 
         return bookResponse;
     }

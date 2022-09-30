@@ -52,7 +52,7 @@ class BookControllerTest {
         boolean finishedReading = true;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, finishedReading, bookId);
 
         Books persistedBook = bookService.addBook(book);
 
@@ -121,7 +121,7 @@ class BookControllerTest {
         boolean finishedReading = true;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, finishedReading, bookId);
         bookService.addBook(book);
 
         // WHEN
@@ -144,7 +144,7 @@ class BookControllerTest {
         boolean finishedReading = false;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, finishedReading, bookId);
         bookService.addBook(book);
 
         boolean completed = true;
@@ -154,7 +154,6 @@ class BookControllerTest {
         bookCreateRequest.setDescription(description);
         bookCreateRequest.setAuthors(author);
         bookCreateRequest.setTitle(title);
-        bookCreateRequest.setInfoLink(infoLink);
         bookCreateRequest.finishedReading(completed);
 
         mapper.registerModule(new JavaTimeModule());
@@ -181,7 +180,7 @@ class BookControllerTest {
         boolean finishedReading = false;
         String bookId = randomUUID().toString();
 
-        Books book = new Books(imageLink, description, author, title, infoLink, finishedReading, bookId);
+        Books book = new Books(imageLink, description, author, title, finishedReading, bookId);
         Books persistedBook = bookService.addBook(book);
 
         // WHEN

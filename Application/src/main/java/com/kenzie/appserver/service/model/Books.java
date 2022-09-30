@@ -12,18 +12,15 @@ public class Books {
 
         private String title;
 
-        private String infoLink;
-
         private boolean isCompleted;
 
         private String bookId;
 
-        public Books(String imageLinks, String description, List<String> authors, String title, String infoLink, boolean isCompleted, String bookId) {
+        public Books(String imageLinks, String description, List<String> authors, String title, boolean isCompleted, String bookId) {
             this.imageLinks = imageLinks;
             this.description = description;
             this.authors = authors;
             this.title = title;
-            this.infoLink = infoLink;
             this.isCompleted = isCompleted;
             this.bookId = bookId;
         }
@@ -42,10 +39,6 @@ public class Books {
 
         public String getTitle() {
             return title;
-        }
-
-        public String getInfoLink() {
-            return infoLink;
         }
 
         public boolean isCompleted() {

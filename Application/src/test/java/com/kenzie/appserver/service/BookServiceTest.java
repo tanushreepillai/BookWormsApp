@@ -47,7 +47,6 @@ public class BookServiceTest {
                 "description",
                 "author",
                 "title",
-                "infoLink",
                 id,
                 true);
 
@@ -62,7 +61,6 @@ public class BookServiceTest {
         Assertions.assertEquals(booksData.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(booksData.getAuthor(), book.getAuthor(), "The author matches");
         Assertions.assertEquals(booksData.getTitle(), book.getTitle(), "The title matches");
-        Assertions.assertEquals(booksData.getInfoLink(), book.getInfoLink(), "The infoLink matches");
         Assertions.assertEquals(booksData.getBookId(), book.getBookId(), "The id matches");
         Assertions.assertEquals(booksData.finishedReading(), book.finishedReading(), "Boolean value matches");
     }
@@ -100,7 +98,7 @@ public class BookServiceTest {
         // GIVEN
         String bookId = randomUUID().toString();
         Books book = new Books("imageLink","description","author", "title",
-                "infoLink",false,bookId);
+                false,bookId);
         ArgumentCaptor<BookRecord> bookRecordCaptor = ArgumentCaptor.forClass(BookRecord.class);
 
         // WHEN
@@ -117,7 +115,6 @@ public class BookServiceTest {
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image matches");
-        Assertions.assertEquals(record.getInfoLink(), book.getInfoLink(), "The info link matches");
     }
 
     // TODO Negative Test Cases
@@ -126,7 +123,7 @@ public class BookServiceTest {
         // GIVEN
         String bookId = randomUUID().toString();
         Books book = new Books("imageLink","description","author", "title",
-                "infoLink",false,bookId);
+                false,bookId);
         ArgumentCaptor<BookRecord> bookRecordCaptor = ArgumentCaptor.forClass(BookRecord.class);
         bookService.addBook(book);
 
@@ -151,7 +148,6 @@ public class BookServiceTest {
                 "description",
                 "author",
                 "title",
-                "infoLink",
                 true,
                 randomUUID().toString());
 
@@ -160,7 +156,6 @@ public class BookServiceTest {
                 "description2",
                 "author2",
                 "title2",
-                "infoLink2",
                 true,
                 randomUUID().toString());
         BookRecord bookRecord1 = new BookRecord();
@@ -198,14 +193,12 @@ public class BookServiceTest {
                 Assertions.assertEquals(book1.getDescription(), book.getDescription(), "The description matches");
                 Assertions.assertEquals(book1.getTitle(), book.getTitle(), "The title matches");
                 Assertions.assertEquals(book1.getImageLink(), book.getImageLink(), "The image link matches");
-                Assertions.assertEquals(book1.getInfoLink(), book.getInfoLink(), "The info link matches");
             } else if (Objects.equals(book.getBookId(), book2.getBookId())) {
                 Assertions.assertEquals(book2.finishedReading(), book.finishedReading(), "The boolean values match");
                 Assertions.assertEquals(book2.getAuthor(), book.getAuthor(), "The authors match");
                 Assertions.assertEquals(book2.getDescription(), book.getDescription(), "The description matches");
                 Assertions.assertEquals(book2.getTitle(), book.getTitle(), "The title matches");
                 Assertions.assertEquals(book2.getImageLink(), book.getImageLink(), "The image link matches");
-                Assertions.assertEquals(book2.getInfoLink(), book.getInfoLink(), "The info link matches");
             } else {
                 Assertions.assertTrue(false, "book returned that was not in the records!");
             }
@@ -233,7 +226,6 @@ public class BookServiceTest {
                 "description",
                 "author",
                 "title",
-                "infoLink",
                 true,
                 randomUUID().toString());
 
@@ -253,7 +245,6 @@ public class BookServiceTest {
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
         Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image link matches");
-        Assertions.assertEquals(record.getInfoLink(), book.getInfoLink(), "The info link matches");
     }
     // TODO: Negative Test Cases??
 
@@ -267,7 +258,6 @@ public class BookServiceTest {
                 "description",
                 "author",
                 "title",
-                "infoLink",
                 true,
                 randomUUID().toString());
 
