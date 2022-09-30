@@ -25,13 +25,11 @@ class LambdaServiceTest {
      *  expenseService.getExpenseById
      *  ------------------------------------------------------------------------ **/
 
-    private BooksDao booksDao;
     private LambdaService lambdaService;
 
     @BeforeAll
     void setup() {
-        this.booksDao = mock(BooksDao.class);
-        this.lambdaService = new LambdaService(booksDao);
+        this.lambdaService = new LambdaService();
     }
 
     @Test

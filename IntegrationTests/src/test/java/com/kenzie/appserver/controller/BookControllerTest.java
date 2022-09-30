@@ -188,6 +188,6 @@ class BookControllerTest {
                         .accept(String.valueOf(MediaType.APPLICATION_JSON)))
                 // THEN
                 .andExpect(status().isNoContent());
-        Assertions.assertNull(bookService.findById(bookId));
+        Assertions.assertNull(bookService.findByGoogle(bookId));
     }
 }
