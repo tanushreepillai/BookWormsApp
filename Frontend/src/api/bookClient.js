@@ -57,16 +57,12 @@ import axios from 'axios'
 
 
 
-    async saveBook(book, errorCallback) {
+    async searchBooks(title, author, errorCallback) {
         console.log("inside client: ");
         try {
-            const response = await this.client.post(`/books/add`, {
-                title: book.title,
-                author: book.author,
-                description: book.description,
-                imageLink: book.imageLink,
-                infoLink: book.infoLink,
-                bookId: book.id
+            const response = await this.client.post(`/books/search`, {
+                title: title,
+                author: author
             });
             return response.data;
         } catch (error) {

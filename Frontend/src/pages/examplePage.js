@@ -18,7 +18,7 @@ class ExamplePage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('find').addEventListener('click', this.handleBookSearch);
+        document.getElementById('search').addEventListener('click', this.handleBookSearch);
         // document.getElementById('create-form').addEventListener('submit', this.onCreate);
         this.client = new BookClient();
         // await this.handleBookSearch();
@@ -29,57 +29,25 @@ class ExamplePage extends BaseClass {
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async handleBookSearch(event) {  // todo return top 10 results
+        event.preventDefault()
         let title = null;
         let author = null;
-        let query = null;
 
-        try {
-            title = document.getElementById('search-name-field').value;
-        } catch (err) {
-            console.log(err.message);
-        }
+        title = document.getElementById('search-name-field').value;
+        author = document.getElementById('search-author-field').value
 
-        try {
-            author = document.getElementById('search-author-field').value
-        } catch (err) {
-            console.log(err.message);
-        }
+        let searchedBooks = this.client.searchBooks(title, author);
 
-        if (!title && author) {
-            query = "+inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
-        } else if (title && !author) {
-            query = title +  "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
-        } else if (title && author) {
-            query = title + "+inauthor:" + author + "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
-        } else {
-            throw new Error("")
-        }
-
-
-        console.log("query: " + query);
-        event.preventDefault()
-        await API.searchBooks(query)
-            .then(res => {
-                if (res.data.status === "error") {
-                    throw new Error(res.data.message);
-                }
-
-                this.dataStore.set("books", res.data.items.map(item => item.volumeInfo));
-                this.dataStore.set("ids", res.data.items.map(item => item.id));
-            })
-            .catch(err => console.log(err.message));
-
-        await this.renderSearchResults(title);
+        await this.renderSearchResults(searchedBooks);
     }
 
-    async renderSearchResults(title) {
-        const booksArray = this.dataStore.get("books")
-        let resultTable = document.getElementById("all-posts-result");
+    async renderSearchResults(title, searchedBooks) {
+        let resultTable = document.getElementById("search-results");
 
-        if (booksArray) {
+        if (searchedBooks) {
             let myHtml="";
-            for(let i in booksArray) {
-                const book = booksArray[i];
+            for(let i in searchedBooks) {
+                const book = searchedBooks[i];
                 let imageLink = null
                 try {
                     imageLink = book.imageLinks.smallThumbnail
@@ -105,7 +73,7 @@ class ExamplePage extends BaseClass {
 
         }
         else {
-            resultTable.innerHTML = "<tr><td>No books found</td></tr>"
+            resultTable.innerHTML = "<tr><td>No books found. Please check your spelling.</td></tr>"
         }
 
         document.getElementById('save').addEventListener(
