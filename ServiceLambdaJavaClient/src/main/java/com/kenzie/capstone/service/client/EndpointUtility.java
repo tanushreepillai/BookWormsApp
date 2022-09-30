@@ -16,7 +16,7 @@ public class EndpointUtility {
     private String apiEndpoint;
 
     public EndpointUtility() {
-        this.apiEndpoint = getApiEndpint();
+        this.apiEndpoint = getApiEndpoint();
     }
 
     public static String getStackName() {
@@ -33,7 +33,7 @@ public class EndpointUtility {
         return deploymentName;
     }
 
-    public static String getApiEndpint() {
+    public static String getApiEndpoint() {
         String region = System.getenv("AWS_REGION");
         if (region == null) {
             region = "us-east-1";
@@ -61,7 +61,7 @@ public class EndpointUtility {
     }
 
     public String postEndpoint(String endpoint, String data) {
-        String api = getApiEndpint();
+        String api = getApiEndpoint();
         String url = api + endpoint;
 
         HttpClient client = HttpClient.newHttpClient();
@@ -86,7 +86,7 @@ public class EndpointUtility {
     }
 
     public String getEndpoint(String endpoint) {
-        String api = getApiEndpint();
+        String api = getApiEndpoint();
         String url = api + endpoint;
 
         HttpClient client = HttpClient.newHttpClient();
