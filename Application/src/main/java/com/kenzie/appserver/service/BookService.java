@@ -30,7 +30,7 @@ public class BookService {
         BooksData dataFromLambda = lambdaServiceClient.getBookData(id);
 
         return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
-        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.getInfoLink(),dataFromLambda.finishedReading(),
+        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
                 dataFromLambda.getBookId());
 
         // Example getting data from the local repository
@@ -69,7 +69,7 @@ public class BookService {
                 .findAll()
                 .forEach(book -> allBooks.add(new Books(book.getImageLink(),
                         book.getDescription(), book.getAuthor(),book.getTitle(),
-                        book.getInfoLink(),book.finishedReading(),book.getId())));
+                        book.finishedReading(),book.getId())));
 
         if (allBooks.isEmpty()) {
             throw new NullPointerException("Empty Set of books");
@@ -95,7 +95,6 @@ public class BookService {
             bookRecord.setAuthor(book.getAuthor());
             bookRecord.setDescription(book.getDescription());
             bookRecord.setImageLink(book.getImageLink());
-            bookRecord.setInfoLink(book.getInfoLink());
             bookRecord.setTitle(book.getTitle());
             bookRecord.finishedReading(true);
             bookRepository.save(bookRecord);

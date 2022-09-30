@@ -16,8 +16,6 @@ public class BookResponse {
     private String author;
     @JsonProperty("title")
     private String title;
-    @JsonProperty("infoLink")
-    private String infoLink;
     @JsonProperty("finishedReading")
     private boolean finishedReading;
     @JsonProperty("bookId")
@@ -37,10 +35,6 @@ public class BookResponse {
 
     public String getTitle() {
         return title;
-    }
-
-    public String getInfoLink() {
-        return infoLink;
     }
 
     public boolean finishedReading() {
@@ -65,10 +59,6 @@ public class BookResponse {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setInfoLink(String infoLink) {
-        this.infoLink = infoLink;
     }
 
     public void finishedReading(boolean completed) {

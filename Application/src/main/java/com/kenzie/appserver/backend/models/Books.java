@@ -15,19 +15,16 @@ public class Books {
     private String author;
     @JsonProperty("title")
     private String title;
-    @JsonProperty("infoLink")
-    private String infoLink;
     @JsonProperty("finishedReading")
     private boolean finishedReading;
     @JsonProperty("bookId")
     private String bookId;
 
-    public Books(String imageLink, String description, String author, String title, String infoLink, boolean finishedReading, String bookId) {
+    public Books(String imageLink, String description, String author, String title, boolean finishedReading, String bookId) {
         this.imageLink = imageLink;
         this.description = description;
         this.author = author;
         this.title = title;
-        this.infoLink = infoLink;
         this.finishedReading = finishedReading;
         this.bookId = bookId;
     }
@@ -46,10 +43,6 @@ public class Books {
 
     public String getTitle() {
         return title;
-    }
-
-    public String getInfoLink() {
-        return infoLink;
     }
 
     public boolean finishedReading() {
@@ -71,7 +64,6 @@ public class Books {
                 ", description='" + description + '\'' +
                 ", author=" + author +
                 ", title='" + title + '\'' +
-                ", infoLink='" + infoLink + '\'' +
                 ", finishedReading=" + finishedReading +
                 ", bookId='" + bookId + '\'' +
                 '}';

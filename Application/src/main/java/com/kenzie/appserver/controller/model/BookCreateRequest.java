@@ -20,8 +20,6 @@ public class BookCreateRequest {
     private String title;
 
     // TODO: Discuss if this needs to be @NotEmpty
-    @JsonProperty("infoLink")
-    private String infoLink;
     @NotEmpty
     @JsonProperty("finishedReading")
     private boolean finishedReading;
@@ -46,10 +44,6 @@ public class BookCreateRequest {
         return title;
     }
 
-    public String getInfoLink() {
-        return infoLink;
-    }
-
     public boolean finishedReading() {
         return finishedReading;
     }
@@ -72,10 +66,6 @@ public class BookCreateRequest {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setInfoLink(String infoLink) {
-        this.infoLink = infoLink;
     }
 
     public void finishedReading(boolean completed) {
