@@ -1,4 +1,4 @@
-package com.kenzie.capstone.service.util;
+package com.kenzie.appserver.utilities;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Regions;

@@ -26,7 +26,8 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<BookResponse> getBook(@PathVariable("id") String id) {
 
-        Books book = bookService.findById(id);
+        // TODO How to map title & author?
+        Books book = bookService.findByDynamoDB(id);
         if (book == null) {
             return ResponseEntity.notFound().build();
         }
@@ -75,7 +76,7 @@ public class BookController {
 
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<BookResponse> deleteBook(@PathVariable String id) {
-        Books book = bookService.findById(id);
+        Books book = bookService.findByDynamoDB(id);
         bookService.deleteBook(id);
 
         return ResponseEntity.ok().body(bookToBookResponse(book));

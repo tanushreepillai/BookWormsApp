@@ -1,7 +1,5 @@
 package com.kenzie.capstone.service;
 
-import com.kenzie.capstone.service.dao.BooksDao;
-
 import javax.inject.Inject;
 
 import java.io.IOException;
@@ -12,14 +10,16 @@ import java.net.http.HttpResponse;
 
 public class LambdaService {
 
-    private final BooksDao booksDao;
+//    private final BooksDao booksDao;
 
     @Inject
-    public LambdaService(BooksDao booksDao) {
-        this.booksDao = booksDao;
-    }
+    public LambdaService() {}
 
-    public HttpResponse<String> getBookData(String id) throws IOException, InterruptedException {
+//    public LambdaService(BooksDao booksDao) {
+//        this.booksDao = booksDao;
+//    }
+
+    public HttpResponse<String> getBookData(String url) throws IOException, InterruptedException {
        /* List<BooksRecord> books = cachingBooksDao.getBooksData(id);
             if (books.size() > 0) {
                 BooksRecord booksRecord = books.get(0);
@@ -28,9 +28,7 @@ public class LambdaService {
         }*/
 
         HttpClient client = HttpClient.newHttpClient();
-        String URLString = "https://www.googleapis.com/books/v1/volumes?q=" +
-                id +  "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
-        URI uri = URI.create(URLString);
+        URI uri = URI.create(url);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)

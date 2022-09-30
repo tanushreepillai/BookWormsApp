@@ -1,11 +1,11 @@
 package com.kenzie.appserver.service;
 
+import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BookRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
 import com.kenzie.capstone.service.model.BooksData;
-import com.kenzie.capstone.service.model.ExampleData;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -15,31 +15,36 @@ import java.util.Set;
 public class BookService {
     private BookRepository bookRepository;
     private LambdaServiceClient lambdaServiceClient;
+    private CachingBooksDao cachingBooksDao;
 
-    public BookService(BookRepository bookRepository, LambdaServiceClient lambdaServiceClient) {
+    public BookService(BookRepository bookRepository, LambdaServiceClient lambdaServiceClient, CachingBooksDao cachingBooksDao) {
         this.bookRepository = bookRepository;
         this.lambdaServiceClient = lambdaServiceClient;
+        this.cachingBooksDao = cachingBooksDao;
     }
 
-    public Books findById(String id) {
+    public Books findByGoogle(String url) {
 
-        if (id == null || id.isEmpty()) {
+        if (url == null || url.isEmpty()) {
             throw new NullPointerException("Invalid/Empty Id");
         }
+
         // Getting data from the lambda
-        BooksData dataFromLambda = lambdaServiceClient.getBookData(id);
+        BooksData dataFromLambda = lambdaServiceClient.getBookData(url);
 
         return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
         dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
                 dataFromLambda.getBookId());
+    }
 
-        // Example getting data from the local repository
-        /*Books dataFromDynamo = bookRepository
+    public Books findByDynamoDB(String title, String author) {
+        // Getting data from the local repository
+        String id = title + author.charAt(0);
+        cachingBooksDao.getBook(id);
+        return bookRepository
                 .findById(id)
-                .map(book -> new Books(book.getImageLinks(),book.getCategories(),book.getDescription(),book.getAuthors(),
-                        book.getTitle(),book.getInfoLink(),book.isCompleted())
-                .orElse(null);*/
-        //return dataFromDynamo;
+                .map(book -> new Books(book.getImageLink(), book.getDescription(), book.getAuthor(), book.getTitle(),book.finishedReading(), book.getId()))
+                .orElse(null);
     }
 
     public Books addBook(Books book) {
