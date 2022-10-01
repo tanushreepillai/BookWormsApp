@@ -30,13 +30,19 @@ class ExamplePage extends BaseClass {
 
     async handleBookSearch(event) {  // todo return top 10 results
         event.preventDefault()
-        let title = null;
-        let author = null;
+        let title = document.getElementById('search-name-field').value;
+        let author = document.getElementById('search-author-field').value
 
-        title = document.getElementById('search-name-field').value;
-        author = document.getElementById('search-author-field').value
+        if (author !== null)  {
+            author = "+inauthor:" + author;
+        }
 
-        let searchedBooks = this.client.searchBooks(title, author);
+        const url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +
+            "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+
+        console.log("url: " + url);
+
+        let searchedBooks = this.client.searchBooks(url);
 
         await this.renderSearchResults(searchedBooks);
     }
