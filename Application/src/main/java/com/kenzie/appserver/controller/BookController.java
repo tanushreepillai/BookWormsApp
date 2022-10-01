@@ -26,7 +26,6 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<BookResponse> getBook(@PathVariable("id") String id) {
 
-        // TODO How to map title & author?
         Books book = bookService.findByDynamoDB(id);
         if (book == null) {
             return ResponseEntity.notFound().build();
@@ -38,12 +37,17 @@ public class BookController {
     @PostMapping("/add")
     public ResponseEntity<BookResponse> addNewBook(@RequestBody BookCreateRequest bookCreateRequest) {
         System.out.println("inside books/add");
+        String title = bookCreateRequest.getTitle();
+        String author = bookCreateRequest.getAuthor();
+        // Id is set to be the name of the Title + the first letter of the Author
+        String id = title + author.charAt(0);
+
         Books book = new Books(bookCreateRequest.getImageLink(),
                 bookCreateRequest.getDescription(),
                 bookCreateRequest.getAuthor(),
                 bookCreateRequest.getTitle(),
                 bookCreateRequest.finishedReading(),
-                bookCreateRequest.getBookId());
+                id);
         bookService.addBook(book);
 
         BookResponse response = bookToBookResponse(book);
