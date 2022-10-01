@@ -37,14 +37,9 @@ public class BookService {
                 dataFromLambda.getBookId());
     }
 
-    public Books findByDynamoDB(String title, String author) {
+    public Books findByDynamoDB(String id) {
         // Getting data from the local repository
-        String id = title + author.charAt(0);
-        cachingBooksDao.getBook(id);
-        return bookRepository
-                .findById(id)
-                .map(book -> new Books(book.getImageLink(), book.getDescription(), book.getAuthor(), book.getTitle(),book.finishedReading(), book.getId()))
-                .orElse(null);
+        return cachingBooksDao.getBook(id);
     }
 
     public Books addBook(Books book) {
