@@ -174,3 +174,10 @@
     display: table-cell;
     background-color: #FBF2CF; /*Optional*/
 }
+
+.savedBooksDeleteButton {
+  display: flex;
+  background-color: #ffffff; /*Optional*/
+  margin-left: auto;
+  margin-right: 10px;
+}
