@@ -59,13 +59,6 @@
     background: #9cc3e4;
 }
 
-.card {
-    color: var(--primary-color);
-    background-color: var(--secondary-color);
-    margin: 20px;
-    padding: 10px 20px;
-}
-
 .validated-field:invalid {
     outline: 2px solid var(--error-color);
 }
@@ -155,4 +148,38 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.card {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.largeDiv {
+  border-radius: 25px;
+  border: 2px solid #FBF2CF;
+  padding: 20px;
+}
+
+.Row {
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+.Column {
+    display: table-cell;
+    background-color: #FBF2CF; /*Optional*/
+    text-align: center;
+
+}
+
+.savedBooksDeleteButton {
+  display: flex;
+  background-color: #ffffff; /*Optional*/
+  margin-left: auto;
+  margin-right: 10px;
 }
