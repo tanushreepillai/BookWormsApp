@@ -1,5 +1,7 @@
 package com.kenzie.capstone.service;
 
+import com.kenzie.capstone.service.dao.LambdaBooksDao;
+
 import javax.inject.Inject;
 
 import java.io.IOException;
@@ -10,22 +12,23 @@ import java.net.http.HttpResponse;
 
 public class LambdaService {
 
-//    private final BooksDao booksDao;
+    private final LambdaBooksDao lambdaBooksDao;
+
+
+//    public LambdaService() {}
 
     @Inject
-    public LambdaService() {}
-
-//    public LambdaService(BooksDao booksDao) {
-//        this.booksDao = booksDao;
-//    }
+    public LambdaService(LambdaBooksDao lambdaBooksDao) {
+        this.lambdaBooksDao = lambdaBooksDao;
+    }
 
     public HttpResponse<String> getBookData(String url) throws IOException, InterruptedException {
-       /* List<BooksRecord> books = cachingBooksDao.getBooksData(id);
-            if (books.size() > 0) {
-                BooksRecord booksRecord = books.get(0);
-                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
-                    booksRecord.getTitle(),booksRecord.getInfoLink(),booksRecord.getBookId(), booksRecord.isCompleted());
-        }*/
+//       List<BooksRecord> books = BooksDao.getBookData(url);
+//            if (books.size() > 0) {
+//                BooksRecord booksRecord = books.get(0);
+//                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
+//                    booksRecord.getTitle(),booksRecord.getBookId(), booksRecord.isCompleted());
+//        }
 
         HttpClient client = HttpClient.newHttpClient();
         URI uri = URI.create(url);

@@ -17,7 +17,9 @@ public class BookService {
     private LambdaServiceClient lambdaServiceClient;
     private CachingBooksDao cachingBooksDao;
 
-    public BookService(BookRepository bookRepository, LambdaServiceClient lambdaServiceClient, CachingBooksDao cachingBooksDao) {
+    public BookService(BookRepository bookRepository,
+                       LambdaServiceClient lambdaServiceClient,
+                       CachingBooksDao cachingBooksDao) {
         this.bookRepository = bookRepository;
         this.lambdaServiceClient = lambdaServiceClient;
         this.cachingBooksDao = cachingBooksDao;
@@ -26,7 +28,7 @@ public class BookService {
     public Books findByGoogle(String url) {
 
         if (url == null || url.isEmpty()) {
-            throw new NullPointerException("Invalid/Empty Id");
+            throw new NullPointerException("Cannot find book in Google API");
         }
 
         // Getting data from the lambda
