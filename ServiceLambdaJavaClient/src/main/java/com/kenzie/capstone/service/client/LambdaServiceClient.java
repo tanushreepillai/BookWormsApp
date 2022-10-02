@@ -7,7 +7,7 @@ import com.kenzie.capstone.service.model.BooksData;
 public class LambdaServiceClient {
 
     private static final String GET_BOOK_ENDPOINT = "books/{url}";
-    private static final String SET_BOOK_ENDPOINT = "books";
+//    private static final String SET_BOOK_ENDPOINT = "books";
 
     private ObjectMapper mapper;
 

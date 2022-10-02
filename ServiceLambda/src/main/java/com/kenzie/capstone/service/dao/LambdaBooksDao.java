@@ -1,26 +1,28 @@
-//package com.kenzie.capstone.service.dao;
-//
-//import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-//import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-//import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
-//import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
-//import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
-//import com.google.common.collect.ImmutableMap;
-//import com.kenzie.capstone.service.model.BooksData;
-//import com.kenzie.capstone.service.model.BooksRecord;
-//import com.kenzie.capstone.service.model.ExampleRecord;
-//
-//import javax.inject.Inject;
-//import java.util.List;
-//
-//public class BooksDao {
+package com.kenzie.capstone.service.dao;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
+import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
+import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
+import com.google.common.collect.ImmutableMap;
+import com.kenzie.capstone.service.model.BooksData;
+import com.kenzie.capstone.service.model.BooksRecord;
+import com.kenzie.capstone.service.model.ExampleRecord;
+
+import javax.inject.Inject;
+import java.util.List;
+
+public class LambdaBooksDao {
 //    private DynamoDBMapper mapper;
-//
+
+    @Inject
+    public LambdaBooksDao() {}
 //    @Inject
 //    public BooksDao(DynamoDBMapper mapper) {
 //        this.mapper = mapper;
 //    }
-//
+
 //    public BooksData storeBooksData(BooksData booksData) {
 //        try {
 //            mapper.save(booksData, new DynamoDBSaveExpression()
@@ -35,18 +37,12 @@
 //        return booksData;
 //
 //    }
-//
-//    public List<BooksRecord> getBooksData(String id) {
-//        BooksRecord booksRecord = new BooksRecord();
-//        booksRecord.setBookId(id);
-//
-//        DynamoDBQueryExpression<BooksRecord> queryExpression = new DynamoDBQueryExpression<BooksRecord>()
-//                .withHashKeyValues(booksRecord)
-//                .withConsistentRead(false);
-//
-//        return mapper.query(BooksRecord.class, queryExpression);
-//    }
-//
+
+    // TODO Figure out how to map
+    public BooksRecord getBookData(String id) {
+        return null;
+    }
+
 //    public BooksRecord setBooksData(String id, String data) {
 //        BooksRecord booksRecord = new BooksRecord();
 //        booksRecord.setBookId(id);
@@ -62,5 +58,5 @@
 //
 //        return booksRecord;
 //    }
-//
-//}
+
+}

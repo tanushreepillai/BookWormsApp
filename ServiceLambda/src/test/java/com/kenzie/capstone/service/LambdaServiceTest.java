@@ -1,21 +1,14 @@
 package com.kenzie.capstone.service;
 
-import com.kenzie.capstone.service.dao.ExampleDao;
-import com.kenzie.capstone.service.model.ExampleData;
-import com.kenzie.capstone.service.model.ExampleRecord;
+import com.kenzie.capstone.service.dao.LambdaBooksDao;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.mockito.ArgumentCaptor;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class LambdaServiceTest {
@@ -25,10 +18,11 @@ class LambdaServiceTest {
      *  ------------------------------------------------------------------------ **/
 
     private LambdaService lambdaService;
+    private LambdaBooksDao lambdaBooksDao;
 
     @BeforeAll
     void setup() {
-        this.lambdaService = new LambdaService();
+        this.lambdaService = new LambdaService(lambdaBooksDao);
     }
 
     @Test

@@ -10,7 +10,7 @@ import javax.inject.Singleton;
  * Declares the dependency roots that Dagger will provide.
  */
 @Singleton
-@Component(modules = {ServiceModule.class})
+@Component(modules = {DaoModule.class, ServiceModule.class})
 public interface ServiceComponent {
     LambdaService provideLambdaService();
 }
