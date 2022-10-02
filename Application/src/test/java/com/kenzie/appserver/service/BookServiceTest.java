@@ -84,7 +84,7 @@ public class BookServiceTest {
         // GIVEN
         String id = "";
 
-        when(lambdaServiceClient.getBookData(id)).thenReturn(any());
+        when(lambdaServiceClient.getBookData(id)).thenReturn(null);
 
         // THEN
         Assertions.assertThrows(NullPointerException.class, () -> bookService.findByGoogle(id));
