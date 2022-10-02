@@ -173,6 +173,8 @@
 .Column {
     display: table-cell;
     background-color: #FBF2CF; /*Optional*/
+    text-align: center;
+
 }
 
 .savedBooksDeleteButton {
