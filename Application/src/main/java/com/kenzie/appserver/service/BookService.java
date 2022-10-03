@@ -1,7 +1,7 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.backend.models.Books;
+import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BookRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
@@ -13,9 +13,9 @@ import java.util.Set;
 
 @Service
 public class BookService {
-    private BookRepository bookRepository;
-    private LambdaServiceClient lambdaServiceClient;
-    private CachingBooksDao cachingBooksDao;
+    private final BookRepository bookRepository;
+    private final LambdaServiceClient lambdaServiceClient;
+    private final CachingBooksDao cachingBooksDao;
 
     public BookService(BookRepository bookRepository,
                        LambdaServiceClient lambdaServiceClient,
@@ -40,9 +40,27 @@ public class BookService {
     }
 
     public Books findByDynamoDB(String id) {
-        return cachingBooksDao.getBook(id);
-    }
+        Books cachedBook = cachingBooksDao.getBook(id);
+        if (cachedBook != null) {
+            return cachedBook;
+        }
+        Books bookFromDynamoDB = bookRepository
+                .findById(id)
+                .map(book -> new Books(book.getImageLink(),
+                        book.getDescription(),
+                        book.getAuthor(),
+                        book.getTitle(),
+                        book.finishedReading(),
+                        book.getId()))
+                .orElse(null);
 
+        if (bookFromDynamoDB != null) {
+            //We need to have an add method in cachingDao to add the book once it is retrieved from DynamoDB.
+            //cachingBooksDao.add(bookFromDynamoDB.getBookId(), bookFromDynamoDB);
+        }
+        return bookFromDynamoDB;
+
+    }
     public Books addBook(Books book) {
 
         BookRecord bookRecord = new BookRecord();
