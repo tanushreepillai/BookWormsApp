@@ -4,6 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.kenzie.appserver.backend.models.Books;
+import com.kenzie.appserver.dao.BooksDao;
 
 public class CachingBooksDao {
 
