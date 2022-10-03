@@ -33,8 +33,12 @@ class ExamplePage extends BaseClass {
         let title = document.getElementById('search-name-field').value;
         let author = document.getElementById('search-author-field').value
 
-        if (author !== null)  {
-            author = "+inauthor:" + author;
+        if (author !== "")  {
+            if (title === "") {
+                author = "inauthor:" + author;
+            } else {
+                author = "+inauthor:" + author;
+            }
         }
 
         const url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +
@@ -43,6 +47,7 @@ class ExamplePage extends BaseClass {
         console.log("url: " + url);
 
         let searchedBooks = this.client.searchBooks(url);
+        this.dataStore.set("books", searchedBooks);
 
         await this.renderSearchResults(searchedBooks);
     }
@@ -90,15 +95,16 @@ class ExamplePage extends BaseClass {
     async saveBook(event) {
         event.preventDefault()
         const booksArray = this.dataStore.get("books");
-        const ids = this.dataStore.get("ids");
         const book = booksArray[event.target.dataset.index];
-        const id = ids[event.target.dataset.index];
+        const id = book.title + book.authors[0];
         let imageLink = null;
+
         try {
             imageLink = book.imageLinks.smallThumbnail
         } catch (err) {
 
         }
+
         let bookToSave = {
             title: book.title,
             author: book.authors[0],

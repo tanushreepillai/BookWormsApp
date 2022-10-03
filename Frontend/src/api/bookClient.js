@@ -55,14 +55,27 @@ import axios from 'axios'
         }
     }
 
-
-
-    async searchBooks(title, author, errorCallback) {
+    async searchBooks(url, errorCallback) {
         console.log("inside client: ");
         try {
             const response = await this.client.post(`/books/search`, {
-                title: title,
-                author: author
+                url: url
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("searchBooks", error, errorCallback);
+        }
+    }
+
+    async saveBook(book, errorCallback) {
+        try {
+            const response = await this.client.post(`books`, {
+                title: book.title,
+                author: book.author,
+                description: book.description,
+                imageLink: book.imageLink,
+                infoLink: book.infoLink,
+                finishedReading: true
             });
             return response.data;
         } catch (error) {

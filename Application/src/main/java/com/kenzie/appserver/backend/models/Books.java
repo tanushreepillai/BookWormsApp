@@ -20,7 +20,9 @@ public class Books {
     @JsonProperty("bookId")
     private String bookId;
 
-    public Books(String imageLink, String description, String author, String title, boolean finishedReading, String bookId) {
+    public Books(String imageLink, String description, String author,
+                 String title, boolean finishedReading, String bookId) {
+
         this.imageLink = imageLink;
         this.description = description;
         this.author = author;
