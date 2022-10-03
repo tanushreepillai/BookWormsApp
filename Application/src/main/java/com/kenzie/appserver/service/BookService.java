@@ -40,26 +40,7 @@ public class BookService {
     }
 
     public Books findByDynamoDB(String id) {
-        Books cachedBook = cachingBooksDao.getBook(id);
-        if (cachedBook != null) {
-            return cachedBook;
-        }
-        Books bookFromDynamoDB = bookRepository
-                .findById(id)
-                .map(book -> new Books(book.getImageLink(),
-                        book.getDescription(),
-                        book.getAuthor(),
-                        book.getTitle(),
-                        book.finishedReading(),
-                        book.getId()))
-                .orElse(null);
-
-        if (bookFromDynamoDB != null) {
-            //We need to have an add method in cachingDao to add the book once it is retrieved from DynamoDB.
-            //cachingBooksDao.add(bookFromDynamoDB.getBookId(), bookFromDynamoDB);
-        }
-        return bookFromDynamoDB;
-
+        return cachingBooksDao.getBook(id);
     }
 
     public Books addBook(Books book) {
