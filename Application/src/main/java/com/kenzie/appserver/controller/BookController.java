@@ -5,6 +5,8 @@ import com.kenzie.appserver.controller.model.BookCreateRequest;
 import com.kenzie.appserver.controller.model.BookResponse;
 import com.kenzie.appserver.service.BookService;
 
+import com.kenzie.capstone.service.client.LambdaServiceClient;
+import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +20,11 @@ import java.util.stream.Collectors;
 public class BookController {
 
     private BookService bookService;
+    private LambdaServiceClient lambdaServiceClient;
 
-    BookController(BookService bookService) {
+    BookController(BookService bookService, LambdaServiceClient lambdaServiceClient) {
         this.bookService = bookService;
+        this.lambdaServiceClient = lambdaServiceClient;
     }
 
     @GetMapping("/{id}")
@@ -46,6 +50,16 @@ public class BookController {
         bookService.addBook(book);
 
         BookResponse response = bookToBookResponse(book);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/search/{url}")
+    public ResponseEntity<Set<BookResponse>> searchBooks(@PathVariable("url") String url) {
+        Set<BooksData> searchedBooks = lambdaServiceClient.getBookData(url);
+
+        Set<BookResponse> response = searchedBooks.stream()
+                .map(this::booksDataToBookResponse).collect(Collectors.toSet());
 
         return ResponseEntity.ok(response);
     }
@@ -83,11 +97,24 @@ public class BookController {
 
     private BookResponse bookToBookResponse(Books book) {
         BookResponse bookResponse = new BookResponse();
+        bookResponse.setTitle(book.getTitle());
         bookResponse.setBookId(book.getBookId());
         bookResponse.setAuthors(book.getAuthor());
         bookResponse.finishedReading(book.finishedReading());
         bookResponse.setDescription(book.getDescription());
         bookResponse.setImageLink(book.getImageLink());
+
+        return bookResponse;
+    }
+
+    private BookResponse booksDataToBookResponse(BooksData booksData) {
+        BookResponse bookResponse = new BookResponse();
+        bookResponse.setTitle(booksData.getTitle());
+        bookResponse.setBookId(booksData.getBookId());
+        bookResponse.setAuthors(booksData.getAuthor());
+        bookResponse.finishedReading(booksData.finishedReading());
+        bookResponse.setDescription(booksData.getDescription());
+        bookResponse.setImageLink(booksData.getImageLink());
 
         return bookResponse;
     }

@@ -4,37 +4,39 @@ import java.util.List;
 
 public class Books {
 
-        private String imageLinks;
+        private String imageLink;
 
         private String description;
 
-        private List<String> authors;
+        private String author;
 
         private String title;
 
-        private boolean isCompleted;
+        private boolean finishedReading;
 
         private String bookId;
 
-        public Books(String imageLinks, String description, List<String> authors, String title, boolean isCompleted, String bookId) {
-            this.imageLinks = imageLinks;
+        public Books(String imageLink, String description, String author, String title, boolean finishedReading) {
+            String bookId = title + author;
+
+            this.imageLink = imageLink;
             this.description = description;
-            this.authors = authors;
+            this.author = author;
             this.title = title;
-            this.isCompleted = isCompleted;
+            this.finishedReading = finishedReading;
             this.bookId = bookId;
         }
 
         public String getImageLinks() {
-            return imageLinks;
+            return imageLink;
         }
 
         public String getDescription() {
             return description;
         }
 
-        public List<String> getAuthors() {
-            return authors;
+        public String getAuthor() {
+            return author;
         }
 
         public String getTitle() {
@@ -42,11 +44,11 @@ public class Books {
         }
 
         public boolean isCompleted() {
-            return isCompleted;
+            return finishedReading;
         }
 
         public void setCompleted(boolean completed) {
-            isCompleted = completed;
+            finishedReading = completed;
         }
 
         public String getBookId() {

@@ -33,8 +33,12 @@ class ExamplePage extends BaseClass {
         let title = document.getElementById('search-name-field').value;
         let author = document.getElementById('search-author-field').value
 
-        if (author !== null)  {
-            author = "+inauthor:" + author;
+        if (author !== "")  {
+            if (title === "") {
+                author = "inauthor:" + author;
+            } else {
+                author = "+inauthor:" + author;
+            }
         }
 
         const url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +

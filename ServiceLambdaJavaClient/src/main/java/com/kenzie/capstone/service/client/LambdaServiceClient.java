@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.capstone.service.dao.CachingBooksDao;
 import com.kenzie.capstone.service.model.BooksData;
 
+import java.util.Collections;
+import java.util.Set;
+
 
 public class LambdaServiceClient {
 
-    private static final String GET_BOOK_ENDPOINT = "books/{id}";
+    private static final String GET_BOOK_ENDPOINT = "books/{url}";
     private static final String SET_BOOK_ENDPOINT = "books";
 
     private ObjectMapper mapper;
@@ -17,18 +20,14 @@ public class LambdaServiceClient {
         this.mapper = new ObjectMapper();
     }
 
-    public BooksData getBookData(String id) {
+    public Set<BooksData> getBookData(String url) {
 
         EndpointUtility endpointUtility = new EndpointUtility();
+        String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{url}", url));
+        Set<BooksData> booksData;
 
-        // If book data is present in cache, return that cache value
-        
-
-        // Else retrieve from DB and return its book data
-        String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{id}", id));
-        BooksData booksData;
         try {
-            booksData = mapper.readValue(response, BooksData.class);
+            booksData = Collections.singleton(mapper.readValue(response, BooksData.class));
         } catch (Exception e) {
             throw new ApiGatewayException("Unable to map deserialize JSON: " + e);
         }

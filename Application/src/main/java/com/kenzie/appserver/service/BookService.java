@@ -26,20 +26,22 @@ public class BookService {
         if (id == null || id.isEmpty()) {
             throw new NullPointerException("Invalid/Empty Id");
         }
-        // Getting data from the lambda
-        BooksData dataFromLambda = lambdaServiceClient.getBookData(id);
 
-        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
-        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
-                dataFromLambda.getBookId());
+        // Getting data from the lambda
+//        BooksData dataFromLambda = lambdaServiceClient.getBookData(id);
+
+//        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
+//        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
+//                dataFromLambda.getBookId());
 
         // Example getting data from the local repository
-        /*Books dataFromDynamo = bookRepository
+        Books books = bookRepository
                 .findById(id)
-                .map(book -> new Books(book.getImageLinks(),book.getCategories(),book.getDescription(),book.getAuthors(),
-                        book.getTitle(),book.getInfoLink(),book.isCompleted())
-                .orElse(null);*/
-        //return dataFromDynamo;
+                .map(book -> new Books(book.getImageLink(), book.getDescription(), book.getAuthor(),
+                        book.getTitle(), book.finishedReading(), book.getId()))
+                .orElse(null);
+
+        return books;
     }
 
     public Books addBook(Books book) {

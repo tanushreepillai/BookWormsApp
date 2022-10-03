@@ -51,7 +51,6 @@ public class BookServiceTest {
                 true);
 
         // WHEN
-        when(lambdaServiceClient.getBookData(id)).thenReturn(booksData);
         Books book = bookService.findById(id);
 
         // THEN

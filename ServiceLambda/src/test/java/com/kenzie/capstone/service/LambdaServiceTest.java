@@ -1,6 +1,7 @@
 package com.kenzie.capstone.service;
 
 import com.kenzie.capstone.service.dao.BooksDao;
+import com.kenzie.capstone.service.dao.CachingBooksDao;
 import com.kenzie.capstone.service.dao.ExampleDao;
 import com.kenzie.capstone.service.model.ExampleData;
 import com.kenzie.capstone.service.model.ExampleRecord;
@@ -25,13 +26,13 @@ class LambdaServiceTest {
      *  expenseService.getExpenseById
      *  ------------------------------------------------------------------------ **/
 
-    private BooksDao booksDao;
+    private CachingBooksDao cachingBooksDao;
     private LambdaService lambdaService;
 
     @BeforeAll
     void setup() {
-        this.booksDao = mock(BooksDao.class);
-        this.lambdaService = new LambdaService(booksDao);
+        this.cachingBooksDao = mock(CachingBooksDao.class);
+        this.lambdaService = new LambdaService(cachingBooksDao);
     }
 
     @Test
