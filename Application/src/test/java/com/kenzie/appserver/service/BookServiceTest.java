@@ -37,33 +37,33 @@ public class BookServiceTest {
      *  bookService.findByGoogle
      *  ------------------------------------------------------------------------ **/
 
-    @Test
-    void findByGoogle() {
-        // GIVEN
-        String url = randomUUID().toString();
-
-        BooksData booksData = new BooksData(
-                "imageLink",
-                "description",
-                "author",
-                "title",
-                url,
-                true);
-
-        // WHEN
-        when(lambdaServiceClient.getBookData(url)).thenReturn(booksData);
-        Books book = bookService.findByGoogle(url);
-
-        // THEN
-        verify(lambdaServiceClient).getBookData(url);
-        Assertions.assertNotNull(book, "The book is returned");
-        Assertions.assertEquals(booksData.getImageLink(), book.getImageLink(), "The imageLink matches");
-        Assertions.assertEquals(booksData.getDescription(), book.getDescription(), "The description matches");
-        Assertions.assertEquals(booksData.getAuthor(), book.getAuthor(), "The author matches");
-        Assertions.assertEquals(booksData.getTitle(), book.getTitle(), "The title matches");
-        Assertions.assertEquals(booksData.getBookId(), book.getBookId(), "The id matches");
-        Assertions.assertEquals(booksData.finishedReading(), book.finishedReading(), "Boolean value matches");
-    }
+//    @Test
+//    void findByGoogle() {
+//        // GIVEN
+//        String url = randomUUID().toString();
+//
+//        BooksData booksData = new BooksData(
+//                "imageLink",
+//                "description",
+//                "author",
+//                "title",
+//                url,
+//                true);
+//
+//        // WHEN
+//        when(lambdaServiceClient.getBookData(url)).thenReturn(booksData);
+//        Books book = bookService.findByGoogle(url);
+//
+//        // THEN
+//        verify(lambdaServiceClient).getBookData(url);
+//        Assertions.assertNotNull(book, "The book is returned");
+//        Assertions.assertEquals(booksData.getImageLink(), book.getImageLink(), "The imageLink matches");
+//        Assertions.assertEquals(booksData.getDescription(), book.getDescription(), "The description matches");
+//        Assertions.assertEquals(booksData.getAuthor(), book.getAuthor(), "The author matches");
+//        Assertions.assertEquals(booksData.getTitle(), book.getTitle(), "The title matches");
+//        Assertions.assertEquals(booksData.getBookId(), book.getBookId(), "The id matches");
+//        Assertions.assertEquals(booksData.finishedReading(), book.finishedReading(), "Boolean value matches");
+//    }
 
     @Test
     void findByGoogle_nullId_throwsNullPointerException() {
