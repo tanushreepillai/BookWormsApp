@@ -185,6 +185,7 @@
   margin-top: 10px;
   margin-bottom: auto;
   color: #FA7070;
+  border-color: #FA7070;
 }
 
 .savedBooksUpdateButton {
@@ -195,4 +196,5 @@
   color: #FA7070;
   margin-top: 10px;
   margin-bottom: auto;
+  border-color: #FA7070;
 }
