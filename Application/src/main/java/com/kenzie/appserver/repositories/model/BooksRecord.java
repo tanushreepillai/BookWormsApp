@@ -3,13 +3,11 @@ package com.kenzie.appserver.repositories.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "Book") //Temporary names for tables and attributes till tables are created
-public class BookRecord {
+public class BooksRecord {
 
 
     private String imageLink;
@@ -77,7 +75,7 @@ public class BookRecord {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookRecord that = (BookRecord) o;
+        BooksRecord that = (BooksRecord) o;
         return finishedReading == that.finishedReading && Objects.equals(imageLink, that.imageLink) && Objects.equals(description, that.description) && Objects.equals(author, that.author) && Objects.equals(title, that.title) && Objects.equals(bookId, that.bookId);
     }
 

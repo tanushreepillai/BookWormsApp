@@ -2,6 +2,7 @@ package com.kenzie.capstone.service.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.capstone.service.model.BooksData;
+import com.kenzie.capstone.service.model.BooksResponse;
 
 
 public class LambdaServiceClient {
@@ -15,19 +16,25 @@ public class LambdaServiceClient {
         this.mapper = new ObjectMapper();
     }
 
-    public BooksData getBookData(String url) {
+    public BooksResponse getBookData(String url) {
 
         EndpointUtility endpointUtility = new EndpointUtility();
 
         // Else retrieve from DB and return its book data
         String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{url}", url));
-        BooksData booksData;
+
+        BooksResponse booksResponse; // we want to change this to a set of books
+        // because Google API return a bunch of different books that match
+
         try {
-            booksData = mapper.readValue(response, BooksData.class);
+            // need to change response into our Book Class model so we can
+            // return to the front end
+            booksResponse = mapper.readValue(response, BooksResponse.class);
+
         } catch (Exception e) {
             throw new ApiGatewayException("Unable to map deserialize JSON: " + e);
         }
-        return booksData;
+        return booksResponse;
     }
 
 //    public BooksData setBooksData(String data) {

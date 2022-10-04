@@ -61,7 +61,7 @@ public class BookController {
 
     @GetMapping("/search/{url}")
     public ResponseEntity<Set<BookResponse>> searchBooks(@PathVariable("url") String url) {
-        Set<BooksData> searchedBooks = lambdaServiceClient.getBookData(url);
+        BookResponse searchedBooks = lambdaServiceClient.getBookData(url);
 
         Set<BookResponse> response = searchedBooks.stream()
                 .map(this::booksDataToBookResponse).collect(Collectors.toSet());

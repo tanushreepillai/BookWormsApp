@@ -3,7 +3,8 @@ package com.kenzie.appserver.service;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
-import com.kenzie.appserver.repositories.model.BookRecord;
+import com.kenzie.appserver.repositories.model.BooksRecord;
+import com.kenzie.appserver.repositories.model.BooksResponse;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
 import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,17 @@ public class BookService {
         }
 
         // Getting data from the lambda
-        BooksData dataFromLambda = lambdaServiceClient.getBookData(url);
+        BooksResponse dataFromLambda = lambdaServiceClient.getBookData(url);
 
-        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
-        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
-                dataFromLambda.getBookId());
+        // need to convert BooksResponse to BooksRecord
+        // typecasting works, but we can also
+        // make a converter that takes in info from
+        // Lambda and putting it into application version
+        // of BooksResponse
+
+//        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
+//        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
+//                dataFromLambda.getBookId());
     }
 
     public Books findByDynamoDB(String id) {
@@ -63,7 +70,7 @@ public class BookService {
     }
     public Books addBook(Books book) {
 
-        BookRecord bookRecord = new BookRecord();
+        BooksRecord bookRecord = new BooksRecord();
         bookRecord.setBookId(book.getBookId());
         bookRecord.setImageLink(book.getImageLink());
         bookRecord.setDescription(book.getDescription());
@@ -101,7 +108,7 @@ public class BookService {
             throw new NullPointerException("Invalid/Empty Id");
         }
 
-        BookRecord bookRecord = new BookRecord();
+        BooksRecord bookRecord = new BooksRecord();
         bookRecord.setBookId(bookId);
         //cache.evict(bookId);
         bookRepository.delete(bookRecord);
@@ -109,7 +116,7 @@ public class BookService {
     }
     public void updateBook(Books book) {
         if (bookRepository.existsById(book.getBookId())) {
-            BookRecord bookRecord = new BookRecord();
+            BooksRecord bookRecord = new BooksRecord();
             bookRecord.setBookId(book.getBookId());
             bookRecord.setAuthor(book.getAuthor());
             bookRecord.setDescription(book.getDescription());

@@ -41,6 +41,8 @@ public class LambdaService {
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
 
+        // JSON response
+
 //        return null;
     }
 
