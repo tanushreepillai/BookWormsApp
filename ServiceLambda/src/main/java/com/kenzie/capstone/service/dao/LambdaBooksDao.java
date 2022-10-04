@@ -1,17 +1,6 @@
 package com.kenzie.capstone.service.dao;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
-import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
-import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
-import com.google.common.collect.ImmutableMap;
-import com.kenzie.capstone.service.model.BooksData;
-import com.kenzie.capstone.service.model.BooksRecord;
-import com.kenzie.capstone.service.model.ExampleRecord;
-
 import javax.inject.Inject;
-import java.util.List;
 
 public class LambdaBooksDao {
 //    private DynamoDBMapper mapper;

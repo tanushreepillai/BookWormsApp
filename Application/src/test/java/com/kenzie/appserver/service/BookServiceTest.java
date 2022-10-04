@@ -52,7 +52,8 @@ public class BookServiceTest {
 
         // WHEN
         when(lambdaServiceClient.getBookData(url)).thenReturn(booksData);
-        Books book = bookService.findByGoogle(url);
+        Set<Books> book = bookService.findByGoogle(url);
+        // todo changed return value from book to Set<Books>
 
         // THEN
         verify(lambdaServiceClient).getBookData(url);

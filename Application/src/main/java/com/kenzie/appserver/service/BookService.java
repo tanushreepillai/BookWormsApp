@@ -25,18 +25,22 @@ public class BookService {
         this.cachingBooksDao = cachingBooksDao;
     }
 
-    public Books findByGoogle(String url) {
+    public Set<Books> findByGoogle(String url) {
 
         if (url == null || url.isEmpty()) {
             throw new NullPointerException("Cannot find book in Google API");
         }
 
         // Getting data from the lambda
-        BooksData dataFromLambda = lambdaServiceClient.getBookData(url);
+        Set<BooksData> dataFromLambda = lambdaServiceClient.getBookData(url);
 
-        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
-        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
-                dataFromLambda.getBookId());
+        Set<Books> bookSet = null;
+
+        dataFromLambda.forEach(book -> bookSet.add(new Books(book.getImageLink(),book.getDescription(),
+                                book.getAuthor(), book.getTitle(),book.finishedReading(),
+                                book.getBookId())));
+
+        return bookSet;
     }
 
     public Books findByDynamoDB(String id) {

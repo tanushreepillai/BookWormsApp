@@ -2,6 +2,10 @@ package com.kenzie.capstone.service.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.capstone.service.model.BooksData;
+import com.kenzie.capstone.service.model.BooksListDTO;
+import com.kenzie.capstone.service.model.models.Books;
+
+import java.util.Set;
 
 
 public class LambdaServiceClient {
@@ -15,18 +19,29 @@ public class LambdaServiceClient {
         this.mapper = new ObjectMapper();
     }
 
-    public BooksData getBookData(String url) {
+    public Set<BooksData> getBookData(String url) {
 
         EndpointUtility endpointUtility = new EndpointUtility();
 
-        // Else retrieve from DB and return its book data
         String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{url}", url));
-        BooksData booksData;
+
+        BooksListDTO booksDTOList;
+
         try {
-            booksData = mapper.readValue(response, BooksData.class);
+            booksDTOList = mapper.readValue(response, BooksListDTO.class);
         } catch (Exception e) {
             throw new ApiGatewayException("Unable to map deserialize JSON: " + e);
         }
+
+        Set<BooksData> booksData;
+
+        BooksData book;
+
+        booksDTOList.getItems().forEach(item ->
+                book;
+        );
+
+
         return booksData;
     }
 
