@@ -6,7 +6,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.List;
 
-@DynamoDBTable(tableName = "SavedBooks")
 public class BooksRecord {
     private String title;
     private String author;
@@ -15,22 +14,16 @@ public class BooksRecord {
     private boolean isCompleted;
     private String bookId;
 
-    @DynamoDBHashKey(attributeName = "bookId")
     public String getBookId() { return bookId; }
 
-    @DynamoDBAttribute(attributeName = "title")
     public String getTitle() { return title; }
 
-    @DynamoDBAttribute(attributeName = "authors")
     public String getAuthor() { return author; }
 
-    @DynamoDBAttribute(attributeName = "description")
     public String getDescription() { return description; }
 
-    @DynamoDBAttribute(attributeName = "imageLink")
     public String getImageLink() { return imageLink; }
 
-    @DynamoDBAttribute(attributeName = "title")
     public boolean isCompleted() { return isCompleted; }
 
     public void setCompleted(boolean completed) {
