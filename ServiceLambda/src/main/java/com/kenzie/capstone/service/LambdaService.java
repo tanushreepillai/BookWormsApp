@@ -1,6 +1,9 @@
 package com.kenzie.capstone.service;
 
 import com.kenzie.capstone.service.dao.LambdaBooksDao;
+import com.kenzie.capstone.service.model.BooksRecord;
+import com.kenzie.capstone.service.model.BooksResponse;
+import com.kenzie.capstone.service.utilities.BooksResponseConverter;
 
 import javax.inject.Inject;
 
@@ -9,6 +12,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Set;
 
 public class LambdaService {
 
@@ -22,7 +26,7 @@ public class LambdaService {
         this.lambdaBooksDao = lambdaBooksDao;
     }
 
-    public HttpResponse<String> getBookData(String url) throws IOException, InterruptedException {
+    public BooksResponse getBookData(String url) throws Exception {
 //       List<BooksRecord> books = BooksDao.getBookData(url);
 //            if (books.size() > 0) {
 //                BooksRecord booksRecord = books.get(0);
@@ -39,11 +43,15 @@ public class LambdaService {
                 .GET()
                 .build();
 
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // JSON response
-
-//        return null;
+        // making response into proper response body
+        BooksResponseConverter converter = new BooksResponseConverter();
+        BooksResponse convertedResult = converter.convert(response);
+        if (convertedResult != null) {
+            return convertedResult;
+        }
+        return null;
     }
 
 //    public ExampleData getExampleData(String id) {
