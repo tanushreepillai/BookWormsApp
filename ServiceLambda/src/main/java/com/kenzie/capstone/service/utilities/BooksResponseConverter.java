@@ -12,7 +12,7 @@ public class BooksResponseConverter {
         // need GSON converter
         Gson gsonBuilder = new GsonBuilder().create();
         try {
-            return gsonBuilder.fromJson(gson, BooksResponse.class);
+            return gsonBuilder.fromJson(gson, BooksResponse.class); // a set of BooksRecord
         } catch(Exception ex) {
             // later on create new custom exception
             // to improve project

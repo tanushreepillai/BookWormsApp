@@ -26,14 +26,14 @@ public class BookService {
         this.cachingBooksDao = cachingBooksDao;
     }
 
-    public Books findByGoogle(String url) {
+    public Set<Books> findByGoogle(String url) {
 
         if (url == null || url.isEmpty()) {
             throw new NullPointerException("Cannot find book in Google API");
         }
 
         // Getting data from the lambda
-        BooksResponse dataFromLambda = lambdaServiceClient.getBookData(url);
+        Set<Books> dataFromLambda = lambdaServiceClient.getBookData(url);
 
         // need to convert BooksResponse to BooksRecord
         // typecasting works, but we can also
