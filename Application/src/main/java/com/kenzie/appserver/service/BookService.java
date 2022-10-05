@@ -4,9 +4,8 @@ import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
-import com.kenzie.appserver.repositories.model.BooksResponse;
+import com.kenzie.appserver.service.model.BooksResponse;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
-import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -14,8 +13,8 @@ import java.util.Set;
 
 @Service
 public class BookService {
-    private final BookRepository bookRepository;
-    private final LambdaServiceClient lambdaServiceClient;
+    private BookRepository bookRepository;
+    private LambdaServiceClient lambdaServiceClient;
     private final CachingBooksDao cachingBooksDao;
 
     public BookService(BookRepository bookRepository,
@@ -33,7 +32,7 @@ public class BookService {
         }
 
         // Getting data from the lambda
-        Set<Books> dataFromLambda = lambdaServiceClient.getBookData(url);
+        BooksResponse dataFromLambda = lambdaServiceClient.getBookData(url);
 
         // need to convert BooksResponse to BooksRecord
         // typecasting works, but we can also

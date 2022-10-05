@@ -27,13 +27,6 @@ public class LambdaService {
     }
 
     public BooksResponse getBookData(String url) throws Exception {
-//       List<BooksRecord> books = BooksDao.getBookData(url);
-//            if (books.size() > 0) {
-//                BooksRecord booksRecord = books.get(0);
-//                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
-//                    booksRecord.getTitle(),booksRecord.getBookId(), booksRecord.isCompleted());
-//        }
-
         HttpClient client = HttpClient.newHttpClient();
         URI uri = URI.create(url);
 
@@ -67,4 +60,11 @@ public class LambdaService {
 //        ExampleRecord record = exampleDao.setExampleData(id, data);
 //        return new ExampleData(id, data);
 //    }
+//
+//       List<BooksRecord> books = BooksDao.getBookData(url);
+//            if (books.size() > 0) {
+//                BooksRecord booksRecord = books.get(0);
+//                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
+//                    booksRecord.getTitle(),booksRecord.getBookId(), booksRecord.isCompleted());
+//        }
 }
