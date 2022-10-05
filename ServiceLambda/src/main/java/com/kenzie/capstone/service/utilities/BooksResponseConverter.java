@@ -1,24 +1,19 @@
 package com.kenzie.capstone.service.utilities;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.kenzie.capstone.service.model.BooksResponse;
+import com.kenzie.capstone.service.model.LambdaBooksRecord;
+import com.kenzie.capstone.service.model.BooksResponseFromGoogle;
 
-import java.net.http.HttpResponse;
+import java.util.Set;
 
 public class BooksResponseConverter {
-    BooksResponse response;
+    BooksResponseFromGoogle response;
     // convert BooksResponse to BooksRecord
 
-    public BooksResponse convert(HttpResponse<String> gson) throws Exception {
-        // need GSON converter
-        Gson gsonBuilder = new GsonBuilder().create();
-        try {
-            return gsonBuilder.fromJson(gson.body(), BooksResponse.class); // a set of BooksRecord
-        } catch(Exception ex) {
-            // later on create new custom exception
-            // to improve project
-            throw new Exception("API data to app data conversion not working");
+    public Set<LambdaBooksRecord> convert(BooksResponseFromGoogle input) throws Exception {
+        // converting books response into set of books record
+        if (input.size() > 0) {
+            return input.getBooks();
         }
+        return null;
     }
 }

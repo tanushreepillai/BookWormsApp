@@ -9,15 +9,11 @@ import com.google.gson.GsonBuilder;
 import com.kenzie.capstone.service.LambdaService;
 import com.kenzie.capstone.service.dependency.DaggerServiceComponent;
 import com.kenzie.capstone.service.dependency.ServiceComponent;
-import com.kenzie.capstone.service.model.BooksRecord;
-import com.kenzie.capstone.service.model.BooksResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
@@ -47,7 +43,9 @@ public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent,
         }
 
         try {
-            BooksResponse bookData = lambdaService.getBookData(url);
+            // get the data from the lambda service
+            String bookData = lambdaService.getBookData(url).body();
+            // convert that data into bookData
             String bookResponseToJson = gson.toJson(bookData);
 
             return response

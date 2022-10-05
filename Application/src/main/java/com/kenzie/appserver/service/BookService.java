@@ -4,7 +4,7 @@ import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
-import com.kenzie.appserver.service.model.BooksResponse;
+import com.kenzie.appserver.service.model.LambdaBooksRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class BookService {
         }
 
         // Getting data from the lambda
-        BooksResponse dataFromLambda = lambdaServiceClient.getBookData(url);
+       Set<LambdaBooksRecord> dataFromLambda = lambdaServiceClient.getBookData(url);
 
         // need to convert BooksResponse to BooksRecord
         // typecasting works, but we can also

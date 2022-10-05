@@ -6,13 +6,13 @@ import com.kenzie.appserver.controller.model.BookResponse;
 import com.kenzie.appserver.repositories.model.BooksRecord;
 import com.kenzie.appserver.service.BookService;
 
+import com.kenzie.appserver.service.model.LambdaBooksRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
 import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,20 +62,13 @@ public class BookController {
 
     @GetMapping("/search/{url}")
     public ResponseEntity<Set<BookResponse>> searchBooks(@PathVariable("url") String url) {
-        // TODO: the return from the lambdaServiceClient.getBookData(url) (cont. below)
-        // is going to be a set of books bc we get BooksResponse from Google
-        // into a Set<Books> & we need to adjust tests for this if they're affected
-        // CC still working on figuring this part out and getting help
-        Set<BookResponse> returnedBooks = lambdaServiceClient.getBookData(url);
+        Set<BooksRecord> returnedBooks = lambdaServiceClient.getBookData(url);
 
-        Set<BookResponse> response = returnedBooks.stream()
-                .map(this::booksResponseToBooksRecord).collect(Collectors.toSet());
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(returnedBooks);
     }
 
-    private Set<BooksRecord> booksResponseToBooksRecord(BookResponse bookResponse) {
-    }
+//    private Set<BooksRecord> booksResponseToBooksRecord(BookResponse bookResponse) {
+//    }
 
     @GetMapping("/all")
     public ResponseEntity<Set<BookResponse>> getAllBooks() {
