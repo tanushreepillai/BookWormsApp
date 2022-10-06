@@ -4,8 +4,9 @@ import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
-import com.kenzie.appserver.service.model.LambdaBooksRecord;
+import com.kenzie.appserver.service.model.BooksRecordForBooksResponseFromGoogleLambda;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
+import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -32,17 +33,15 @@ public class BookService {
         }
 
         // Getting data from the lambda
-       Set<LambdaBooksRecord> dataFromLambda = lambdaServiceClient.getBookData(url);
+        Set<BooksData> dataFromLambda = lambdaServiceClient.getBookData(url);
+        Set<Books> booksSetFromGoogle = new HashSet<>();
 
-        // need to convert BooksResponse to BooksRecord
-        // typecasting works, but we can also
-        // make a converter that takes in info from
-        // Lambda and putting it into application version
-        // of BooksResponse
+        for (BooksData book : dataFromLambda) {
+            Books book1 = new Books(book.getImageLink(), book.getDescription(), book.getAuthor(), book.getTitle(), book.finishedReading(), book.getBookId());
+            booksSetFromGoogle.add(book1);
+        }
 
-//        return new Books(dataFromLambda.getImageLink(),dataFromLambda.getDescription(),
-//        dataFromLambda.getAuthor(), dataFromLambda.getTitle(),dataFromLambda.finishedReading(),
-//                dataFromLambda.getBookId());
+        return booksSetFromGoogle;
     }
 
     public Books findByDynamoDB(String id) {

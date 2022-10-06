@@ -12,6 +12,7 @@ import com.kenzie.capstone.service.dependency.ServiceComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,13 +45,17 @@ public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent,
 
         try {
             // get the data from the lambda service
-            String bookData = lambdaService.getBookData(url).body();
-            // convert that data into bookData
-            String bookResponseToJson = gson.toJson(bookData);
+            HttpResponse<String> booksResult = lambdaService.getBookData(url);
+            if (booksResult.body().isEmpty()) {
+                return response
+                        .withStatusCode(200)
+                        .withBody("No returned results");
+            }
+            String bookData = lambdaService.getBookData(url).body(); // in json format
 
             return response
                     .withStatusCode(200)
-                    .withBody(bookResponseToJson);
+                    .withBody(bookData);
 
         } catch (Exception e) {
             return response

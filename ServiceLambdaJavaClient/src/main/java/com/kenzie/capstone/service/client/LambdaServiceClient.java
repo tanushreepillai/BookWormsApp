@@ -1,6 +1,7 @@
 package com.kenzie.capstone.service.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kenzie.capstone.service.model.BooksData;
 import com.kenzie.capstone.service.model.LambdaBooksRecord;
 import com.kenzie.capstone.service.model.BooksResponseFromGoogle;
 import com.kenzie.capstone.service.utilities.BooksResponseConverter;
@@ -19,21 +20,21 @@ public class LambdaServiceClient {
         this.mapper = new ObjectMapper();
     }
 
-    public Set<LambdaBooksRecord> getBookData(String url) {
+    public Set<BooksData> getBookData(String url) {
 
         EndpointUtility endpointUtility = new EndpointUtility();
 
         // Else retrieve from DB and return its book data
         String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{url}", url));
-
+        BooksResponseFromGoogle booksResponseFromGoogle;
         try {
             // need to change response into our Book Class model so we can
             // return to the front end
-            BooksResponseFromGoogle booksResponseFromGoogle = mapper.readValue(response, BooksResponseFromGoogle.class);
+            booksResponseFromGoogle = mapper.readValue(response, BooksResponseFromGoogle.class);
+            // converts the large response into a set of book records
             BooksResponseConverter converter = new BooksResponseConverter();
-            Set<LambdaBooksRecord> booksResponse = converter.convert(booksResponseFromGoogle);
+            Set<BooksData> booksResponse = converter.convert(booksResponseFromGoogle);
             return booksResponse;
-
         } catch (Exception e) {
             throw new ApiGatewayException("Unable to map deserialize JSON: " + e);
         }

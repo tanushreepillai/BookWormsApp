@@ -1,6 +1,6 @@
-package com.kenzie.appserver.service.model;
+package com.kenzie.appserver.controller.model;
 
-public class LambdaBooksRecord {
+public class ApplicationLambdaBooksRecord {
     private String title;
     private String author;
     private String description;

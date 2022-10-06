@@ -3,16 +3,15 @@ package com.kenzie.appserver.controller;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.controller.model.BookCreateRequest;
 import com.kenzie.appserver.controller.model.BookResponse;
-import com.kenzie.appserver.repositories.model.BooksRecord;
+import com.kenzie.appserver.controller.model.ApplicationLambdaBooksRecord;
 import com.kenzie.appserver.service.BookService;
 
-import com.kenzie.appserver.service.model.LambdaBooksRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
 import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,7 +61,15 @@ public class BookController {
 
     @GetMapping("/search/{url}")
     public ResponseEntity<Set<BookResponse>> searchBooks(@PathVariable("url") String url) {
-        Set<BooksRecord> returnedBooks = lambdaServiceClient.getBookData(url);
+        // TODO: we have an error here because we need to convert our return value
+        // from getBookData(url) into book responses
+        Set<BooksData> returnedBookRecordsFromLambda = lambdaServiceClient.getBookData(url);
+
+        Set<BookResponse> returnedBooks = new HashSet<>();
+
+        // for (BookRecord record : returnedBookRecordsFromLambda) {
+        // create record into BookResponse
+        // }
 
         return ResponseEntity.ok(returnedBooks);
     }

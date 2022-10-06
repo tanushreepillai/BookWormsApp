@@ -3,9 +3,9 @@ package com.kenzie.capstone.service.model;
 import java.util.Set;
 
 public class BooksResponseFromGoogle {
-    private Set<LambdaBooksRecord> books;
+    private Set<BooksData> books;
 
-    public BooksResponseFromGoogle(Set<LambdaBooksRecord> books) {
+    public BooksResponseFromGoogle(Set<BooksData> books) {
         this.books = books;
     }
 
@@ -13,7 +13,7 @@ public class BooksResponseFromGoogle {
         return books.size();
     }
 
-    public Set<LambdaBooksRecord> getBooks() {
+    public Set<BooksData> getBooks() {
         return books;
     }
 }
