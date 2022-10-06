@@ -61,21 +61,16 @@ public class BookController {
 
     @GetMapping("/search/{url}")
     public ResponseEntity<Set<BookResponse>> searchBooks(@PathVariable("url") String url) {
-        // TODO: we have an error here because we need to convert our return value
-        // from getBookData(url) into book responses
         Set<BooksData> returnedBookRecordsFromLambda = lambdaServiceClient.getBookData(url);
 
         Set<BookResponse> returnedBooks = new HashSet<>();
 
-        // for (BookRecord record : returnedBookRecordsFromLambda) {
-        // create record into BookResponse
-        // }
+         for (BooksData book : returnedBookRecordsFromLambda) {
+             returnedBooks.add(booksDataToBookResponse(book));
+         }
 
         return ResponseEntity.ok(returnedBooks);
     }
-
-//    private Set<BooksRecord> booksResponseToBooksRecord(BookResponse bookResponse) {
-//    }
 
     @GetMapping("/all")
     public ResponseEntity<Set<BookResponse>> getAllBooks() {
