@@ -1,29 +1,29 @@
 package com.kenzie.capstone.service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class BooksData {
+    // @JsonProperty("sampleId");
     private final String imageLink;
+    //  @JsonProperty("imageLinkId");
     private final String description;
+    //  @JsonProperty("imageLinkId");
     private final String author;
+    //  @JsonProperty("imageLinkId");
     private final String title;
-    private boolean finishedReading;
-    private final String bookId;
 
     public BooksData(String imageLink,
                      String description,
                      String author,
-                     String title,
-                     String bookId,
-                     boolean finishedReading) {
+                     String title) {
         this.imageLink = imageLink;
         this.description = description;
         this.author = author;
         this.title = title;
-        this.bookId = bookId;
-        this.finishedReading = finishedReading;
     }
 
     public String getImageLink() {
@@ -40,18 +40,6 @@ public class BooksData {
 
     public String getTitle() {
         return title;
-    }
-
-    public boolean finishedReading() {
-        return finishedReading;
-    }
-
-    public void setFinishedReading(boolean completed) {
-        finishedReading = completed;
-    }
-
-    public String getBookId() {
-        return bookId;
     }
 
 }
