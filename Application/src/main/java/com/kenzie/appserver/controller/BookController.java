@@ -3,6 +3,7 @@ package com.kenzie.appserver.controller;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.controller.model.BookCreateRequest;
 import com.kenzie.appserver.controller.model.BookResponse;
+import com.kenzie.appserver.controller.model.ApplicationLambdaBooksRecord;
 import com.kenzie.appserver.service.BookService;
 
 import com.kenzie.capstone.service.client.LambdaServiceClient;
@@ -10,8 +11,7 @@ import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -61,12 +61,15 @@ public class BookController {
 
     @GetMapping("/search/{url}")
     public ResponseEntity<Set<BookResponse>> searchBooks(@PathVariable("url") String url) {
-        Set<BooksData> searchedBooks = lambdaServiceClient.getBookData(url);
+        Set<BooksData> returnedBookRecordsFromLambda = lambdaServiceClient.getBookData(url);
 
-        Set<BookResponse> response = searchedBooks.stream()
-                .map(this::booksDataToBookResponse).collect(Collectors.toSet());
+        Set<BookResponse> returnedBooks = new HashSet<>();
 
-        return ResponseEntity.ok(response);
+         for (BooksData book : returnedBookRecordsFromLambda) {
+             returnedBooks.add(booksDataToBookResponse(book));
+         }
+
+        return ResponseEntity.ok(returnedBooks);
     }
 
     @GetMapping("/all")

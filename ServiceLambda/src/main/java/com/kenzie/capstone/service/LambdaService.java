@@ -39,9 +39,8 @@ public class LambdaService {
                 .GET()
                 .build();
 
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
-
-//        return null;
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response;
     }
 
 //    public ExampleData getExampleData(String id) {
