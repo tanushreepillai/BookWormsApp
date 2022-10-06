@@ -4,7 +4,6 @@ import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
-import com.kenzie.appserver.service.model.BooksRecordForBooksResponseFromGoogleLambda;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
 import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.stereotype.Service;

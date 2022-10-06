@@ -1,8 +1,11 @@
 package com.kenzie.capstone.service.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Set;
 
 public class BooksResponseFromGoogle {
+     @JsonProperty("items")
     private Set<BooksData> books;
 
     public BooksResponseFromGoogle(Set<BooksData> books) {
@@ -16,4 +19,5 @@ public class BooksResponseFromGoogle {
     public Set<BooksData> getBooks() {
         return books;
     }
+
 }
