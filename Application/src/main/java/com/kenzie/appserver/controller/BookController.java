@@ -115,14 +115,15 @@ public class BookController {
         return bookResponse;
     }
 
+    // for LAMBDA
     private BookResponse booksDataToBookResponse(BooksData booksData) {
         BookResponse bookResponse = new BookResponse();
-        bookResponse.setTitle(booksData.getTitle());
-        bookResponse.setBookId(booksData.getBookId());
-        bookResponse.setAuthors(booksData.getAuthor());
-        bookResponse.finishedReading(booksData.finishedReading());
-        bookResponse.setDescription(booksData.getDescription());
-        bookResponse.setImageLink(booksData.getImageLink());
+        bookResponse.setTitle(booksData.getVolumeInfo().getTitle());
+//        bookResponse.setBookId(booksData.getBookId());
+        bookResponse.setAuthors(booksData.getVolumeInfo().getAuthor().toString());
+//        bookResponse.finishedReading(booksData.finishedReading());
+        bookResponse.setDescription(booksData.getVolumeInfo().getDescription());
+        bookResponse.setImageLink(booksData.getVolumeInfo().getImageLinks().getSmallThumbnail());
 
         return bookResponse;
     }
