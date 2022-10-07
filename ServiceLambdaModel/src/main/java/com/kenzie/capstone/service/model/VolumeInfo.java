@@ -14,6 +14,12 @@ public class VolumeInfo {
 
     }
 
+    public VolumeInfo(String title, String[] author, String description) {
+        this.title = title;
+        this.author = author;
+        this.description = description;
+    }
+
     public String getTitle() {
         return title;
     }
