@@ -1,11 +1,8 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.repositories.model.BookRecord;
 import com.kenzie.appserver.repositories.BookRepository;
-import com.kenzie.appserver.service.model.Example;
 
 import com.kenzie.capstone.service.client.LambdaServiceClient;
-import com.kenzie.capstone.service.model.ExampleData;
 import org.springframework.stereotype.Service;
 
 @Service

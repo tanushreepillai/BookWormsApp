@@ -44,12 +44,18 @@ public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent,
         }
 
         try {
-            HttpResponse<String> bookData = lambdaService.getBookData(url);
-            String output = gson.toJson(bookData);
+            // get the data from the lambda service
+            HttpResponse<String> booksResult = lambdaService.getBookData(url);
+            if (booksResult.body().isEmpty()) {
+                return response
+                        .withStatusCode(200)
+                        .withBody("No returned results");
+            }
+            String bookData = lambdaService.getBookData(url).body(); // in json format
 
             return response
                     .withStatusCode(200)
-                    .withBody(output);
+                    .withBody(bookData);
 
         } catch (Exception e) {
             return response

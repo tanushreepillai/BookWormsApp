@@ -3,6 +3,7 @@ package com.kenzie.capstone.service.dao;
 import javax.inject.Inject;
 
 public class LambdaBooksDao {
+    // NOT A NECESSARY FILE
 //    private DynamoDBMapper mapper;
 
     @Inject
@@ -27,10 +28,10 @@ public class LambdaBooksDao {
 //
 //    }
 
-    // TODO Figure out how to map
-    public BooksRecord getBookData(String id) {
-        return null;
-    }
+//    Figure out how to map
+//    public BooksRecord getBookData(String id) {
+//        return null;
+//    }
 
 //    public BooksRecord setBooksData(String id, String data) {
 //        BooksRecord booksRecord = new BooksRecord();

@@ -2,7 +2,7 @@ package com.kenzie.appserver.dao;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.kenzie.appserver.backend.models.Books;
-import com.kenzie.appserver.repositories.model.BookRecord;
+import com.kenzie.appserver.repositories.model.BooksRecord;
 
 public class BooksDao {
     private DynamoDBMapper mapper;
@@ -12,7 +12,7 @@ public class BooksDao {
     }
 
     public Books getBook(String id) {
-        BookRecord bookRecord = new BookRecord();
+        BooksRecord bookRecord = new BooksRecord();
         bookRecord.setBookId(id);
         bookRecord = mapper.load(bookRecord);
         return new Books(bookRecord.getImageLink(),

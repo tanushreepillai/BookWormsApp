@@ -2,8 +2,9 @@ package com.kenzie.capstone.service.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.capstone.service.model.BooksData;
-import com.kenzie.capstone.service.model.BooksListDTO;
-import com.kenzie.capstone.service.model.models.Books;
+import com.kenzie.capstone.service.model.LambdaBooksRecord;
+import com.kenzie.capstone.service.model.BooksResponseFromGoogle;
+import com.kenzie.capstone.service.utilities.BooksResponseConverter;
 
 import java.util.Set;
 
@@ -24,25 +25,34 @@ public class LambdaServiceClient {
         EndpointUtility endpointUtility = new EndpointUtility();
 
         String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{url}", url));
+        BooksResponseFromGoogle booksResponseFromGoogle;
 
-        BooksListDTO booksDTOList;
+        try { // need to change response into our Book Class model so we can return to the front end
+            booksResponseFromGoogle = mapper.readValue(response, BooksResponseFromGoogle.class);
+            // converts the large response into a set of book records
+            // {
+                // {item 1: key1: val1, key2: val2 },
+                // {item 2: key1: item2val, key2: item2val }
+                // {item 3: key1: item3val, key2: item2val }
+            // return BooksResponseFromGoogle which is a Set<BooksData>
+                // our DTO will use our json IDs to find the matching ones
+                // however, we have a list of books so we need to.map and then find those values
+            // for (nestedObject : BooksResponseFromGoogle) {
+                // create new BooksData from the nestedObject and add to our return value
 
-        try {
-            booksDTOList = mapper.readValue(response, BooksListDTO.class);
+            BooksResponseConverter converter = new BooksResponseConverter();
+            Set<BooksData> booksResponse = converter.convert(booksResponseFromGoogle);
+
+            Set<BooksData> set = null;
+            for (BooksData book : booksResponseFromGoogle.getBooks()) {
+                set.add(book);
+            }
+
+
+            return booksResponse;
         } catch (Exception e) {
             throw new ApiGatewayException("Unable to map deserialize JSON: " + e);
         }
-
-        Set<BooksData> booksData;
-
-        BooksData book;
-
-        booksDTOList.getItems().forEach(item ->
-                book;
-        );
-
-
-        return booksData;
     }
 
 //    public BooksData setBooksData(String data) {
