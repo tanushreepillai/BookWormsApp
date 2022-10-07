@@ -24,7 +24,6 @@ public class LambdaServiceClient {
 
         EndpointUtility endpointUtility = new EndpointUtility();
 
-        // Else retrieve from DB and return its book data
         String response = endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{url}", url));
         BooksResponseFromGoogle booksResponseFromGoogle;
 

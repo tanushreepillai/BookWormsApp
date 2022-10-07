@@ -1,8 +1,11 @@
-package com.kenzie.appserver.backend;
+package com.kenzie.capstone.service.utilities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kenzie.capstone.service.model.BooksListDTO;
+import com.kenzie.capstone.service.model.Items;
+import com.kenzie.capstone.service.utilities.CustomHttpClient;
 
 import java.util.List;
 

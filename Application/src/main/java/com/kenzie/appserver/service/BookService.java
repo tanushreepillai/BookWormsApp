@@ -33,6 +33,7 @@ public class BookService {
 
         // Getting data from the lambda
         Set<BooksData> dataFromLambda = lambdaServiceClient.getBookData(url);
+
         Set<Books> booksSetFromGoogle = new HashSet<>();
 
         for (BooksData book : dataFromLambda) {
