@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ImageLinks {
     @JsonProperty("smallThumbnail")
-    public String smallThumbnail;
+    private String smallThumbnail;
 
     public ImageLinks() {
     }

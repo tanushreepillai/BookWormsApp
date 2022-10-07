@@ -11,7 +11,6 @@ public class VolumeInfo {
     private String description;
 
     public VolumeInfo() {
-
     }
 
     public VolumeInfo(String title, String[] author, String description) {
