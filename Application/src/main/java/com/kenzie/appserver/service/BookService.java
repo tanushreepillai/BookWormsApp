@@ -36,7 +36,7 @@ public class BookService {
         Set<Books> booksSetFromGoogle = new HashSet<>();
 
         for (BooksData book : dataFromLambda) {
-            Books book1 = new Books(book.getImageLinks().getSmallThumbnail(), book.getVolumeInfo().getDescription(), book.getVolumeInfo().getAuthor().toString(), book.getVolumeInfo().getTitle(), false, null);
+            Books book1 = new Books(book.getVolumeInfo().getImageLinks().getSmallThumbnail(), book.getVolumeInfo().getDescription(), book.getVolumeInfo().getAuthor()[0], book.getVolumeInfo().getTitle(), false, null);
             booksSetFromGoogle.add(book1);
         }
 

@@ -9,7 +9,6 @@ public class VolumeInfo {
     private String[] author;
     @JsonProperty("description")
     private String description;
-
     @JsonProperty("imageLinks")
     private ImageLinks imageLinks;
 

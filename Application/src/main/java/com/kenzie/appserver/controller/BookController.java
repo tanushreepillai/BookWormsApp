@@ -123,7 +123,7 @@ public class BookController {
         bookResponse.setAuthors(booksData.getVolumeInfo().getAuthor().toString());
 //        bookResponse.finishedReading(booksData.finishedReading());
         bookResponse.setDescription(booksData.getVolumeInfo().getDescription());
-        bookResponse.setImageLink(booksData.getImageLinks().getSmallThumbnail());
+        bookResponse.setImageLink(booksData.getVolumeInfo().getImageLinks().getSmallThumbnail());
 
         return bookResponse;
     }
