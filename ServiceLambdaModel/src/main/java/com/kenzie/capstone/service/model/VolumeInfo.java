@@ -10,13 +10,17 @@ public class VolumeInfo {
     @JsonProperty("description")
     private String description;
 
+    @JsonProperty("imageLinks")
+    private ImageLinks imageLinks;
+
     public VolumeInfo() {
     }
 
-    public VolumeInfo(String title, String[] author, String description) {
+    public VolumeInfo(String title, String[] author, String description, ImageLinks imageLinks) {
         this.title = title;
         this.author = author;
         this.description = description;
+        this.imageLinks = imageLinks;
     }
 
     public String getTitle() {
@@ -41,5 +45,13 @@ public class VolumeInfo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ImageLinks getImageLinks() {
+        return imageLinks;
+    }
+
+    public void setImageLinks(ImageLinks imageLinks) {
+        this.imageLinks = imageLinks;
     }
 }

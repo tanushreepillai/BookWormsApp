@@ -12,15 +12,11 @@ public class BooksData {
     @JsonProperty("volumeInfo")
     private VolumeInfo volumeInfo;
 
-    @JsonProperty("imageLinks")
-    private ImageLinks imageLinks;
-
     public BooksData() {
     }
 
-    public BooksData(VolumeInfo volumeInfo, ImageLinks imageLinks) {
+    public BooksData(VolumeInfo volumeInfo) {
         this.volumeInfo = volumeInfo;
-        this.imageLinks = imageLinks;
     }
 
     public VolumeInfo getVolumeInfo() {
@@ -29,13 +25,5 @@ public class BooksData {
 
     public void setVolumeInfo(VolumeInfo volumeInfo) {
         this.volumeInfo = volumeInfo;
-    }
-
-    public ImageLinks getImageLinks() {
-        return imageLinks;
-    }
-
-    public void setImageLinks(ImageLinks imageLinks) {
-        this.imageLinks = imageLinks;
     }
 }
