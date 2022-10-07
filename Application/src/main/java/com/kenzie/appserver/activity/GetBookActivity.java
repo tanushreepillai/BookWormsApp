@@ -1,5 +1,6 @@
 package com.kenzie.appserver.activity;
 
+import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.BooksDao;
 
 import javax.inject.Inject;

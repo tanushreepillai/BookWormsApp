@@ -12,14 +12,14 @@ import java.util.List;
 
 public class LambdaBooksDao {
     // NOT A NECESSARY FILE
-    private DynamoDBMapper mapper;
-
-    @Inject
-    public LambdaBooksDao() {}
-    @Inject
-    public LambdaBooksDao(DynamoDBMapper mapper) {
-        this.mapper = mapper;
-    }
+//    private DynamoDBMapper mapper;
+//
+//    @Inject
+//    public LambdaBooksDao() {}
+//    @Inject
+//    public LambdaBooksDao(DynamoDBMapper mapper) {
+//        this.mapper = mapper;
+//    }
 
 //    public BooksData storeBooksData(BooksData booksData) {
 //        try {
@@ -37,9 +37,9 @@ public class LambdaBooksDao {
 //    }
 
 //    Figure out how to map
-    public List<BooksRecord> getBookData(String id) {
-        return null;
-    }
+//    public List<BooksRecord> getBookData(String id) {
+//        return null;
+//    }
 
 //    public BooksRecord setBooksData(String id, String data) {
 //        BooksRecord booksRecord = new BooksRecord();
