@@ -58,7 +58,7 @@ import axios from 'axios'
     async searchBooks(url, errorCallback) {
         console.log("inside client: ");
         try {
-            const response = await this.client.post(`/books/search`, {
+            const response = await this.client.get(`/books/search`, {
                 url: url
             });
             return response.data;
