@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class VolumeInfo {
     @JsonProperty("title")
-    public String title;
+    private String title;
     @JsonProperty("authors")
-    public String[] author;
+    private String[] author;
     @JsonProperty("description")
-    public String description;
+    private String description;
 
     public VolumeInfo() {
 
