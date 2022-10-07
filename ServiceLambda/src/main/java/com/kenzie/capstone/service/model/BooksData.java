@@ -3,7 +3,6 @@ package com.kenzie.capstone.service.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BooksData {
@@ -16,11 +15,6 @@ public class BooksData {
     private ImageLinks imageLinks;
 
     public BooksData() {
-    }
-
-    public BooksData(VolumeInfo volumeInfo, ImageLinks imageLinks) {
-        this.volumeInfo = volumeInfo;
-        this.imageLinks = imageLinks;
     }
 
     public VolumeInfo getVolumeInfo() {
