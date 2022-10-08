@@ -61,7 +61,7 @@ import axios from 'axios'
             const response = await this.client.get(`/books/search`, {
                 url: url
             });
-            return response.data;
+            return response;
         } catch (error) {
             this.handleError("searchBooks", error, errorCallback);
         }
