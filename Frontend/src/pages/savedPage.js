@@ -42,7 +42,6 @@ class SavedPage extends BaseClass {
                 let imageLink = null
                 try {
                     imageLink = book.imageLinks;
-                    console.log(imageLink);
                 } catch (err) {
                     continue
                 }
@@ -91,7 +90,8 @@ class SavedPage extends BaseClass {
     }
 
     async deleteBook(event) {
-        let bookId = event.target.dataset.title;
+        // current book ID is the string of the title plus the first char of the author's name
+        let bookId = event.target;
         console.log("bookId: " + bookId);
         // await this.client.deleteBook();
     }
