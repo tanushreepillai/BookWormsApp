@@ -41,19 +41,29 @@ class ExamplePage extends BaseClass {
             }
         }
 
-        const url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +
-            "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+        // const url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +
+        //     "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
 
-        console.log("url: " + url);
+        // console.log("url: " + url);
+        let searchRequest = title + author;
 
-        let searchedBooks = this.client.searchBooks(url);
-        this.dataStore.set("books", searchedBooks);
+        let data = await this.client.searchBooks(searchRequest);
+        console.log({data})
 
-        await this.renderSearchResults(searchedBooks);
+        let bookArray = [];
+
+        for (let i in data.items) {
+            bookArray.push(data.items[i].volumeInfo);
+        }
+
+        this.dataStore.set("books", bookArray);
+
+        await this.renderSearchResults(title);
     }
 
-    async renderSearchResults(title, searchedBooks) {
+    async renderSearchResults(title) {
         let resultTable = document.getElementById("search-results");
+        let searchedBooks = this.dataStore.get("books");
 
         if (searchedBooks) {
             let myHtml="";
@@ -66,20 +76,18 @@ class ExamplePage extends BaseClass {
                     continue
                 }
 
-                if (book.title.toUpperCase().includes(title.toUpperCase())) {
-                    myHtml += `
-                    <div></div>
-                    <div>Title: ${book.title}</div>
-                    <div>Author: ${book.authors[0]}</div>
-                    <div><img src = ${imageLink}></div>
-                    <div></div>
-                    <div>Description: ${book.description}</div>
-                    <button id="save" data-index="${i}">Save book</button>
-                    `
-                }
+                myHtml += `
+                <div></div>
+                <div>Title: ${book.title}</div>
+                <div>Author: ${book.authors[0]}</div>
+                <div><img src = ${imageLink} alt="image"></div>
+                <div></div>
+                <div>Description: ${book.description}</div>
+                <button id="save" data-index="${i}">Save book</button>
+                `
             }
 
-            resultTable.innerHTML = "";
+            resultTable.innerHTML = "testing";
             resultTable.innerHTML = myHtml;
 
         }

@@ -16,6 +16,7 @@ public class EndpointUtility {
     private String apiEndpoint;
 
     public EndpointUtility() {
+        System.out.println("inside EndpointUtility1");
         this.apiEndpoint = getApiEndpoint();
     }
 
@@ -28,12 +29,16 @@ public class EndpointUtility {
             deploymentName = System.getenv("STACK_NAME");
         }
         if (deploymentName == null) {
+            deploymentName = "capstone-bookworms-service-dev";
+        }
+        if (deploymentName == null) {
             throw new IllegalArgumentException("Could not find the deployment name in environment variables.  Make sure that you have set up your environment variables using the setupEnvironment.sh script.");
         }
         return deploymentName;
     }
 
     public static String getApiEndpoint() {
+//        System.out.println("inside EndpointUtility1");
         String region = System.getenv("AWS_REGION");
         if (region == null) {
             region = "us-east-1";
@@ -96,14 +101,18 @@ public class EndpointUtility {
                 .header("Accept", "application/json")
                 .GET()
                 .build();
+        System.out.println("request: " + request.toString());
+        System.out.println("inside EndpointUtility2");
+        System.out.println("inside EndpointUtility3");
         try {
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             int statusCode = httpResponse.statusCode();
+//            httpResponse.
             if (statusCode == 200) {
                 return httpResponse.body();
             } else {
-                throw new ApiGatewayException("GET request failed: " + statusCode + " status code received");
+                throw new ApiGatewayException("GET request failed: " + statusCode + " status code received" + httpResponse.body());
             }
         } catch (IOException | InterruptedException e) {
             return e.getMessage();

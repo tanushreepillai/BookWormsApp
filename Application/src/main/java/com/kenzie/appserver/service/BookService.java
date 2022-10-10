@@ -18,30 +18,29 @@ public class BookService {
     private final CachingBooksDao cachingBooksDao;
 
     public BookService(BookRepository bookRepository,
-                       LambdaServiceClient lambdaServiceClient,
-                       CachingBooksDao cachingBooksDao) {
+                       LambdaServiceClient lambdaServiceClient) {
         this.bookRepository = bookRepository;
         this.lambdaServiceClient = lambdaServiceClient;
-        this.cachingBooksDao = cachingBooksDao;
+        this.cachingBooksDao = null;
     }
 
-    public Set<Books> findByGoogle(String url) {
+    public String findByGoogle(String searchRequest) {
 
-        if (url == null || url.isEmpty()) {
-            throw new NullPointerException("Cannot find book in Google API");
-        }
+//        if (url == null || url.isEmpty()) {
+//            throw new NullPointerException("Cannot find book in Google API");
+//        }
 
         // Getting data from the lambda
-        Set<BooksData> dataFromLambda = lambdaServiceClient.getBookData(url);
+        String dataFromLambda = lambdaServiceClient.getBookData(searchRequest);
 
         Set<Books> booksSetFromGoogle = new HashSet<>();
 
-        for (BooksData book : dataFromLambda) {
-            Books book1 = new Books(book.getVolumeInfo().getImageLinks().getSmallThumbnail(), book.getVolumeInfo().getDescription(), book.getVolumeInfo().getAuthor()[0], book.getVolumeInfo().getTitle(), false, null);
-            booksSetFromGoogle.add(book1);
-        }
+//        for (BooksData book : dataFromLambda) {
+//            Books book1 = new Books(book.getVolumeInfo().getImageLinks().getSmallThumbnail(), book.getVolumeInfo().getDescription(), book.getVolumeInfo().getAuthor()[0], book.getVolumeInfo().getTitle(), false, null);
+//            booksSetFromGoogle.add(book1);
+//        }
 
-        return booksSetFromGoogle;
+        return dataFromLambda;
     }
 
     public Books findByDynamoDB(String id) {

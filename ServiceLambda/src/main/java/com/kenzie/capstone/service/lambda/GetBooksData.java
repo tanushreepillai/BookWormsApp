@@ -35,23 +35,24 @@ public class GetBooksData implements RequestHandler<APIGatewayProxyRequestEvent,
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
-        String url = input.getPathParameters().get("url");
+        String searchRequest = input.getPathParameters().get("id");
+//        String author = input.getPathParameters().get("author");
 
-        if (url == null || url.length() == 0) {
+        if ((searchRequest == null || searchRequest.length() == 0)) {
             return response
                     .withStatusCode(400)
-                    .withBody("URL is invalid");
+                    .withBody(" searchRequest is invalid. input: " + gson.toJson(input));
         }
 
         try {
             // get the data from the lambda service
-            HttpResponse<String> booksResult = lambdaService.getBookData(url);
+            HttpResponse<String> booksResult = lambdaService.getBookData(searchRequest);
             if (booksResult.body().isEmpty()) {
                 return response
                         .withStatusCode(200)
                         .withBody("No returned results");
             }
-            String bookData = lambdaService.getBookData(url).body(); // in json format
+            String bookData = booksResult.body(); // in json format
 
             return response
                     .withStatusCode(200)

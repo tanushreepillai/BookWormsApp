@@ -22,13 +22,17 @@ public class LambdaService {
         this.lambdaBooksDao = lambdaBooksDao;
     }
 
-    public HttpResponse<String> getBookData(String url) throws IOException, InterruptedException {
+    public HttpResponse<String> getBookData(String searchRequest) throws IOException, InterruptedException {
 //       List<BooksRecord> books = BooksDao.getBookData(url);
 //            if (books.size() > 0) {
 //                BooksRecord booksRecord = books.get(0);
 //                return new BooksData(booksRecord.getImageLink(),booksRecord.getDescription(),booksRecord.getAuthor(),
 //                    booksRecord.getTitle(),booksRecord.getBookId(), booksRecord.isCompleted());
 //        }
+        String url = "https://www.googleapis.com/books/v1/volumes?q=" + searchRequest +
+                "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
+
+
 
         HttpClient client = HttpClient.newHttpClient();
         URI uri = URI.create(url);
