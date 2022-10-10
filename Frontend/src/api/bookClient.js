@@ -67,7 +67,7 @@ import axios from 'axios'
 
     async saveBook(book, errorCallback) {
         try {
-            const response = await this.client.post(`books`, {
+            const response = await this.client.post(`/books/add`, {
                 title: book.title,
                 author: book.author,
                 description: book.description,
