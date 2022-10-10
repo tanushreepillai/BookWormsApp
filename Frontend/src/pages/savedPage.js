@@ -54,7 +54,7 @@ class SavedPage extends BaseClass {
                 <div><img src = ${imageLink}></div>
                 <div></div>
                 <div>Description: ${book.description}</div>
-                <button onClick=deleteBook() id="delete" name="${bookId}" data-index="${i}">Delete book</button>
+                <button id="delete" name="${bookId}" data-index="${i}">Delete book</button>
                 `
             }
 
@@ -97,7 +97,7 @@ class SavedPage extends BaseClass {
 
         let bookId = event.target.name;
         console.log("bookId: " + bookId);
-        // await this.client.deleteBook();
+        await this.client.deleteBook(bookId);
     }
 }
 
