@@ -3,8 +3,6 @@ package com.kenzie.appserver.backend.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Books {
     @JsonProperty("imageLink") // for V2.0; for V1.0 just default to null?
@@ -47,7 +45,7 @@ public class Books {
         return title;
     }
 
-    public boolean finishedReading() {
+    public boolean getFinishedReading() {
         return finishedReading;
     }
 

@@ -37,7 +37,7 @@ public class BookResponse {
         return title;
     }
 
-    public boolean finishedReading() {
+    public boolean getFinishedReading() {
         return finishedReading;
     }
 
@@ -61,7 +61,7 @@ public class BookResponse {
         this.title = title;
     }
 
-    public void finishedReading(boolean completed) {
+    public void setFinishedReading(boolean completed) {
         finishedReading = completed;
     }
 

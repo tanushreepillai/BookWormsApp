@@ -73,6 +73,7 @@ public class BookController {
 
         Set<BookResponse> responses = allBooks.stream()
                 .map(this::bookToBookResponse).collect(Collectors.toSet());
+        System.out.println("getAllBooks in controller and return value" + allBooks);
 
         return ResponseEntity.ok(responses);
     }
@@ -102,10 +103,10 @@ public class BookController {
         bookResponse.setTitle(book.getTitle());
         bookResponse.setBookId(book.getBookId());
         bookResponse.setAuthors(book.getAuthor());
-        bookResponse.finishedReading(book.finishedReading());
+        bookResponse.setFinishedReading(book.getFinishedReading());
         bookResponse.setDescription(book.getDescription());
         bookResponse.setImageLink(book.getImageLink());
-
+        System.out.println(bookResponse);
         return bookResponse;
     }
 
