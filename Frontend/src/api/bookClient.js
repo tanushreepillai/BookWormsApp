@@ -49,7 +49,7 @@ import axios from 'axios'
         console.log("inside getAllBooks in client")
         try {
             const response = await this.client.get(`/books/all`);
-            console.log(response.data);
+//            console.log(response.data);
             return response.data;
         } catch (error) {
             this.handleError("getAllBooks", error, errorCallback)
