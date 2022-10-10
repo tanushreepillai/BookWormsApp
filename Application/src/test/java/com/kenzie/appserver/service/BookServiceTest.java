@@ -1,19 +1,15 @@
 package com.kenzie.appserver.service;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.google.common.cache.LoadingCache;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.BooksDao;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
-import com.kenzie.capstone.service.model.BooksData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -128,8 +124,8 @@ public class BookServiceTest {
         BooksRecord record = bookRecordCaptor.getValue();
 
         Assertions.assertNotNull(record, "The clothing record is returned");
-        Assertions.assertEquals(record.getId(), book.getBookId(), "The book id matches");
-        Assertions.assertEquals(record.getAuthor(), book.getAuthor(), "The author matches");
+        Assertions.assertEquals(record.getBookId(), book.getBookId(), "The book id matches");
+        Assertions.assertEquals(record.getAuthorsList(), book.getAuthor(), "The author matches");
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image matches");
@@ -145,7 +141,7 @@ public class BookServiceTest {
         bookRecord1.setBookId(book.getBookId());
         bookRecord1.setImageLink(book.getImageLink());
         bookRecord1.setDescription(book.getDescription());
-        bookRecord1.setAuthor(book.getAuthor());
+        bookRecord1.setAuthorsList(book.getAuthor());
         bookRecord1.setTitle(book.getTitle());
         ArgumentCaptor<BooksRecord> bookRecordCaptor = ArgumentCaptor.forClass(BooksRecord.class);
         bookService.addBook(book);
@@ -188,14 +184,14 @@ public class BookServiceTest {
         bookRecord1.setBookId(book1.getBookId());
         bookRecord1.setImageLink(book1.getImageLink());
         bookRecord1.setDescription(book1.getDescription());
-        bookRecord1.setAuthor(book1.getAuthor());
+        bookRecord1.setAuthorsList(book1.getAuthor());
         bookRecord1.setTitle(book1.getTitle());
 
         BooksRecord bookRecord2 = new BooksRecord();
         bookRecord2.setBookId(book2.getBookId());
         bookRecord2.setImageLink(book2.getImageLink());
         bookRecord2.setDescription(book2.getDescription());
-        bookRecord2.setAuthor(book2.getAuthor());
+        bookRecord2.setAuthorsList(book2.getAuthor());
         bookRecord2.setTitle(book2.getTitle());
 
         List<BooksRecord> bookRecordList = new ArrayList<>();
@@ -264,7 +260,7 @@ public class BookServiceTest {
 
         Assertions.assertNotNull(record, "The concert record is returned");
         Assertions.assertEquals(record.getFinishedReading(), book.finishedReading(), "The boolean values match");
-        Assertions.assertEquals(record.getAuthor(), book.getAuthor(), "The authors match");
+        Assertions.assertEquals(record.getAuthorsList(), book.getAuthor(), "The authors match");
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
         Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image link matches");

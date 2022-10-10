@@ -5,7 +5,6 @@ import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
-import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -53,9 +52,9 @@ public class BookService {
         bookRecord.setBookId(book.getBookId());
         bookRecord.setImageLink(book.getImageLink());
         bookRecord.setDescription(book.getDescription());
-        bookRecord.setAuthor(book.getAuthor());
+        bookRecord.setAuthorsList(book.getAuthor());
         bookRecord.setTitle(book.getTitle());
-        bookRecord.finishedReading(false);
+        bookRecord.setFinishedReading(false);
 
         bookRepository.save(bookRecord);
 
@@ -77,14 +76,14 @@ public class BookService {
         bookRepository
                 .findAll()
                 .forEach(book -> allBooks.add(new Books(book.getImageLink(),
-                        book.getDescription(), book.getAuthor(), book.getTitle(),
-                        book.getFinishedReading(), book.getId())));
+                        book.getDescription(), book.getAuthorsList(), book.getTitle(),
+                        book.getFinishedReading(), book.getBookId())));
 
         if (allBooks.isEmpty()) {
             throw new NullPointerException("Empty Set of books");
         }
         System.out.println("inside getAllBooks in BookService2");
-
+        System.out.println(allBooks);
         return allBooks;
     }
     public void deleteBook(String bookId) {
@@ -102,11 +101,11 @@ public class BookService {
         if (bookRepository.existsById(book.getBookId())) {
             BooksRecord bookRecord = new BooksRecord();
             bookRecord.setBookId(book.getBookId());
-            bookRecord.setAuthor(book.getAuthor());
+            bookRecord.setAuthorsList(book.getAuthor());
             bookRecord.setDescription(book.getDescription());
             bookRecord.setImageLink(book.getImageLink());
             bookRecord.setTitle(book.getTitle());
-            bookRecord.finishedReading(true);
+            bookRecord.setFinishedReading(true);
             bookRepository.save(bookRecord);
            // cache.evict(book.getBookId());
         }
