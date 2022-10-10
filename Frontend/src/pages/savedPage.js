@@ -41,7 +41,6 @@ class SavedPage extends BaseClass {
                 const book = booksArray[i];
                 let imageLink = null
                 let bookId = `${book.title}${book.authors.slice(0,1)}`
-                console.log(bookId);
                 try {
                     imageLink = book.imageLinks;
                 } catch (err) {
@@ -55,7 +54,7 @@ class SavedPage extends BaseClass {
                 <div><img src = ${imageLink}></div>
                 <div></div>
                 <div>Description: ${book.description}</div>
-                <button id="delete" name="${bookId}" data-index="${i}">Delete book</button>
+                <button onClick=deleteBook() id="delete" name="${bookId}" data-index="${i}">Delete book</button>
                 `
             }
 
@@ -71,6 +70,7 @@ class SavedPage extends BaseClass {
             'click', event => this.deleteBook(event));
 
     }
+
 
     async getBook(event) {
         // Prevent the page from refreshing on form submit
@@ -93,7 +93,9 @@ class SavedPage extends BaseClass {
 
     async deleteBook(event) {
         // current book ID is the string of the title plus the first char of the author's name
-        let bookId = event.target;
+        event.preventDefault()
+
+        let bookId = event.target.name;
         console.log("bookId: " + bookId);
         // await this.client.deleteBook();
     }
