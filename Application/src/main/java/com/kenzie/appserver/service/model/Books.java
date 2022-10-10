@@ -17,7 +17,7 @@ public class Books {
         private final String bookId;
 
         public Books(String imageLink, String description, String author, String title, boolean finishedReading) {
-            String bookId = title + author;
+            String bookId = title + author.charAt(0);
 
             this.imageLink = imageLink;
             this.description = description;

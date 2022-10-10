@@ -77,8 +77,8 @@ public class BookService {
         bookRepository
                 .findAll()
                 .forEach(book -> allBooks.add(new Books(book.getImageLink(),
-                        book.getDescription(), book.getAuthor(),book.getTitle(),
-                        book.getFinishedReading(),book.getId())));
+                        book.getDescription(), book.getAuthor(), book.getTitle(),
+                        book.getFinishedReading(), book.getId())));
 
         if (allBooks.isEmpty()) {
             throw new NullPointerException("Empty Set of books");

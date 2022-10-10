@@ -8,7 +8,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookResponse {
 
-    @JsonProperty("imageLinks") // for V2.0; for V1.0 just default to null?
+    @JsonProperty("imageLink") // for V2.0; for V1.0 just default to null?
     private String imageLink;
     @JsonProperty("description")
     private String description;
