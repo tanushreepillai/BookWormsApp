@@ -19,7 +19,7 @@ public class BooksDao {
                 bookRecord.getDescription(),
                 bookRecord.getAuthor(),
                 bookRecord.getTitle(),
-                bookRecord.finishedReading(),
+                bookRecord.getFinishedReading(),
                 id);
     }
 

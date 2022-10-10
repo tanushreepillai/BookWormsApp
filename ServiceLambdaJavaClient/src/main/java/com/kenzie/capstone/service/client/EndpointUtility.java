@@ -16,7 +16,6 @@ public class EndpointUtility {
     private String apiEndpoint;
 
     public EndpointUtility() {
-        System.out.println("inside EndpointUtility1");
         this.apiEndpoint = getApiEndpoint();
     }
 
@@ -101,9 +100,7 @@ public class EndpointUtility {
                 .header("Accept", "application/json")
                 .GET()
                 .build();
-        System.out.println("request: " + request.toString());
-        System.out.println("inside EndpointUtility2");
-        System.out.println("inside EndpointUtility3");
+
         try {
             HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
 

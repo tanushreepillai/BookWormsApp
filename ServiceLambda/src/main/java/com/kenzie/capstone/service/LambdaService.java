@@ -32,7 +32,9 @@ public class LambdaService {
         String url = "https://www.googleapis.com/books/v1/volumes?q=" + searchRequest +
                 "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
 
+        url = url.replaceAll(" ", "%20");
 
+        System.out.println("url: " + url);
 
         HttpClient client = HttpClient.newHttpClient();
         URI uri = URI.create(url);

@@ -152,7 +152,7 @@ class BookControllerTest {
         BookCreateRequest bookCreateRequest = new BookCreateRequest();
         bookCreateRequest.setImageLinks(imageLink);
         bookCreateRequest.setDescription(description);
-        bookCreateRequest.setAuthors(author);
+        bookCreateRequest.setAuthor(author);
         bookCreateRequest.setTitle(title);
         bookCreateRequest.finishedReading(completed);
 

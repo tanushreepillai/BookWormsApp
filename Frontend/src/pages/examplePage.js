@@ -41,11 +41,9 @@ class ExamplePage extends BaseClass {
             }
         }
 
-        // const url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +
-        //     "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
-
-        // console.log("url: " + url);
         let searchRequest = title + author;
+
+        searchRequest.replaceAll(" ", "%20");
 
         let data = await this.client.searchBooks(searchRequest);
         console.log({data})
@@ -61,7 +59,7 @@ class ExamplePage extends BaseClass {
         await this.renderSearchResults(title);
     }
 
-    async renderSearchResults(title) {
+    async renderSearchResults() {
         let resultTable = document.getElementById("search-results");
         let searchedBooks = this.dataStore.get("books");
 
@@ -87,7 +85,7 @@ class ExamplePage extends BaseClass {
                 `
             }
 
-            resultTable.innerHTML = "testing";
+            resultTable.innerHTML = "";
             resultTable.innerHTML = myHtml;
 
         }
@@ -104,7 +102,6 @@ class ExamplePage extends BaseClass {
         event.preventDefault()
         const booksArray = this.dataStore.get("books");
         const book = booksArray[event.target.dataset.index];
-        const id = book.title + book.authors[0];
         let imageLink = null;
 
         try {
@@ -113,13 +110,14 @@ class ExamplePage extends BaseClass {
 
         }
 
+        let author = book.authors[0];
+
         let bookToSave = {
             title: book.title,
-            author: book.authors[0],
+            author: author,
             description: book.description,
-            image: imageLink,
-            infoLink: book.infoLink,
-            bookId: id
+            imageLink: imageLink,
+            // finishedReading: false
         }
 
         await this.client.saveBook(bookToSave);

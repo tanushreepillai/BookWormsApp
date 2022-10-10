@@ -13,7 +13,7 @@ public class BookCreateRequest {
     @JsonProperty("description")
     private String description;
     @NotEmpty
-    @JsonProperty("authors")
+    @JsonProperty("author")
     private String author;
     @NotEmpty
     @JsonProperty("title")
@@ -60,7 +60,7 @@ public class BookCreateRequest {
         this.description = description;
     }
 
-    public void setAuthors(String author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 

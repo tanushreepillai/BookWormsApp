@@ -252,7 +252,7 @@ public class BookServiceTest {
         BooksRecord record = bookRecordCaptor.getValue();
 
         Assertions.assertNotNull(record, "The concert record is returned");
-        Assertions.assertEquals(record.finishedReading(), book.finishedReading(), "The boolean values match");
+        Assertions.assertEquals(record.getFinishedReading(), book.finishedReading(), "The boolean values match");
         Assertions.assertEquals(record.getAuthor(), book.getAuthor(), "The authors match");
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");

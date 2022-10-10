@@ -46,6 +46,7 @@ public class BookService {
     public Books findByDynamoDB(String id) {
         return cachingBooksDao.getBook(id);
     }
+
     public Books addBook(Books book) {
 
         BooksRecord bookRecord = new BooksRecord();
@@ -54,7 +55,10 @@ public class BookService {
         bookRecord.setDescription(book.getDescription());
         bookRecord.setAuthor(book.getAuthor());
         bookRecord.setTitle(book.getTitle());
+        bookRecord.finishedReading(false);
+
         bookRepository.save(bookRecord);
+
         return book;
 //
 //        // Example sending data to the lambda
@@ -68,16 +72,18 @@ public class BookService {
     }
 
     public Set<Books> getAllBooks() {
+        System.out.println("inside getAllBooks in BookService1");
         Set<Books> allBooks = new HashSet<>();
         bookRepository
                 .findAll()
                 .forEach(book -> allBooks.add(new Books(book.getImageLink(),
                         book.getDescription(), book.getAuthor(),book.getTitle(),
-                        book.finishedReading(),book.getId())));
+                        book.getFinishedReading(),book.getId())));
 
         if (allBooks.isEmpty()) {
             throw new NullPointerException("Empty Set of books");
         }
+        System.out.println("inside getAllBooks in BookService2");
 
         return allBooks;
     }

@@ -4,17 +4,17 @@ import java.util.List;
 
 public class Books {
 
-        private String imageLink;
+        private final String imageLink;
 
-        private String description;
+        private final String description;
 
-        private String author;
+        private final String author;
 
-        private String title;
+        private final String title;
 
         private boolean finishedReading;
 
-        private String bookId;
+        private final String bookId;
 
         public Books(String imageLink, String description, String author, String title, boolean finishedReading) {
             String bookId = title + author;

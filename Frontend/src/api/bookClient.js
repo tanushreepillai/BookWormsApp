@@ -45,7 +45,7 @@ import axios from 'axios'
         }
     }
 
-    async getAllBooks(id, errorCallback) {
+    async getAllBooks(errorCallback) {
         console.log("inside getAllBooks in client")
         try {
             const response = await this.client.get(`/books/all`);
@@ -73,7 +73,7 @@ import axios from 'axios'
                 description: book.description,
                 imageLink: book.imageLink,
                 infoLink: book.infoLink,
-                finishedReading: true
+                finishedReading: false
             });
             return response.data;
         } catch (error) {

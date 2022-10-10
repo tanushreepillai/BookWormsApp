@@ -61,7 +61,7 @@ class SavedPage extends BaseClass {
 
         }
         else {
-            resultTable.innerHTML = "<tr><td>No books found</td></tr>"
+            savedResults.innerHTML = "<tr><td>No books found</td></tr>"
         }
 
         document.getElementById('delete').addEventListener(

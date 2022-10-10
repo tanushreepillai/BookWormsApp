@@ -3,12 +3,12 @@ package com.kenzie.appserver.repositories.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
 
-@DynamoDBTable(tableName = "Book") //Temporary names for tables and attributes till tables are created
+@DynamoDBTable(tableName = "FavoriteBooks") //Temporary names for tables and attributes till tables are created
 public class BooksRecord {
-
 
     private String imageLink;
     private String description;
@@ -59,7 +59,7 @@ public class BooksRecord {
     }
 
     @DynamoDBAttribute(attributeName = "finishedReading")
-    public boolean finishedReading() {
+    public boolean getFinishedReading() {
         return finishedReading;
     }
 

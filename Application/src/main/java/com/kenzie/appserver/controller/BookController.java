@@ -40,39 +40,28 @@ public class BookController {
 
     @PostMapping("/add")
     public ResponseEntity<BookResponse> addNewBook(@RequestBody BookCreateRequest bookCreateRequest) {
-        System.out.println("inside books/add");
         String title = bookCreateRequest.getTitle();
         String author = bookCreateRequest.getAuthor();
         // Id is set to be the name of the Title + the first letter of the Author
         String id = title + author.charAt(0);
 
-        Books book = new Books(bookCreateRequest.getImageLink(),
+        Books book = new Books(
+                bookCreateRequest.getImageLink(),
                 bookCreateRequest.getDescription(),
                 bookCreateRequest.getAuthor(),
                 bookCreateRequest.getTitle(),
-                bookCreateRequest.finishedReading(),
+                false,
                 id);
         bookService.addBook(book);
-
         BookResponse response = bookToBookResponse(book);
 
         return ResponseEntity.ok(response);
+
     }
 
     @GetMapping("/search/{searchRequest}")
     public ResponseEntity<String> searchBooks(@PathVariable("searchRequest") String searchRequest) {
-        System.out.println("inside search in BookController");
-//        String url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +
-//                "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
-
-
         String returnedBookRecordsFromLambda = lambdaServiceClient.getBookData(searchRequest);
-
-//        Set<BookResponse> returnedBooks = new HashSet<>();
-
-//        for (BooksData book : returnedBookRecordsFromLambda) {
-//            returnedBooks.add(booksDataToBookResponse(book));
-//        }
 
         return ResponseEntity.ok(returnedBookRecordsFromLambda);
     }

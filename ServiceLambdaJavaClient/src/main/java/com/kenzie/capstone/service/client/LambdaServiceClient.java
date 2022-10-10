@@ -25,7 +25,6 @@ public class LambdaServiceClient {
 
         EndpointUtility endpointUtility = new EndpointUtility();
 
-        System.out.println("inside LambdaServiceClient");
         BooksResponseFromGoogle booksResponseFromGoogle;
 
         return endpointUtility.getEndpoint(GET_BOOK_ENDPOINT.replace("{searchRequest}", searchRequest));
