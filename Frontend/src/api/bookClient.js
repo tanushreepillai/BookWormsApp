@@ -55,13 +55,11 @@ import axios from 'axios'
         }
     }
 
-    async searchBooks(url, errorCallback) {
+    async searchBooks(searchRequest, errorCallback) {
         console.log("inside client: ");
         try {
-            const response = await this.client.get(`/books/search`, {
-                url: url
-            });
-            return response;
+            const response = await this.client.get(`/books/search/${searchRequest}`);
+            return response.data;
         } catch (error) {
             this.handleError("searchBooks", error, errorCallback);
         }
@@ -122,7 +120,7 @@ import axios from 'axios'
             console.error(error.response.data.message);
         }
         if (errorCallback) {
-            errorCallback(method + " failed - " + error);
+            errorCallback(method + " failed - " + error, error);
         }
     }
 }

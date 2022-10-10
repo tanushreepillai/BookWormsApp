@@ -25,14 +25,23 @@ module.exports = {
     contentBase: 'packaging_additional_published_artifacts',
     // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
     overlay: true,
-    proxy:[
-      {
-        context: [
-          '/books'
-        ],
-        target: 'http://localhost:5001'
+    proxy: {
+      '/books':{
+        target: {
+          host: '127.0.0.1',
+          protocol: 'http:',
+          port: 5001
+        }
       }
-    ]
+    }
+    // proxy:[
+    //   {
+    //     context: [
+    //       '/books'
+    //     ],
+    //     target: 'http://localhost:5001'
+    //   }
+    // ]
   },
   plugins: [
     new HtmlWebpackPlugin({

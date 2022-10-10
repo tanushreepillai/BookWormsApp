@@ -9,8 +9,8 @@ phases:
     commands:
       - aws cloudformation delete-stack --stack-name $SERVICE_STACK_NAME
       - aws cloudformation delete-stack --stack-name $STACK_NAME
-reports:
-  run-integration-tests-report:
-    files:
-      - 'IntegrationTests/build/test-results/test/run-integration-tests/*.xml'
-    file-format: "JUNITXML"
+#reports:
+#  run-integration-tests-report:
+#    files:
+#      - 'IntegrationTests/build/test-results/test/run-integration-tests/*.xml'
+#    file-format: "JUNITXML"

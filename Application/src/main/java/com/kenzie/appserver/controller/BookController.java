@@ -59,17 +59,22 @@ public class BookController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search/{url}")
-    public ResponseEntity<Set<BookResponse>> searchBooks(@PathVariable("url") String url) {
-        Set<BooksData> returnedBookRecordsFromLambda = lambdaServiceClient.getBookData(url);
+    @GetMapping("/search/{searchRequest}")
+    public ResponseEntity<String> searchBooks(@PathVariable("searchRequest") String searchRequest) {
+        System.out.println("inside search in BookController");
+//        String url = "https://www.googleapis.com/books/v1/volumes?q=" + title + author +
+//                "&key=AIzaSyAmwU-FhO1HLhFjungcYPqfxr7jAbk5faE";
 
-        Set<BookResponse> returnedBooks = new HashSet<>();
 
-         for (BooksData book : returnedBookRecordsFromLambda) {
-             returnedBooks.add(booksDataToBookResponse(book));
-         }
+        String returnedBookRecordsFromLambda = lambdaServiceClient.getBookData(searchRequest);
 
-        return ResponseEntity.ok(returnedBooks);
+//        Set<BookResponse> returnedBooks = new HashSet<>();
+
+//        for (BooksData book : returnedBookRecordsFromLambda) {
+//            returnedBooks.add(booksDataToBookResponse(book));
+//        }
+
+        return ResponseEntity.ok(returnedBookRecordsFromLambda);
     }
 
     @GetMapping("/all")
