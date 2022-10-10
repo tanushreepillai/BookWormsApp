@@ -12,10 +12,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.github.dockerjava.core.MediaType;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
@@ -106,9 +108,47 @@ class BookControllerTest {
 //    }
 
     @Test
-    public void addBook() {
-        // TODO: Come back after bookService.addBook is created
-    }
+    public void addBook() throws Exception {
+
+            // GIVEN
+            String id = UUID.randomUUID().toString();
+            String description = "description";
+            String title = "title";
+            String author = "author";
+            String imageLinks = "imageLinks";
+            boolean finishedReading = false;
+
+            BookCreateRequest bookCreateRequest = new BookCreateRequest();
+            bookCreateRequest.setBookId(id);
+            bookCreateRequest.setDescription(description);
+            bookCreateRequest.setTitle(title);
+            bookCreateRequest.setAuthors(author);
+            bookCreateRequest.setImageLinks(imageLinks);
+            bookCreateRequest.finishedReading(finishedReading);
+
+
+            mapper.registerModule(new JavaTimeModule());
+
+            // WHEN
+            mvc.perform(post("/books/add")
+                            .accept(org.springframework.http.MediaType.APPLICATION_JSON)
+                            .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                            .content(mapper.writeValueAsString(bookCreateRequest)))
+                    // THEN
+                    .andExpect(jsonPath("imageLink")
+                            .exists())
+                    .andExpect(jsonPath("description")
+                            .value(is(description)))
+                    .andExpect(jsonPath("author")
+                            .value(is(author)))
+                    .andExpect(jsonPath("title")
+                            .value(is(title)))
+                    .andExpect(jsonPath("finishedReading")
+                            .value(is(finishedReading)))
+                    .andExpect(jsonPath("bookId")
+                            .value(is(id)))
+                    .andExpect(status().isCreated());
+        }
 
     @Test
     public void getAllBooks() throws Exception {
@@ -140,7 +180,6 @@ class BookControllerTest {
         String description = "description";
         String author = "author";
         String title = "title";
-        String infoLink = "infoLink";
         boolean finishedReading = false;
         String bookId = randomUUID().toString();
 
@@ -169,25 +208,25 @@ class BookControllerTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    public void deleteBook_DeleteSuccessful() throws Exception {
-//        // GIVEN
-//        String imageLink = "imageLink";
-//        String description = "description";
-//        String author = "author";
-//        String title = "title";
-//        String infoLink = "infoLink";
-//        boolean finishedReading = false;
-//        String bookId = randomUUID().toString();
-//
-//        Books book = new Books(imageLink, description, author, title, finishedReading, bookId);
-//        Books persistedBook = bookService.addBook(book);
-//
-//        // WHEN
-//        mvc.perform(delete("/books/{id}", persistedBook.getBookId())
-//                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
-//                // THEN
-//                .andExpect(status().isNoContent());
-//        Assertions.assertNull(bookService.findByGoogle(bookId));
-//    }
+    @Test
+    public void deleteBook_DeleteSuccessful() throws Exception {
+        // GIVEN
+        String imageLink = "imageLink";
+        String description = "description";
+        String author = "author";
+        String title = "title";
+        String infoLink = "infoLink";
+        boolean finishedReading = false;
+        String bookId = randomUUID().toString();
+
+        Books book = new Books(imageLink, description, author, title, finishedReading, bookId);
+        Books persistedBook = bookService.addBook(book);
+
+        // WHEN
+        mvc.perform(delete("/books/{id}", persistedBook.getBookId())
+                        .accept(String.valueOf(MediaType.APPLICATION_JSON)))
+                // THEN
+                .andExpect(status().isNoContent());
+        Assertions.assertNull(bookService.findByGoogle(bookId));
+    }
 }

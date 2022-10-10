@@ -6,10 +6,13 @@ import com.google.common.cache.LoadingCache;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.BooksDao;
 
+import javax.inject.Inject;
+
 public class CachingBooksDao {
 
     private final LoadingCache<String, Books> bookCache;
 
+    @Inject
     public CachingBooksDao(BooksDao booksDao) {
         bookCache = CacheBuilder.newBuilder()
                 .build(CacheLoader.from(booksDao::getBook));
