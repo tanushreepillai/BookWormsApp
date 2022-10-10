@@ -3,6 +3,7 @@ package com.kenzie.appserver.service;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.google.common.cache.LoadingCache;
 import com.kenzie.appserver.backend.models.Books;
+import com.kenzie.appserver.dao.BooksDao;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import static org.mockito.Mockito.verify;
 
@@ -22,13 +25,18 @@ import static java.util.UUID.randomUUID;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class BookServiceTest {
     private BookRepository bookRepository;
     private BookService bookService;
     private LambdaServiceClient lambdaServiceClient;
+    @Mock
+    private BooksDao booksDao;
+    @InjectMocks
     private CachingBooksDao cachingBooksDao;
-    private DynamoDBMapper mapper = mock(DynamoDBMapper.class);
+   // private DynamoDBMapper mapper = mock(DynamoDBMapper.class);
 
     @BeforeEach
     void setup() {
@@ -36,6 +44,9 @@ public class BookServiceTest {
         lambdaServiceClient = mock(LambdaServiceClient.class);
         bookService = new BookService(bookRepository, lambdaServiceClient);
         cachingBooksDao = mock(CachingBooksDao.class);
+        booksDao = mock(BooksDao.class);
+        initMocks(this);
+
     }
     /** ------------------------------------------------------------------------
      *  bookService.findByGoogle
@@ -80,21 +91,21 @@ public class BookServiceTest {
      *  bookService.findByDynamoDB
      *  ------------------------------------------------------------------------ **/
     @Test
-    void findByDynamoDB() {
+    void findByDynamoDB_ReturnsNull() {
         //GIVEN
         String id = randomUUID().toString();
         Books book = new Books("imageLink","description","author", "title",
                 false,id);
-        LoadingCache<String, Books> bookCache;
+
+        when(booksDao.getBook(id)).thenReturn(book);
 
         //WHEN
-        when(mapper.load(ArgumentMatchers.any(Books.class))).thenReturn(book);
-
-        book = cachingBooksDao.getBook(id);
+        Books returnedBook = cachingBooksDao.getBook(id);
 
         //THEN
-        Assertions.assertNotNull(book, "The book is returned");
-
+        verify(booksDao, times(1)).getBook(id);
+        Assertions.assertNull(returnedBook);
+        Assertions.assertNotEquals(book,returnedBook);
     }
 
     /** ------------------------------------------------------------------------
