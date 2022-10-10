@@ -40,6 +40,8 @@ class SavedPage extends BaseClass {
             for(let i in booksArray) {
                 const book = booksArray[i];
                 let imageLink = null
+                let bookId = `${book.title}${book.authors.slice(0,1)}`
+                console.log(bookId);
                 try {
                     imageLink = book.imageLinks;
                 } catch (err) {
@@ -53,7 +55,7 @@ class SavedPage extends BaseClass {
                 <div><img src = ${imageLink}></div>
                 <div></div>
                 <div>Description: ${book.description}</div>
-                <button id="delete" data-index="${i}">Delete book</button>
+                <button id="delete" name="${bookId}" data-index="${i}">Delete book</button>
                 `
             }
 
