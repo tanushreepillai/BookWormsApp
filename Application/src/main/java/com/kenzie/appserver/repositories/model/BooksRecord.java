@@ -67,7 +67,7 @@ public class BooksRecord {
     }
 
     public void setFinishedReading(boolean finishedReading) {
-        finishedReading = finishedReading;
+        this.finishedReading = finishedReading;
     }
 
     @Override
