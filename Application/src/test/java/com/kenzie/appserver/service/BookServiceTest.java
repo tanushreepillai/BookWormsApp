@@ -208,13 +208,13 @@ public class BookServiceTest {
         Assertions.assertEquals(2, result.size(), "There are two books in set");
         for (Books book : result) {
             if (book.getBookId().equals(book1.getBookId())) {
-                Assertions.assertEquals(book1.finishedReading(), book.finishedReading(), "The boolean values match");
+                Assertions.assertEquals(book1.getFinishedReading(), book.getFinishedReading(), "The boolean values match");
                 Assertions.assertEquals(book1.getAuthor(), book.getAuthor(), "The authors match");
                 Assertions.assertEquals(book1.getDescription(), book.getDescription(), "The description matches");
                 Assertions.assertEquals(book1.getTitle(), book.getTitle(), "The title matches");
                 Assertions.assertEquals(book1.getImageLink(), book.getImageLink(), "The image link matches");
             } else if(book.getBookId().equals(book2.getBookId())) {
-                Assertions.assertEquals(book2.finishedReading(), book.finishedReading(), "The boolean values match");
+                Assertions.assertEquals(book2.getFinishedReading(), book.getFinishedReading(), "The boolean values match");
                 Assertions.assertEquals(book2.getAuthor(), book.getAuthor(), "The authors match");
                 Assertions.assertEquals(book2.getDescription(), book.getDescription(), "The description matches");
                 Assertions.assertEquals(book2.getTitle(), book.getTitle(), "The title matches");
@@ -259,7 +259,7 @@ public class BookServiceTest {
         BooksRecord record = bookRecordCaptor.getValue();
 
         Assertions.assertNotNull(record, "The concert record is returned");
-        Assertions.assertEquals(record.getFinishedReading(), book.finishedReading(), "The boolean values match");
+        Assertions.assertEquals(record.getFinishedReading(), book.getFinishedReading(), "The boolean values match");
         Assertions.assertEquals(record.getAuthorsList(), book.getAuthor(), "The authors match");
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");

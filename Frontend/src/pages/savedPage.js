@@ -29,18 +29,20 @@ class SavedPage extends BaseClass {
     // Render Methods --------------------------------------------------------------------------------------------------
 
 
-
     async renderSavedBooks() {
-        const booksArray = this.client.getAllBooks();
+        let booksArray = await this.client.getAllBooks();
         let savedResults = document.getElementById("savedResults");
+        console.log("insider render saved books");
 
         if (booksArray) {
+            console.log(booksArray);
             let myHtml="";
             for(let i in booksArray) {
                 const book = booksArray[i];
                 let imageLink = null
                 try {
-                    imageLink = book.imageLinks.smallThumbnail
+                    imageLink = book.imageLinks;
+                    console.log(imageLink);
                 } catch (err) {
                     continue
                 }
@@ -48,7 +50,7 @@ class SavedPage extends BaseClass {
                 myHtml += `
                 <div></div>
                 <div id="title">Title: ${book.title}</div>
-                <div>Author: ${book.authors[0]}</div>
+                <div>Author: ${book.authors}</div>
                 <div><img src = ${imageLink}></div>
                 <div></div>
                 <div>Description: ${book.description}</div>
