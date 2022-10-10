@@ -3,7 +3,6 @@ package com.kenzie.appserver.repositories.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
 
@@ -18,8 +17,12 @@ public class BooksRecord {
     private String bookId;
 
     @DynamoDBHashKey(attributeName = "bookId")
-    public String getId() {
+    public String getBookId() {
         return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     @DynamoDBAttribute(attributeName = "imageLink")
@@ -63,12 +66,8 @@ public class BooksRecord {
         return finishedReading;
     }
 
-    public void finishedReading(boolean completed) {
-        finishedReading = completed;
-    }
-
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
+    public void setFinishedReading(boolean finishedReading) {
+        finishedReading = finishedReading;
     }
 
     @Override

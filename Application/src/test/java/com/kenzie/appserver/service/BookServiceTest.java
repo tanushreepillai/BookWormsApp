@@ -1,19 +1,15 @@
 package com.kenzie.appserver.service;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.google.common.cache.LoadingCache;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.BooksDao;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
 import com.kenzie.appserver.repositories.model.BooksRecord;
 import com.kenzie.capstone.service.client.LambdaServiceClient;
-import com.kenzie.capstone.service.model.BooksData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -128,7 +124,7 @@ public class BookServiceTest {
         BooksRecord record = bookRecordCaptor.getValue();
 
         Assertions.assertNotNull(record, "The clothing record is returned");
-        Assertions.assertEquals(record.getId(), book.getBookId(), "The book id matches");
+        Assertions.assertEquals(record.getBookId(), book.getBookId(), "The book id matches");
         Assertions.assertEquals(record.getAuthor(), book.getAuthor(), "The author matches");
         Assertions.assertEquals(record.getTitle(), book.getTitle(), "The title matches");
         Assertions.assertEquals(record.getDescription(), book.getDescription(), "The description matches");
