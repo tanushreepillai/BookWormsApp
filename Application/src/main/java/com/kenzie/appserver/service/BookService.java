@@ -52,7 +52,7 @@ public class BookService {
         bookRecord.setBookId(book.getBookId());
         bookRecord.setImageLink(book.getImageLink());
         bookRecord.setDescription(book.getDescription());
-        bookRecord.setAuthor(book.getAuthor());
+        bookRecord.setAuthorsList(book.getAuthor());
         bookRecord.setTitle(book.getTitle());
         bookRecord.setFinishedReading(false);
 
@@ -76,7 +76,7 @@ public class BookService {
         bookRepository
                 .findAll()
                 .forEach(book -> allBooks.add(new Books(book.getImageLink(),
-                        book.getDescription(), book.getAuthor(), book.getTitle(),
+                        book.getDescription(), book.getAuthorsList(), book.getTitle(),
                         book.getFinishedReading(), book.getBookId())));
 
         if (allBooks.isEmpty()) {
@@ -101,7 +101,7 @@ public class BookService {
         if (bookRepository.existsById(book.getBookId())) {
             BooksRecord bookRecord = new BooksRecord();
             bookRecord.setBookId(book.getBookId());
-            bookRecord.setAuthor(book.getAuthor());
+            bookRecord.setAuthorsList(book.getAuthor());
             bookRecord.setDescription(book.getDescription());
             bookRecord.setImageLink(book.getImageLink());
             bookRecord.setTitle(book.getTitle());

@@ -11,7 +11,7 @@ public class BooksRecord {
 
     private String imageLink;
     private String description;
-    private String author;
+    private String authorsList;
     private String title;
     private boolean finishedReading;
     private String bookId;
@@ -44,12 +44,12 @@ public class BooksRecord {
     }
 
     @DynamoDBAttribute(attributeName = "authorsList")
-    public String getAuthor() {
-        return author;
+    public String getAuthorsList() {
+        return authorsList;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorsList(String authorsList) {
+        this.authorsList = authorsList;
     }
 
     @DynamoDBAttribute(attributeName = "title")
