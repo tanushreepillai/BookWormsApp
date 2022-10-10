@@ -83,7 +83,7 @@ public class BookService {
             throw new NullPointerException("Empty Set of books");
         }
         System.out.println("inside getAllBooks in BookService2");
-
+        System.out.println(allBooks);
         return allBooks;
     }
     public void deleteBook(String bookId) {

@@ -74,12 +74,19 @@ public class BooksRecord {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         BooksRecord that = (BooksRecord) o;
-        return finishedReading == that.finishedReading && Objects.equals(imageLink, that.imageLink) && Objects.equals(description, that.description) && Objects.equals(author, that.author) && Objects.equals(title, that.title) && Objects.equals(bookId, that.bookId);
+
+        if (finishedReading != that.finishedReading) return false;
+        if (imageLink != null ? !imageLink.equals(that.imageLink) : that.imageLink != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (authorsList != null ? !authorsList.equals(that.authorsList) : that.authorsList != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        return bookId != null ? bookId.equals(that.bookId) : that.bookId == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(imageLink, description, author, title, finishedReading, bookId);
+        return super.hashCode();
     }
 }
