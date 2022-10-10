@@ -1,5 +1,7 @@
 package com.kenzie.appserver.service;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.google.common.cache.LoadingCache;
 import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.repositories.BookRepository;
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 
 import static org.mockito.Mockito.verify;
 
@@ -25,6 +28,7 @@ public class BookServiceTest {
     private BookService bookService;
     private LambdaServiceClient lambdaServiceClient;
     private CachingBooksDao cachingBooksDao;
+    private DynamoDBMapper mapper = mock(DynamoDBMapper.class);
 
     @BeforeEach
     void setup() {
@@ -37,74 +41,61 @@ public class BookServiceTest {
      *  bookService.findByGoogle
      *  ------------------------------------------------------------------------ **/
 
-//    @Test
-//    void findByGoogle() {
-//        // GIVEN
-//        String url = randomUUID().toString();
-//
-//        BooksData booksData = new BooksData(
-//                "imageLink",
-//                "description",
-//                "author",
-//                "title",
-//                url,
-//                true);
-//
-//        // WHEN
-//        when(lambdaServiceClient.getBookData(url)).thenReturn(booksData);
-//        Books book = bookService.findByGoogle(url);
-//
-//        // THEN
-//        verify(lambdaServiceClient).getBookData(url);
-//        Assertions.assertNotNull(book, "The book is returned");
-//        Assertions.assertEquals(booksData.getImageLink(), book.getImageLink(), "The imageLink matches");
-//        Assertions.assertEquals(booksData.getDescription(), book.getDescription(), "The description matches");
-//        Assertions.assertEquals(booksData.getAuthor(), book.getAuthor(), "The author matches");
-//        Assertions.assertEquals(booksData.getTitle(), book.getTitle(), "The title matches");
-//        Assertions.assertEquals(booksData.getBookId(), book.getBookId(), "The id matches");
-//        Assertions.assertEquals(booksData.finishedReading(), book.finishedReading(), "Boolean value matches");
-//    }
+    @Test
+    void findByGoogle() {
+        // GIVEN
+        String searchRequest = randomUUID().toString();
+        String dataFromLambda = randomUUID().toString();
 
-//    @Test
-//    void findByGoogle_nullId_throwsNullPointerException() {
-//        // GIVEN
-//        String url = randomUUID().toString();
-//
-//        when(lambdaServiceClient.getBookData(url)).thenReturn(null);
-//
-//        // THEN
-//        Assertions.assertThrows(NullPointerException.class, () -> bookService.findByGoogle(url));
-//    }
-//
-//    @Test
-//    void findByGoogle_emptyId_throwsNullPointerException() {
-//        // GIVEN
-//        String id = "";
-//
-//        when(lambdaServiceClient.getBookData(id)).thenReturn(null);
-//
-//        // THEN
-//        Assertions.assertThrows(NullPointerException.class, () -> bookService.findByGoogle(id));
-//    }
+        // WHEN
+        when(lambdaServiceClient.getBookData(searchRequest)).thenReturn(dataFromLambda);
+        String dataReturned = bookService.findByGoogle(searchRequest);
+
+        // THEN
+        verify(lambdaServiceClient).getBookData(searchRequest);
+        Assertions.assertNotNull(dataFromLambda, "The data from Lambda is returned");
+        Assertions.assertEquals(dataFromLambda,dataReturned, "The data from lambda should be returned");
+    }
+
+    @Test
+    void findByGoogle_nullSearchRequest_throwsNullPointerException() {
+        // GIVEN
+        String searchRequest = null;
+
+
+        // WHEN AND THEN
+        Assertions.assertThrows(NullPointerException.class, () -> bookService.findByGoogle(searchRequest));
+    }
+
+    @Test
+    void findByGoogle_emptySearchRequestString_throwsNullPointerException() {
+        // GIVEN
+        String searchRequest = "";
+
+        // WHEN AND THEN
+        Assertions.assertThrows(NullPointerException.class, () -> bookService.findByGoogle(searchRequest));
+    }
 
     /** ------------------------------------------------------------------------
      *  bookService.findByDynamoDB
      *  ------------------------------------------------------------------------ **/
-    /*@Test
+    @Test
     void findByDynamoDB() {
         //GIVEN
         String id = randomUUID().toString();
         Books book = new Books("imageLink","description","author", "title",
                 false,id);
+        LoadingCache<String, Books> bookCache;
 
         //WHEN
-        //when(bookCache.getUnchecked(id)).thenReturn(book);
+        when(mapper.load(ArgumentMatchers.any(Books.class))).thenReturn(book);
+
         book = cachingBooksDao.getBook(id);
 
         //THEN
         Assertions.assertNotNull(book, "The book is returned");
 
-    }*/
+    }
 
     /** ------------------------------------------------------------------------
      *  bookService.addBook

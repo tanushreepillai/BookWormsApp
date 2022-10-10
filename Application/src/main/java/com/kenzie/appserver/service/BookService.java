@@ -26,9 +26,9 @@ public class BookService {
 
     public String findByGoogle(String searchRequest) {
 
-//        if (url == null || url.isEmpty()) {
-//            throw new NullPointerException("Cannot find book in Google API");
-//        }
+        if (searchRequest == null || searchRequest.isEmpty()) {
+            throw new NullPointerException("Cannot find book in Google API");
+        }
 
         // Getting data from the lambda
         String dataFromLambda = lambdaServiceClient.getBookData(searchRequest);
@@ -44,26 +44,7 @@ public class BookService {
     }
 
     public Books findByDynamoDB(String id) {
-        Books cachedBook = cachingBooksDao.getBook(id);
-        if (cachedBook != null) {
-            return cachedBook;
-        }
-        Books bookFromDynamoDB = bookRepository
-                .findById(id)
-                .map(book -> new Books(book.getImageLink(),
-                        book.getDescription(),
-                        book.getAuthor(),
-                        book.getTitle(),
-                        book.finishedReading(),
-                        book.getId()))
-                .orElse(null);
-
-        if (bookFromDynamoDB != null) {
-            //We need to have an add method in cachingDao to add the book once it is retrieved from DynamoDB.
-            //cachingBooksDao.add(bookFromDynamoDB.getBookId(), bookFromDynamoDB);
-        }
-        return bookFromDynamoDB;
-
+        return cachingBooksDao.getBook(id);
     }
     public Books addBook(Books book) {
 
