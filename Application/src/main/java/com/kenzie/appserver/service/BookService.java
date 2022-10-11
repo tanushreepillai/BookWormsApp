@@ -72,15 +72,6 @@ public class BookService {
         bookRepository.save(bookRecord);
 
         return book;
-//
-//        // Example sending data to the lambda
-//        //BooksData dataFromLambda = lambdaServiceClient.setBooksData(id);
-//
-//        exampleRecord.setName(dataFromLambda.getData());
-//        bookRepository.save(bookRecord);
-
-//        Example example = new Example(dataFromLambda.getId(), name);
-//        return example;
     }
 
     public Set<Books> getAllBooks() {
@@ -98,14 +89,12 @@ public class BookService {
         return allBooks;
     }
     public void deleteBook(String bookId) {
-        System.out.println("inside deleteBook in BookService");
         if (bookId == null || bookId.isEmpty()) {
             throw new NullPointerException("Invalid/Empty Id");
         }
 
         BooksRecord bookRecord = new BooksRecord();
         bookRecord.setBookId(bookId);
-        //cache.evict(bookId);
         bookRepository.deleteById(bookId);
 
     }

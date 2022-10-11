@@ -28,19 +28,13 @@ public class BookServiceTest {
     private BookRepository bookRepository;
     private BookService bookService;
     private LambdaServiceClient lambdaServiceClient;
-    @Mock
-    private BooksDao booksDao;
-    @InjectMocks
-    private CachingBooksDao cachingBooksDao;
-   // private DynamoDBMapper mapper = mock(DynamoDBMapper.class);
+
 
     @BeforeEach
     void setup() {
         bookRepository = mock(BookRepository.class);
         lambdaServiceClient = mock(LambdaServiceClient.class);
         bookService = new BookService(bookRepository, lambdaServiceClient);
-        cachingBooksDao = mock(CachingBooksDao.class);
-        booksDao = mock(BooksDao.class);
         initMocks(this);
 
     }
@@ -87,21 +81,30 @@ public class BookServiceTest {
      *  bookService.findByDynamoDB
      *  ------------------------------------------------------------------------ **/
     @Test
-    void findByDynamoDB_ReturnsNull() {
+    void findByDynamoDB() {
         //GIVEN
         String id = randomUUID().toString();
         Books book = new Books("imageLink","description","author", "title",
-                false,id);
+                true,id);
+        BooksRecord booksRecord = new BooksRecord();
+        booksRecord.setBookId(id);
+        booksRecord.setDescription(book.getDescription());
+        booksRecord.setTitle(book.getTitle());
+        booksRecord.setImageLink(book.getImageLink());
+        booksRecord.setAuthor(book.getAuthor());
 
-        when(booksDao.getBook(id)).thenReturn(book);
+        when(bookRepository.findById(id)).thenReturn(Optional.of(booksRecord));
 
         //WHEN
-        Books returnedBook = cachingBooksDao.getBook(id);
+        Books returnedBook = bookService.findByDynamoDB(id);
 
-        //THEN
-        verify(booksDao, times(1)).getBook(id);
-        Assertions.assertNull(returnedBook);
-        Assertions.assertNotEquals(book,returnedBook);
+       //THEN
+        Assertions.assertNotNull(book,"The book is returned");
+        Assertions.assertEquals(book.getBookId(),returnedBook.getBookId(),"The book Ids are matching");
+        Assertions.assertEquals(book.getAuthor(),returnedBook.getAuthor(),"the author is matching");
+        Assertions.assertEquals(book.getTitle(),returnedBook.getTitle(),"the title is matching");
+        Assertions.assertEquals(book.getImageLink(),returnedBook.getImageLink(),"the image is matching");
+        Assertions.assertEquals(book.getDescription(),returnedBook.getDescription(),"the description is matching");
     }
 
     /** ------------------------------------------------------------------------
@@ -293,24 +296,17 @@ public class BookServiceTest {
      *  ------------------------------------------------------------------------ **/
     @Test
     void deleteBook() {
-        // GIVEN
-        Books book = new Books(
-                "imageLink",
-                "description",
-                "author",
-                "title",
-                true,
-                randomUUID().toString());
-
-        ArgumentCaptor<BooksRecord> bookRecordCaptor = ArgumentCaptor.forClass(BooksRecord.class);
-
+        String bookId = randomUUID().toString();
+        Books book = new Books("imageLink", "description", "author", "title",
+                false,bookId);
         bookService.addBook(book);
 
         // WHEN
         bookService.deleteBook(book.getBookId());
 
         // THEN
-        verify(bookRepository).deleteById(any());
+        verify(bookRepository).deleteById(bookId);
+
     }
 
     @Test

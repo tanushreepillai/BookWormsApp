@@ -54,8 +54,6 @@ class SavedPage extends BaseClass {
                 <div></div>
                 <div>Description: ${book.description}</div>
                 <button id="delete" name="${book.bookId}" data-index="${i}">Delete book</button>
-                <button id="update" name="${book.bookId}" data-index="${i}">Update book</button>
-
                 `
             }
 
@@ -67,8 +65,16 @@ class SavedPage extends BaseClass {
             savedResults.innerHTML = "<tr><td>No books found</td></tr>"
         }
 
-        document.getElementById('delete').addEventListener(
-            'click', event => this.deleteBook(event));
+//        document.getElementById('delete').addEventListener(
+//            'click', event => this.deleteBook(event));
+
+         const buttons = document.querySelectorAll('button[id=delete]')
+
+         buttons.forEach(button => {
+            button.addEventListener('click', event => {
+            this.deleteBook(event);
+            })
+         });
 
     }
 
