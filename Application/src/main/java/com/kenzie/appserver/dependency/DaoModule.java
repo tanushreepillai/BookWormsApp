@@ -1,12 +1,8 @@
 package com.kenzie.appserver.dependency;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.kenzie.appserver.dao.BooksDao;
-import com.kenzie.appserver.dao.CachingBooksDao;
 import com.kenzie.appserver.utilities.DynamoDbClientProvider;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 
@@ -31,13 +27,13 @@ public class DaoModule {
 //        return new BooksDao(mapper);
 //    }
 //
-    @Singleton
+//    @Singleton
 //    @Provides
-    @Named("CachingBooksDao")
-    @Inject
-    public CachingBooksDao provideBooksDao(@Named("BooksDao") BooksDao booksDao) {
-        return new CachingBooksDao(booksDao);
-    }
+//    @Named("CachingBooksDao")
+//    @Inject
+//    public CachingBooksDao provideBooksDao(@Named("BooksDao") BooksDao booksDao) {
+//        return new CachingBooksDao(booksDao);
+//    }
 
 
 }

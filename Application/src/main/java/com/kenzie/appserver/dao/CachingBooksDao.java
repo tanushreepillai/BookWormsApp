@@ -7,6 +7,9 @@ import com.kenzie.appserver.backend.models.Books;
 import com.kenzie.appserver.dao.BooksDao;
 
 import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CachingBooksDao {
 
@@ -20,7 +23,10 @@ public class CachingBooksDao {
 
     public Books getBook(String id) {
         return bookCache.getUnchecked(id);
+    }
 
+    public Set<Books> getBooks() {
+        return bookCache.asMap().values().stream().collect(Collectors.toSet());
     }
 
 }
