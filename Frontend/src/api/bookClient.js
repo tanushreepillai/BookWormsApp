@@ -101,7 +101,7 @@ import axios from 'axios'
     async deleteBook(bookId, errorCallback) {
         try {
             const response = await this.client.delete(`/books/${bookId}`, {
-                name: name
+                "bookId": bookId
             });
             return response.data;
         } catch (error) {

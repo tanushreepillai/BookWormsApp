@@ -94,7 +94,8 @@ public class BookService {
         BooksRecord bookRecord = new BooksRecord();
         bookRecord.setBookId(bookId);
         //cache.evict(bookId);
-        bookRepository.delete(bookRecord);
+        System.out.println("inside delete");
+        bookRepository.deleteById(bookId);
 
     }
     public void updateBook(Books book) {

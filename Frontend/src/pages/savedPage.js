@@ -40,9 +40,10 @@ class SavedPage extends BaseClass {
             for(let i in booksArray) {
                 const book = booksArray[i];
                 let imageLink = null
+                let bookId = `${book.title}${book.authors.slice(0,1)}`
+                bookId  = bookId.replace(/\s+/g, '');
                 try {
                     imageLink = book.imageLinks;
-                    console.log(imageLink);
                 } catch (err) {
                     continue
                 }
@@ -54,7 +55,9 @@ class SavedPage extends BaseClass {
                 <div><img src = ${imageLink}></div>
                 <div></div>
                 <div>Description: ${book.description}</div>
-                <button id="delete" data-index="${i}">Delete book</button>
+                <button id="delete" name="${bookId}" data-index="${i}">Delete book</button>
+                <button id="update" name="${bookId}" data-index="${i}">Update book</button>
+
                 `
             }
 
@@ -70,6 +73,7 @@ class SavedPage extends BaseClass {
             'click', event => this.deleteBook(event));
 
     }
+
 
     async getBook(event) {
         // Prevent the page from refreshing on form submit
@@ -91,9 +95,12 @@ class SavedPage extends BaseClass {
     }
 
     async deleteBook(event) {
-        let bookId = event.target.dataset.title;
+        // current book ID is the string of the title plus the first char of the author's name
+        event.preventDefault()
+
+        let bookId = event.target.name;
         console.log("bookId: " + bookId);
-        // await this.client.deleteBook();
+        await this.client.deleteBook(bookId);
     }
 }
 
