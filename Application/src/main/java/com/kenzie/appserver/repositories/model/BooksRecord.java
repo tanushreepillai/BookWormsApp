@@ -11,7 +11,7 @@ public class BooksRecord {
 
     private String imageLink;
     private String description;
-    private String authorsList;
+    private String author;
     private String title;
     private boolean finishedReading;
     private String bookId;
@@ -43,13 +43,13 @@ public class BooksRecord {
         this.description = description;
     }
 
-    @DynamoDBAttribute(attributeName = "authorsList")
-    public String getAuthorsList() {
-        return authorsList;
+    @DynamoDBAttribute(attributeName = "author")
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthorsList(String authorsList) {
-        this.authorsList = authorsList;
+    public void setAuthor(String authorsList) {
+        this.author = authorsList;
     }
 
     @DynamoDBAttribute(attributeName = "title")
@@ -80,7 +80,7 @@ public class BooksRecord {
         if (finishedReading != that.finishedReading) return false;
         if (imageLink != null ? !imageLink.equals(that.imageLink) : that.imageLink != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (authorsList != null ? !authorsList.equals(that.authorsList) : that.authorsList != null) return false;
+        if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         return bookId != null ? bookId.equals(that.bookId) : that.bookId == null;
     }

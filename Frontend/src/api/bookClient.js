@@ -46,7 +46,6 @@ import axios from 'axios'
     }
 
     async getAllBooks(errorCallback) {
-        console.log("inside getAllBooks in client")
         try {
             const response = await this.client.get(`/books/all`);
 //            console.log(response.data);
@@ -99,6 +98,8 @@ import axios from 'axios'
     }
 
     async deleteBook(bookId, errorCallback) {
+        console.log("inside deleteBook in client");
+        console.log ("bookId: " + bookId);
         try {
             const response = await this.client.delete(`/books/${bookId}`, {
                 "bookId": bookId

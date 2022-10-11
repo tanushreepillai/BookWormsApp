@@ -8,6 +8,7 @@ import com.kenzie.capstone.service.client.LambdaServiceClient;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -43,7 +44,19 @@ public class BookService {
     }
 
     public Books findByDynamoDB(String id) {
-        return cachingBooksDao.getBook(id);
+//        try {
+//            Books book  = cachingBooksDao.getBook(id);
+//        }
+        BooksRecord record = bookRepository.findById(id).get();
+
+        return new Books(
+                record.getImageLink(),
+                record.getDescription(),
+                record.getAuthor(),
+                record.getTitle(),
+                record.getFinishedReading(),
+                record.getBookId()
+        );
     }
 
     public Books addBook(Books book) {
@@ -52,7 +65,7 @@ public class BookService {
         bookRecord.setBookId(book.getBookId());
         bookRecord.setImageLink(book.getImageLink());
         bookRecord.setDescription(book.getDescription());
-        bookRecord.setAuthorsList(book.getAuthor());
+        bookRecord.setAuthor(book.getAuthor());
         bookRecord.setTitle(book.getTitle());
         bookRecord.setFinishedReading(false);
 
@@ -71,22 +84,21 @@ public class BookService {
     }
 
     public Set<Books> getAllBooks() {
-        System.out.println("inside getAllBooks in BookService1");
         Set<Books> allBooks = new HashSet<>();
         bookRepository
                 .findAll()
                 .forEach(book -> allBooks.add(new Books(book.getImageLink(),
-                        book.getDescription(), book.getAuthorsList(), book.getTitle(),
+                        book.getDescription(), book.getAuthor(), book.getTitle(),
                         book.getFinishedReading(), book.getBookId())));
 
         if (allBooks.isEmpty()) {
             throw new NullPointerException("Empty Set of books");
         }
-        System.out.println("inside getAllBooks in BookService2");
-        System.out.println(allBooks);
+
         return allBooks;
     }
     public void deleteBook(String bookId) {
+        System.out.println("inside deleteBook in BookService");
         if (bookId == null || bookId.isEmpty()) {
             throw new NullPointerException("Invalid/Empty Id");
         }
@@ -94,7 +106,6 @@ public class BookService {
         BooksRecord bookRecord = new BooksRecord();
         bookRecord.setBookId(bookId);
         //cache.evict(bookId);
-        System.out.println("inside delete");
         bookRepository.deleteById(bookId);
 
     }
@@ -102,7 +113,7 @@ public class BookService {
         if (bookRepository.existsById(book.getBookId())) {
             BooksRecord bookRecord = new BooksRecord();
             bookRecord.setBookId(book.getBookId());
-            bookRecord.setAuthorsList(book.getAuthor());
+            bookRecord.setAuthor(book.getAuthor());
             bookRecord.setDescription(book.getDescription());
             bookRecord.setImageLink(book.getImageLink());
             bookRecord.setTitle(book.getTitle());
