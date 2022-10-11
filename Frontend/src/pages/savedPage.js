@@ -41,6 +41,7 @@ class SavedPage extends BaseClass {
                 const book = booksArray[i];
                 let imageLink = null
                 let bookId = `${book.title}${book.authors.slice(0,1)}`
+                bookId  = bookId.replace(/\s+/g, '');
                 try {
                     imageLink = book.imageLinks;
                 } catch (err) {
@@ -55,6 +56,8 @@ class SavedPage extends BaseClass {
                 <div></div>
                 <div>Description: ${book.description}</div>
                 <button id="delete" name="${bookId}" data-index="${i}">Delete book</button>
+                <button id="update" name="${bookId}" data-index="${i}">Update book</button>
+
                 `
             }
 
