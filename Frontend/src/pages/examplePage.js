@@ -75,13 +75,12 @@ class ExamplePage extends BaseClass {
                 }
 
                 myHtml += `
-                <div></div>
                 <div>Title: ${book.title}</div>
                 <div>Author: ${book.authors[0]}</div>
                 <div><img src = ${imageLink} alt="image"></div>
                 <div></div>
                 <div>Description: ${book.description}</div>
-                <button id="save" data-index="${i}">Save book</button>
+                <button id="save" data-index="${i}" title="${book.title}" author="${book.authors[0]}" imageLink="${imageLink}" description="${book.description}">Save book</button>
                 `
             }
 
@@ -93,13 +92,21 @@ class ExamplePage extends BaseClass {
             resultTable.innerHTML = "<tr><td>No books found. Please check your spelling.</td></tr>"
         }
 
-        document.getElementById('save').addEventListener(
-            'click', event => this.saveBook(event));
+//        document.getElementById('save').addEventListener(
+//            'click', event => this.saveBook(event));
 
+         const buttons = document.querySelectorAll('button[id=save]')
+
+         buttons.forEach(button => {
+            button.addEventListener('click', event => {
+            this.saveBook(event);
+            })
+         });
     }
 
     async saveBook(event) {
         event.preventDefault()
+        console.log(event.target);
         const booksArray = this.dataStore.get("books");
         const book = booksArray[event.target.dataset.index];
         let imageLink = null;
