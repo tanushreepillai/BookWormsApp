@@ -100,6 +100,7 @@ class ExamplePage extends BaseClass {
 
     async saveBook(event) {
         event.preventDefault()
+        console.log("saveBook clicked");
         const booksArray = this.dataStore.get("books");
         const book = booksArray[event.target.dataset.index];
         let imageLink = null;
@@ -121,6 +122,7 @@ class ExamplePage extends BaseClass {
         }
 
         await this.client.saveBook(bookToSave);
+        await this.renderSearchResults();
     }
 }
 

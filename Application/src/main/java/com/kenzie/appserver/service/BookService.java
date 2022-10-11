@@ -109,7 +109,11 @@ public class BookService {
         bookRepository.deleteById(bookId);
 
     }
-    public void updateBook(Books book) {
+    public void updateBook(Books book) throws Exception {
+        if (book == null) {
+            throw new NullPointerException();
+        }
+
         if (bookRepository.existsById(book.getBookId())) {
             BooksRecord bookRecord = new BooksRecord();
             bookRecord.setBookId(book.getBookId());
@@ -120,6 +124,8 @@ public class BookService {
             bookRecord.setFinishedReading(true);
             bookRepository.save(bookRecord);
            // cache.evict(book.getBookId());
+        } else {
+            throw new NullPointerException();
         }
     }
 }

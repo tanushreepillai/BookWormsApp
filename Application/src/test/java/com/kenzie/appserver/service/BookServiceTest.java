@@ -238,7 +238,7 @@ public class BookServiceTest {
      *  ------------------------------------------------------------------------ **/
 
     @Test
-    void updateBook() {
+    void updateBook() throws Exception {
         // GIVEN
         Books book = new Books(
                 "imageLink",
@@ -266,12 +266,34 @@ public class BookServiceTest {
         Assertions.assertEquals(record.getImageLink(), book.getImageLink(), "The image link matches");
     }
 
+    @Test
+    void updateBook_nullBook_throwsException() {
+        // WHEN & THEN
+        Assertions.assertThrows(NullPointerException.class, () -> bookService.updateBook(null));
+    }
+
+    @Test
+    void updateBook_invalidBookId_throwsException() {
+        // GIVEN
+        Books book = new Books(
+                "imageLink",
+                "description",
+                "author",
+                "title",
+                true,
+                randomUUID().toString());
+
+        // WHEN-THEN
+        Assertions.assertThrows(NullPointerException.class, () -> bookService.updateBook(book));
+    }
+
 
     /** ------------------------------------------------------------------------
      *  bookService.deleteBook
      *  ------------------------------------------------------------------------ **/
     @Test
     void deleteBook() {
+        // GIVEN
         Books book = new Books(
                 "imageLink",
                 "description",
@@ -288,7 +310,7 @@ public class BookServiceTest {
         bookService.deleteBook(book.getBookId());
 
         // THEN
-        verify(bookRepository).delete(bookRecordCaptor.capture());
+        verify(bookRepository).deleteById(any());
     }
 
     @Test
