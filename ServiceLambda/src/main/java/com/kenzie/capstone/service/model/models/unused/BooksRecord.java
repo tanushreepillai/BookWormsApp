@@ -1,4 +1,4 @@
-package com.kenzie.capstone.service.model;
+package com.kenzie.capstone.service.model.models.unused;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
@@ -40,7 +40,7 @@ public class BooksRecord {
         this.description = description;
     }
 
-    @DynamoDBAttribute(attributeName = "authorsList")
+    @DynamoDBAttribute(attributeName = "author")
     public String getAuthor() {
         return author;
     }

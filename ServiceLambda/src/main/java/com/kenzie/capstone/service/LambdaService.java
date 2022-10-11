@@ -34,8 +34,6 @@ public class LambdaService {
 
         url = url.replaceAll(" ", "%20");
 
-        System.out.println("url: " + url);
-
         HttpClient client = HttpClient.newHttpClient();
         URI uri = URI.create(url);
 

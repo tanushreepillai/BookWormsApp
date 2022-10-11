@@ -48,8 +48,8 @@ public class BooksRecord {
         return author;
     }
 
-    public void setAuthor(String authorsList) {
-        this.author = authorsList;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @DynamoDBAttribute(attributeName = "title")

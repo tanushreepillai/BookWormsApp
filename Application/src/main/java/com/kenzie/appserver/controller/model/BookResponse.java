@@ -12,7 +12,7 @@ public class BookResponse {
     private String imageLink;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("authors")
+    @JsonProperty("author")
     private String author;
     @JsonProperty("title")
     private String title;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class VolumeInfo {
     @JsonProperty("title")
     private String title;
-    @JsonProperty("authors")
+    @JsonProperty("author")
     private String[] author;
     @JsonProperty("description")
     private String description;

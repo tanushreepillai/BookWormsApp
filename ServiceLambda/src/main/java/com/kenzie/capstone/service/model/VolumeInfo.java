@@ -14,9 +14,9 @@ public class VolumeInfo {
     @JsonProperty("language")
     public String language;
     @JsonProperty("imageLinks")
-    public ImageLinks imageLinks; // todo take smallThumbnail from ImageLinks dto
+    public ImageLinks imageLinks;
     @JsonProperty("panelizationSummary")
-    public PanelizationSummary panelizationSummary;
+    public com.kenzie.capstone.service.model.PanelizationSummary panelizationSummary;
     @JsonProperty("contentVersion")
     public String contentVersion;
     @JsonProperty("allowAnonLogging")
@@ -34,17 +34,17 @@ public class VolumeInfo {
     @JsonProperty("pageCount")
     public int pageCount;
     @JsonProperty("readingModes")
-    public ReadingModes readingModes;
+    public com.kenzie.capstone.service.model.ReadingModes readingModes;
     @JsonProperty("industryIdentifiers")
-    public List<IndustryIdentifiers> industryIdentifiers;
+    public List<com.kenzie.capstone.service.model.IndustryIdentifiers> industryIdentifiers;
     @JsonProperty("description")
-    public String description; // todo take this
+    public String description;
     @JsonProperty("publishedDate")
     public String publishedDate;
     @JsonProperty("publisher")
     public String publisher;
-    @JsonProperty("authors")
-    public List<String> authors; // todo take authors[0]
+    @JsonProperty("author")
+    public List<String> authors;
     @JsonProperty("title")
-    public String title; // todo take this
+    public String title;
 }
