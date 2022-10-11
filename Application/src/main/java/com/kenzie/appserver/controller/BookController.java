@@ -68,12 +68,10 @@ public class BookController {
 
     @GetMapping("/all")
     public ResponseEntity<Set<BookResponse>> getAllBooks() {
-        System.out.println("inside getAllBooks in controller");
         Set<Books> allBooks = bookService.getAllBooks();
 
         Set<BookResponse> responses = allBooks.stream()
                 .map(this::bookToBookResponse).collect(Collectors.toSet());
-        System.out.println("getAllBooks in controller and return value" + allBooks);
 
         return ResponseEntity.ok(responses);
     }
@@ -90,11 +88,13 @@ public class BookController {
         return ResponseEntity.ok(bookToBookResponse(book));
     }
 
-    @DeleteMapping("/{id}/")
+    @DeleteMapping("/{bookId}")
     public ResponseEntity<BookResponse> deleteBook(@PathVariable("bookId") String id) {
-        System.out.println("in deleteBooks");
+        System.out.println("inside deleteBooks in BookController1");
         Books book = bookService.findByDynamoDB(id);
+        System.out.println("inside deleteBooks in BookController2");
         bookService.deleteBook(id);
+        System.out.println("inside deleteBooks in BookController3");
 
         return ResponseEntity.ok().body(bookToBookResponse(book));
     }
@@ -103,7 +103,7 @@ public class BookController {
         BookResponse bookResponse = new BookResponse();
         bookResponse.setTitle(book.getTitle());
         bookResponse.setBookId(book.getBookId());
-        bookResponse.setAuthors(book.getAuthor());
+        bookResponse.setAuthor(book.getAuthor());
         bookResponse.setFinishedReading(book.getFinishedReading());
         bookResponse.setDescription(book.getDescription());
         bookResponse.setImageLink(book.getImageLink());
@@ -116,7 +116,7 @@ public class BookController {
         BookResponse bookResponse = new BookResponse();
         bookResponse.setTitle(booksData.getVolumeInfo().getTitle());
 //        bookResponse.setBookId(booksData.getBookId());
-        bookResponse.setAuthors(booksData.getVolumeInfo().getAuthor().toString());
+        bookResponse.setAuthor(booksData.getVolumeInfo().getAuthor().toString());
 //        bookResponse.finishedReading(booksData.finishedReading());
         bookResponse.setDescription(booksData.getVolumeInfo().getDescription());
         bookResponse.setImageLink(booksData.getVolumeInfo().getImageLinks().getSmallThumbnail());

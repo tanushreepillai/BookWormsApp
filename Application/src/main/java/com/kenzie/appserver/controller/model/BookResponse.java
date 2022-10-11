@@ -53,7 +53,7 @@ public class BookResponse {
         this.description = description;
     }
 
-    public void setAuthors(String author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 

@@ -19,7 +19,7 @@ public class BooksDao {
         bookRecord = mapper.load(bookRecord);
         return new Books(bookRecord.getImageLink(),
                 bookRecord.getDescription(),
-                bookRecord.getAuthorsList(),
+                bookRecord.getAuthor(),
                 bookRecord.getTitle(),
                 bookRecord.getFinishedReading(),
                 id);

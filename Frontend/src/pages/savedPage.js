@@ -1,7 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
 import BookClient from "../api/bookClient";
-import API from "../util/API";
 
 /**
  * Logic needed for the view playlist page of the website.
@@ -32,7 +31,6 @@ class SavedPage extends BaseClass {
     async renderSavedBooks() {
         let booksArray = await this.client.getAllBooks();
         let savedResults = document.getElementById("savedResults");
-        console.log("insider render saved books");
 
         if (booksArray) {
             console.log(booksArray);
@@ -40,8 +38,8 @@ class SavedPage extends BaseClass {
             for(let i in booksArray) {
                 const book = booksArray[i];
                 let imageLink = null
-                let bookId = `${book.title}${book.authors.slice(0,1)}`
-                bookId  = bookId.replace(/\s+/g, '');
+                // let bookId = `${book.title}${book.author.slice(0,1)}`
+                // bookId  = bookId.replace(/\s+/g, '');
                 try {
                     imageLink = book.imageLinks;
                 } catch (err) {
@@ -52,11 +50,11 @@ class SavedPage extends BaseClass {
                 <div></div>
                 <div id="title">Title: ${book.title}</div>
                 <div>Author: ${book.authors}</div>
-                <div><img src = ${imageLink}></div>
+                <div><img src = ${imageLink} alt="image"></div>
                 <div></div>
                 <div>Description: ${book.description}</div>
-                <button id="delete" name="${bookId}" data-index="${i}">Delete book</button>
-                <button id="update" name="${bookId}" data-index="${i}">Update book</button>
+                <button id="delete" name="${book.bookId}" data-index="${i}">Delete book</button>
+                <button id="update" name="${book.bookId}" data-index="${i}">Update book</button>
 
                 `
             }
@@ -101,6 +99,8 @@ class SavedPage extends BaseClass {
         let bookId = event.target.name;
         console.log("bookId: " + bookId);
         await this.client.deleteBook(bookId);
+        savedResults.innerHTML = "";
+        await this.renderSavedBooks();
     }
 }
 
