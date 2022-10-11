@@ -68,6 +68,14 @@ class SavedPage extends BaseClass {
         document.getElementById('delete').addEventListener(
             'click', event => this.deleteBook(event));
 
+         const buttons = document.querySelectorAll('button[id=delete]')
+
+         buttons.forEach(button => {
+            button.addEventListener('click', event => {
+            this.deleteBook(event);
+            })
+         });
+
     }
 
 
