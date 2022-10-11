@@ -90,6 +90,7 @@ public class EndpointUtility {
     }
 
     public String getEndpoint(String endpoint) {
+        endpoint = endpoint.replaceAll(" ", "%20");
         String api = getApiEndpoint();
         String url = api + endpoint;
 

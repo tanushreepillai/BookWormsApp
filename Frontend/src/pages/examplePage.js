@@ -128,6 +128,7 @@ class ExamplePage extends BaseClass {
         }
 
         await this.client.saveBook(bookToSave);
+        await this.renderSearchResults();
     }
 }
 
