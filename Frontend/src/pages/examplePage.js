@@ -99,8 +99,8 @@ class ExamplePage extends BaseClass {
 
          buttons.forEach(button => {
             button.addEventListener('click', event => {
-//            this.saveBook(event);
-            console.log(event.target.title)})
+            this.saveBook(event);
+            })
          });
     }
 
