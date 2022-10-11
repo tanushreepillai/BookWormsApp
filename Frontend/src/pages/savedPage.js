@@ -65,8 +65,8 @@ class SavedPage extends BaseClass {
             savedResults.innerHTML = "<tr><td>No books found</td></tr>"
         }
 
-        document.getElementById('delete').addEventListener(
-            'click', event => this.deleteBook(event));
+//        document.getElementById('delete').addEventListener(
+//            'click', event => this.deleteBook(event));
 
          const buttons = document.querySelectorAll('button[id=delete]')
 
