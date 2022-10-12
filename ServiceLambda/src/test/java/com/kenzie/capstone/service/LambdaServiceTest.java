@@ -56,7 +56,7 @@ class LambdaServiceTest {
         ArgumentCaptor<String> idCaptor = ArgumentCaptor.forClass(String.class);
 
         // GIVEN
-        String searchRequest = "foundationasimov";
+        String searchRequest = "foundation+inauthor:asimov";
 //        ExampleRecord record = new ExampleRecord();
 //        record.setId(id);
 //        record.setData(data);
