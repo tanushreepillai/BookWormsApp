@@ -59,7 +59,6 @@ public class BookController {
         bookService.addBook(book);
         BookResponse response = bookToBookResponse(book);
 
-       // return ResponseEntity.ok(response);
         return ResponseEntity.created(URI.create("/book/" + response.getBookId()))
                 .body(response);
 
