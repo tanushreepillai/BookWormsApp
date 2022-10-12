@@ -79,26 +79,6 @@ class BookControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    public void createExample_CreateSuccessful() throws Exception {
-//        String name = mockNeat.strings().valStr();
-//
-//        BookCreateRequest exampleCreateRequest = new BookCreateRequest();
-//        exampleCreateRequest.setName(name);
-//
-//        mapper.registerModule(new JavaTimeModule());
-//
-//        mvc.perform(post("/example")
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(mapper.writeValueAsString(exampleCreateRequest)))
-//                .andExpect(jsonPath("id")
-//                        .exists())
-//                .andExpect(jsonPath("name")
-//                        .value(is(name)))
-//                .andExpect(status().is2xxSuccessful());
-//    }
-
     @Test
     public void addBook() throws Exception {
 
@@ -149,7 +129,6 @@ class BookControllerTest {
         String description = "description";
         String author = "author";
         String title = "title";
-        String infoLink = "infoLink";
         boolean finishedReading = true;
         String bookId = randomUUID().toString();
 
@@ -219,6 +198,5 @@ class BookControllerTest {
                         .accept(String.valueOf(MediaType.APPLICATION_JSON)))
                 // THEN
                 .andExpect(status().isNoContent());
-        Assertions.assertNull(bookService.findByGoogle(bookId));
     }
 }
