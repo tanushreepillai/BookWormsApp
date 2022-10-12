@@ -34,12 +34,12 @@ public class BooksDao {
         Set<BooksRecord> records = mapper.scan(BooksRecord.class, new DynamoDBScanExpression()).stream().collect(Collectors.toSet());
         Set<Books> returnedBooks = new HashSet<>();
         for (BooksRecord bookRecord : records) {
-            new Books(bookRecord.getImageLink(),
+            returnedBooks.add(new Books(bookRecord.getImageLink(),
                     bookRecord.getDescription(),
                     bookRecord.getAuthor(),
                     bookRecord.getTitle(),
                     bookRecord.getFinishedReading(),
-                    bookRecord.getBookId());
+                    bookRecord.getBookId()));
         }
         return returnedBooks;
         //        Books book = new Books(); // for selecting a book with particular attributes
