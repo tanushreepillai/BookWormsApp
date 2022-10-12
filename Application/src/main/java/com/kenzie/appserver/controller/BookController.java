@@ -95,8 +95,7 @@ public class BookController {
     public ResponseEntity<BookResponse> deleteBook(@PathVariable("bookId") String id) {
         Books book = bookService.findByDynamoDB(id);
         bookService.deleteBook(id);
-
-        return ResponseEntity.ok().body(bookToBookResponse(book));
+        return ResponseEntity.noContent().build();
     }
 
     private BookResponse bookToBookResponse(Books book) {

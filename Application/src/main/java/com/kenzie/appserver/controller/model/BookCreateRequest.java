@@ -19,7 +19,7 @@ public class BookCreateRequest {
     @JsonProperty("title")
     private String title;
 
-    // TODO: Discuss if this needs to be @NotEmpty
+
     @NotEmpty
     @JsonProperty("finishedReading")
     private boolean finishedReading;
