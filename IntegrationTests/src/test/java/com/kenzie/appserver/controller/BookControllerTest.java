@@ -68,16 +68,6 @@ class BookControllerTest {
                 .andExpect(status().is2xxSuccessful());
     }
 
-    @Test
-    public void getById_bookDoesNotExist() throws Exception {
-        // GIVEN
-        String bookId = randomUUID().toString();
-        // WHEN
-        mvc.perform(get("/books/{id}", bookId)
-                        .accept(MediaType.APPLICATION_JSON))
-                // THEN
-                .andExpect(status().isNotFound());
-    }
 
     @Test
     public void addBook() throws Exception {

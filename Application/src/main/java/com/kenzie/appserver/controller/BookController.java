@@ -36,8 +36,6 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
 
-        System.out.println("book: " + book);
-
         return ResponseEntity.ok(bookToBookResponse(book));
     }
 
@@ -45,7 +43,6 @@ public class BookController {
     public ResponseEntity<BookResponse> addNewBook(@RequestBody BookCreateRequest bookCreateRequest) {
         String title = bookCreateRequest.getTitle();
         String author = bookCreateRequest.getAuthor();
-        System.out.println("author: " + author);
         // Id is set to be the name of the Title + the first letter of the Author
         String id = title + author.charAt(0);
 
@@ -58,7 +55,6 @@ public class BookController {
                 id);
         bookService.addBook(book);
         BookResponse response = bookToBookResponse(book);
-
         return ResponseEntity.created(URI.create("/book/" + response.getBookId()))
                 .body(response);
 
