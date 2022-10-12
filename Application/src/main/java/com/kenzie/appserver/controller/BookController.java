@@ -11,6 +11,7 @@ import com.kenzie.capstone.service.model.BooksData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -58,7 +59,9 @@ public class BookController {
         bookService.addBook(book);
         BookResponse response = bookToBookResponse(book);
 
-        return ResponseEntity.ok(response);
+       // return ResponseEntity.ok(response);
+        return ResponseEntity.created(URI.create("/clothing/" + response.getBookId()))
+                .body(response);
 
     }
 
