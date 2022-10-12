@@ -111,14 +111,15 @@ class BookControllerTest {
                             .exists())
                     .andExpect(jsonPath("description")
                             .value(is(description)))
+                    .andExpect(jsonPath("author")
+                            .value(is(author)))
                     .andExpect(jsonPath("title")
                             .value(is(title)))
                     .andExpect(jsonPath("finishedReading")
                             .value(is(finishedReading)))
                     .andExpect(jsonPath("bookId")
                             .value(is(id)))
-                    .andExpect(jsonPath("author")
-                            .value(is(author)))
+
                     .andExpect(status().isCreated());
         }
 
