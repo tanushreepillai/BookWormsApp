@@ -75,10 +75,10 @@ public class BookService {
     }
 
     public Set<Books> getAllBooks() {
-        Set<Books> books  = cachingBooksDao.getBooks();
-        if (!books.isEmpty()) {
-            return books;
-        }
+//        Set<Books> books  = cachingBooksDao.getBooks();
+//        if (!books.isEmpty()) {
+//            return books;
+//        }
 
         Set<Books> allBooks = new HashSet<>();
         bookRepository
